@@ -1,0 +1,2 @@
+<%= form.input :video_url, :label => "Video URL", :hint =>"Enter a link to your video on YouTube or Vimeo" %>
+<%= form.input :caption, :input_html => { :maxlength => configatron.character_limits.embedded_video.caption }, :hint => character_limit_message(:embedded_video, :caption) %>

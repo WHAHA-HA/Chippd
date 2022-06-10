@@ -1,0 +1,6 @@
+<% if batch.product %>
+  <a href="<%= edit_admin_product_collection_product_path(batch.product.product_collection, batch.product) %>">
+    <%= batch.product.product_collection.name %>: <%= batch.product.name %>
+  </a>
+<% end %>
+

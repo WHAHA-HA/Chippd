@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="span4">
+    <div class="push btn-group">
+      <%= link_to(new_admin_percentage_discount_path, :class => 'btn btn-primary') do %>
+        New Percentage Discount
+      <% end %>
+
+      <%= link_to(new_admin_dollar_amount_discount_path, :class => 'btn btn-primary') do %>
+        New Dollar Amount Discount
+      <% end %>
+    </div>
+  </div>
+  <div class="span8">
+    <%= paginate collection %>
+  </div>
+</div>
+
+<%= simple_table_for collection, :with => "#{resource_class}Table", :present_with => CrushTablePresenter %>
+
+<%= paginate collection %>

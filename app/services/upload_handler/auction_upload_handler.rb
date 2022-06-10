@@ -1,0 +1,2 @@
+class AuctionUploadHandler < PhotoVideoUploadHandler
+end

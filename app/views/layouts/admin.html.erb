@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= raw(configatron.application.name) %> Administrative Area</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <%= stylesheet_link_tag "admin" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+
+        <!-- Be sure to leave the brand out there if you want it shown -->
+        <%= link_to raw(configatron.application.name), admin_root_path, :class => "brand" %>
+
+        <!-- Everything you want hidden at 940px or less, place within here -->
+        <% if admin_signed_in? %>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <%= nav_link_to("Pages", admin_pages_path, "pages") %>
+            <%= nav_link_to("Code Batches", admin_batches_path, "batches") %>
+            <%= nav_link_to "Contact Requests", admin_contact_requests_path, 'contact_requests' %>
+            <%= nav_link_to("Faqs", admin_faqs_path, 'faqs') %>
+            <%= nav_link_to "Landing Pages", admin_landing_pages_path, ['landing_pages', 'landing_page_images', 'landing_page_steps'] %>
+            <%= nav_link_to("Press Releases", admin_press_releases_path, 'press_releases') %>
+            <li class="dropdown<%= is_active?(controller.controller_name, ['product_collections', 'products', 'product_images', 'discounts', 'dollar_amount_discounts', 'percentage_discounts', 'chippd_product_types', 'orders', 'shipping_options', 'customers', "page_templates", "page_template_widgets"], " active") %>">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Store <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <%= nav_link_to("Collections", admin_product_collections_path, ['product_collections', 'products', 'product_images']) %>
+                <%= nav_link_to("Settings", admin_chippd_product_types_path, 'chippd_product_types') %>
+                <%= nav_link_to("Page Templates", admin_page_templates_path, ["page_templates", "page_template_widgets"]) %>
+                <%= nav_link_to("Discounts", admin_discounts_path, ['discounts', 'dollar_amount_discounts', 'percentage_discounts']) %>
+                <%= nav_link_to("Orders", admin_orders_path, 'orders') %>
+                <%= nav_link_to("Customers", admin_customers_path, 'customers') %>
+              </ul>
+            </li>
+            <%= nav_link_to("Text Content", admin_contents_path, "contents") %>
+          </ul>
+            <ul class="nav pull-right">
+              <li>
+                <%= link_to(destroy_admin_session_path, :method => :delete) do %>
+                  Sign Out
+                <% end %>
+              </li>
+            </ul>
+        </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <section>
+      <div class="row">
+        <div class="span12">
+          <%= notifications %>
+
+          <%= yield %>
+
+          <footer>
+            <div class="row">
+              <div class="span6">
+                <div class="btn-group">
+                  <% if admin_home? %>
+                  &nbsp;
+                  <% else %>
+                  <a class="btn btn-small" data-toggle="modal" href="#cmt-docs">
+                    <i class="icon-question-sign"></i>
+                    Help
+                  </a>
+
+                  <a class="btn btn-small" data-toggle="modal" href="#markdown-docs">
+                    <i class="icon-info-sign"></i>
+                    Markdown
+                  </a>
+                  <% end %>
+                </div>
+              </div>
+              <div class="span6">
+                <p class="pull-right logged-in-as">
+                  <% if admin_signed_in? %>
+                  Logged in as: <%= current_admin.email %><br>
+                  <% end %>
+                  Powered By <%= link_to('Crush + Lovely', configatron.crushlovely_url) %>.
+                </p>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <% unless admin_home? %>
+  <div class="modal" id="cmt-docs">
+    <%= render 'docs' %>
+  </div>
+  <% end %>
+
+  <%= render '/admin/shared/markdown' %>
+
+  <%= javascript_include_tag "admin" %>
+  <%= yield :javascripts %>
+</body>
+</html>

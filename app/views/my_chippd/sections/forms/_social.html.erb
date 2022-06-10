@@ -1,0 +1,5 @@
+<div class="social-networks clear">
+<% Social::NETWORKS.each do |network| %>
+  <%= form.input :"#{network}_url", :label => I18n.t("page.sections.social.networks.#{network}.name")+" <em>(optional)</em>", :input_html => { "data-base_url" => I18n.t("page.sections.social.networks.#{network}.base_url"), "placeholder" => "http://"+I18n.t("page.sections.social.networks.#{network}.base_url")+"/username" } %>
+<% end %>
+</div>

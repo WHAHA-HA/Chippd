@@ -1,0 +1,205 @@
+@import "compass/css3";
+@import "compass/css3/images";
+@import "includes/_variables.scss";
+@import "includes/_mixins.scss";
+
+// SM2 PLAYER (SOUNDMANAGER)
+// ------------------------------------------------
+
+#sm2-container {
+  position: absolute;
+  top: -9999em;
+}
+ul.playlist {
+  margin: 0 0 2em;
+  li.track { clear: both; }
+  li {
+    position: relative;
+    display: block;
+    width: auto;
+    padding: 1em 1em .35em .875em;
+    font-size: 1em;
+    color: #666;
+    background-color: #E5E5E5;
+    -webkit-transition-property: hover;
+    @include transition(background-color .15s ease);
+    a.title {
+      position: relative;
+      display: block;
+      max-width: 80%;
+      margin-bottom: .5em;
+      line-height: 1.5em;
+      font-family: $sans-stack;
+      color: $purple;
+      outline: none;
+      z-index: 2;
+      h4 {
+        display: inline-block;
+        font-size: .875em;
+      }
+    }
+    // PLAY BUTTON
+    a.title:before {
+      content: "m";
+      display: inline-block;
+      margin-right: .5em;
+      font-family: 'Pictos';
+      font-size: 1.35em;
+      font-weight: normal;
+      color: $purple;
+      vertical-align: middle;
+      text-shadow: 0 1px 1px rgba(255,255,255,.25);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+  }
+  li:first-child {
+    @include border-top-radius(5px);
+  }
+  li:last-child {
+    @include border-bottom-radius(5px);
+  }
+  li:nth-child(even) {
+    background-color: #F1F1F1;
+  }
+  li.sm2_playing,
+  li.sm2_paused,
+  li.sm2_playing a.title,
+  li.sm2_playing a h4 {
+    color: #F5F5F5;
+    opacity: 1;
+  }
+  // PAUSE BUTTON
+  li.sm2_playing a.title:before {
+    content: "5";
+    color: #F5F5F5;
+    font-family: 'Pictos';
+    font-size: 1.35em;
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(0,0,0,.05);
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  li:hover { background-color: #D5D5D5; }
+  li a:hover {opacity: 1; }
+  li.sm2_playing,
+  li.sm2_playing:hover {
+    color: #F5F5F5;
+    background-color: $purple-med;
+  }
+  li.sm2_paused {
+    background-color: $purple-lt;
+    a.title, a.title:before {
+      color: $purple-med;
+    }
+  }
+  li.sm2_playing:hover a.title {
+    opacity: .5;
+  }
+}
+
+// CONTROLS/STATUS BAR
+ul.playlist {
+  li .controls { display: none; }
+  li.sm2_playing .controls,
+  li.sm2_paused .controls {
+    position: relative;
+    display: block;
+    margin-bottom: .75em;
+    background-color: #666;
+    .statusbar { background-color: #CCC; }
+  }
+  li:hover .controls .statusbar {
+    position: relative;
+    cursor: ew-resize;
+    cursor: -moz-grab;
+    cursor: grab;
+  }
+  li {
+    .controls {
+      position: relative;
+      margin-top: .25em;
+      margin-bottom: .25em;
+      background-color: #E5E5E5;
+      @include border-radius(2px);
+      .statusbar {
+        position: relative;
+        height: .5em;
+        background-color: #DDD;
+        border: 2px solid #FFF;
+        @include border-radius(2px);
+        overflow: hidden;
+        cursor: -moz-grab;
+        cursor: grab;
+      }
+    }
+    .controls.dragging .statusbar {
+      cursor: -moz-grabbing;
+      cursor: grabbing;
+    }
+    .controls .statusbar .position,
+    .controls .statusbar .loading,
+    .controls .statusbar .annotation {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: .5em;
+    }
+    .controls .statusbar .position {
+      background-color: $purple-lt;
+      border-right: 3px solid $purple-lt;
+      @include border-radius(2px);
+    }
+    .controls .statusbar .loading { background-color: #EEE; }
+    .controls .statusbar .position,
+    .controls .statusbar .loading {
+      width: 0;
+    }
+  }
+  li.sm2_paused .controls .statusbar .position {
+    background-color: $purple-lt;
+    border-color: $purple-lt;
+  }
+  li.sm2_playing a.sm2_link,
+  li.sm2_paused a.sm2_link {
+    margin-right: 4.5em; /* room for timing stuff */
+  }
+}
+
+// TIMER
+ul.playlist {
+  li .timing {
+    position: absolute;
+    display: none;
+    text-align: right;
+    right: 0;
+    top: 0;
+    width: auto;
+    height: 1em;
+    padding: 4px 8px;
+    color: #F5F5F5;
+    background: $purple;
+    font: .625em $sans-stack;
+    line-height: 1.1em;
+    vertical-align: middle;
+    @include border-bottom-left-radius(3px);
+  }
+  li:first-child .timing {
+    @include border-top-right-radius(3px);
+  }
+  li:hover .timing { z-index: 2; }
+  li .timing div.sm2_timing {
+    margin: 0;
+    padding: 0;
+    margin-top: -1em;
+  }
+  li.sm2_playing .timing,
+  li.sm2_paused .timing {
+    display: block;
+  }
+  li.sm2_paused .timing .sm2_position {
+    text-decoration: blink;
+  }
+  li.sm2_paused .timing {
+    color: #E5E5E5;
+    background-color: $purple-med;
+  }
+}

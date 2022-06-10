@@ -1,0 +1,58 @@
+Hello <%= @order.billing_address.first_name %>,
+
+Only truly remarkable people make the choice you’ve just made, so give yourself a hefty pat on the back.
+
+Thanks to you, the Internet is one step closer to becoming fun and personal again.
+
+Here is a summary of your monumental purchase:
+
+Order number #<%= @order.number %>, placed on <%= @order.purchased_at.stamp(configatron.date_formats.invoice) %>
+
+We're shipping to:
+<%= @order.shipping_address.first_name %> <%= @order.shipping_address.last_name %>
+<%= @order.shipping_address.address_1 %> <%= @order.shipping_address.address_2 %>
+<%= @order.shipping_address.city %>, <%= @order.shipping_address.state %> <%= @order.shipping_address.postal_code %>
+
+Paid for by:
+<%= @order.billing_address.first_name %> <%= @order.billing_address.last_name %>
+<%= @order.billing_address.address_1 %> <%= @order.billing_address.address_2 %>
+<%= @order.billing_address.city %>, <%= @order.billing_address.state %> <%= @order.billing_address.postal_code %>
+
+Here’s what you ordered:
+
+<% @order.line_items.each do |line_item| %>
+<%= line_item.name.html_safe %>
+Qty: <%= line_item.quantity %>
+Price: <%= line_item.price_each %>
+Total: <%= line_item.price %>
+<% end %>
+
+Subtotal: <%= @order.formatted_subtotal %>
+Shipping &amp; Handling: <%= @order.shipping_option %>: <%= @order.formatted_shipping_cost %>
+<% if @order.has_discount? %>
+Discount: <%= @order.formatted_discount_amount %>
+<% end %>
+Taxes: <%= @order.formatted_sales_tax %>
+Grand Total: <%= @order.formatted_total %>
+
+<% if @order.is_gift %>
+Our records indicate that this is a gift for someone else.
+
+Now, we’re really impressed. You clearly have excellent judgment, because Chipp’d makes a wonderful gift.
+
+Here’s the personal message you included:
+
+<%= @order.gift_recipient_message %>
+<% end %>
+
+Orders are usually processed and shipped out within 24 hours (except on weekends). We’ll drop you another note as soon as your box of handcrafted goodies has left the building.
+
+Did you know that you don’t need to wait to start having fun? Visit chippd.com from your computer and start building the page of your dreams right now.
+
+If you need to check on the status of your order or have any questions at all, please contact us at orders@chippd.com. We’re always here for you.
+
+Until next time,
+Chipp'd
+
+Learn about our return policy at <%= faq_url(:anchor => 'faq_50089ea6de57e9000200001a') %>
+For anything else, check out our FAQs at <%= faq_url %>

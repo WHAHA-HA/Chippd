@@ -1,0 +1,30 @@
+<% if section.available? %>
+  <h1 class="sectionHeading">Family</h1>
+  <ul class="avatarList">
+    <li class="group">
+    <span class="avatar">
+      <%= section.father_image %>
+    </span>
+    <span class="text">
+      <h1><%= section.father_name %> <em>/ Father</em></h1>
+      <%= section.father_bio %>
+    </span>
+    </li>
+    <li class="group">
+      <span class="avatar">
+        <%= section.mother_image %>
+      </span>
+      <span class="text">
+        <h1><%= section.mother_name %> <em>/ Mother</em></h1>
+        <%= section.mother_bio %>
+      </span>
+    </li>
+  </ul>
+  <!-- /avatarList -->
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+             id: section.to_param,
+             section: section,
+             error_message: 'There was an error while processing the images.' %>
+<% end %>

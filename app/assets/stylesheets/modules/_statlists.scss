@@ -1,0 +1,90 @@
+/**
+
+  @statlists
+--------------------------------------------------------
+
+  Custom styles for statlists modules
+
+-----------------------------------------------------  */
+
+// Use important here to override ridiculous specificity in #content
+
+// Statgroups group statlists
+.statgroup {
+  padding-bottom: 1em !important;
+  margin-bottom: 1em !important;
+  border-bottom: 1px solid #ccc;
+  &:last-of-type {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+  .nav {
+    margin-bottom: 0 !important;
+  }
+}
+
+.statlist {
+  margin: 0 !important;
+  li {
+    display: block;
+    margin: 0 0 .5em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  b, strong {
+    font-weight: bold;
+  }
+}
+
+.statlist--featured {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+  li {
+    margin-bottom: .75em;
+  }
+  color: $purple-lt4;
+  font-size: 1em;
+  font-weight: bold;
+  .badge {
+    border-radius: 5px;
+    padding-top: .25em;
+    font-size: 1em;
+    color: white;
+    background: $purple-lt4;
+  }
+  a {
+    color: $purple-lt4 !important;
+    font-size: .75em !important;
+    font-weight: normal !important;
+  }
+}
+
+.statlist--callout {
+  display: block;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+  li {
+    padding: 1em;
+    background: $purple-lt4;
+    color: white;
+    font-size: .75em;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin-bottom: 2em;
+    &:last-child,
+    &:only-of-type {
+      margin-bottom: 0;
+    }
+    b {
+      display: block;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+}

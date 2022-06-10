@@ -1,0 +1,16 @@
+<%= ariane.render %>
+
+<% if resource.location_information? %>
+<div class="alert alert-block alert-info location-information">
+  <%= ContentPresenter.new(resource, self).location_information %>
+</div>
+<% end %>
+
+<%= simple_form_for resource, :url => resource_path(resource), :html => { :multipart => true } do |form| %>
+  <%= render :partial => 'form', :locals => { :form => form } %>
+  <%= form.error :base %>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary" data-loading-text="saving...">Save changes</button>
+    <%= link_to("Cancel", collection_path, :class => 'btn') %>
+  </div>
+<% end %>

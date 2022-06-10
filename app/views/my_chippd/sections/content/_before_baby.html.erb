@@ -1,0 +1,17 @@
+<% if section.available? %>
+  <h1 class="sectionHeading">Before Baby</h1>
+  <% section.baby_images.each do |image| %>
+    <h2><%= image.caption %></h2>
+    <div class="framedPhoto">
+      <%= image.image %>
+      <%= image_tag("widgets/frame.png", :alt => "") %>
+    </div>
+  <% end %>
+
+<% else %>
+
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/gallery_pusher_javascript',
+             id: section.to_param, section: section %>
+
+<% end %>

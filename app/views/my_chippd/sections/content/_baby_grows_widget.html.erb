@@ -1,0 +1,19 @@
+<h1 class="sectionHeading">Baby Grows</h1>
+
+<% section.milestones.each do |milestone| %>
+
+<div class="small-ribbon-container">
+  <div class="small-ribbon">
+    <div class="ribbon-stitches-top"></div>
+    <strong class="ribbon-content">
+      <h2><%= milestone.date %></h2>
+    </strong>
+    <div class="ribbon-stitches-bottom"></div>
+  </div>
+</div>
+  <ul class="grid group">
+    <li class="full"><%= milestone.age %></li>
+    <li class="half"><%= milestone.weight %></li>
+    <li class="half"><%= milestone.height %></li>
+  </ul>
+<% end %>

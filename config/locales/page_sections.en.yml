@@ -1,0 +1,43 @@
+en:
+  page:
+    no_sections_yet: "There&#8217;s nothing here! Start building your page by adding content from the options displayed on the left."
+    sections:
+      social:
+        networks:
+          twitter:
+            name: "Twitter"
+            base_url: "twitter.com"
+          facebook:
+            name: "Facebook"
+            base_url: "facebook.com"
+          vimeo:
+            name: "Vimeo"
+            base_url: "vimeo.com"
+          you_tube:
+            name: "YouTube"
+            base_url: "youtube.com"
+          linked_in:
+            name: "LinkedIn"
+            base_url: "linkedin.com"
+          behance:
+            name: "Behance"
+            base_url: "behance.com"
+          dribbble:
+            name: "Dribbble"
+            base_url: "dribbble.com"
+          flickr:
+            name: "Flickr"
+            base_url: "flickr.com"
+          google_plus:
+            name:  "Google+"
+            base_url: "plus.google.com"
+          instagram:
+            name: "Instagram"
+            base_url: "instagram.com"
+      rsvp:
+        defaults:
+          heading: "Will you be attending?"
+          yes_text: "I will attend"
+          no_text: "I will not attend"
+          date_past_message: "The deadline to RSVP has passed."
+          thank_you_message: "Thank you for responding!"

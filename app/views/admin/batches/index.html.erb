@@ -1,0 +1,21 @@
+<div class="alert alert-block push">
+  <h4>Batches can take some time to generate.</h4>
+  <p>The "Download Manifest" button will show up when a batch is fully generated. Refresh your page in a minute if you don't see that button yet.</p>
+</div>
+
+<div class="row">
+  <div class="span4">
+    <div class="push btn-group">
+      <%= link_to(new_resource_path, :class => 'btn btn-primary') do %>
+        New <%= singular_resource %>
+      <% end %>
+    </div>
+  </div>
+  <div class="span8">
+    <%= paginate collection %>
+  </div>
+</div>
+
+<%= simple_table_for collection, :with => "#{resource_class}Table", :present_with => CrushTablePresenter %>
+
+<%= paginate collection %>

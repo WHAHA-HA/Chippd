@@ -1,0 +1,14 @@
+<div class="repeatable-field current-file well inner nested-fields">
+
+  <%= f.input :date, as: :datepicker, wrapper: :append, input_html: { value: f.object.formatted_date, 'data-format' => 'yyyy-MM-dd' } %>
+  <%= f.input :age %>
+  <%= f.input :pounds %>
+  <%= f.input :ounces %>
+  <%= f.input :length %>
+  <%= link_to_remove_association f, :class => "btn btn-small remove", 'aria-hidden' => 'true', 'data-icon' => '*' do %>
+    remove milestone
+  <% end %>
+
+  <span class="collection-number badge"></span>
+</div>
+

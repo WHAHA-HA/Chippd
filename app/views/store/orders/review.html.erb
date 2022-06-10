@@ -1,0 +1,85 @@
+<section id="content" class="checkout review container">
+  <div id="cart" class="review block">
+    <header class="col4">
+      <h1>Review Your Items</h1>
+      <a class="edit btn" href="<%= cart_for_store_order_path %>">Edit Order</a>
+    </header>
+    <div class="col8 end">
+    <table>
+      <thead>
+        <tr>
+          <th class="item-name">Item</th>
+          <th class="quantity"><abbr title="Quantity">Qty.</abbr></th>
+          <th class="total">Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% current_order.line_items.each do |line_item| %>
+        <tr>
+          <td class="item-name"><%= line_item.link_to_product %> <%= line_item.options %></td>
+          <td class="quantity"><%= line_item.quantity %></td>
+          <td class="total"><%= line_item.price %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div><!-- /.col9 -->
+  </div><!-- /.block -->
+  <div class="block">
+  <%= simple_form_for @order, :url => complete_store_order_path, :html => { :method => :put, :id => "checkout-form" } do |form| %>
+    <h1>Review Order Details</h1>
+    <%= form.error_notification %>
+    <div class="col4">
+      <div class="well">
+        <h3>Billing Address</h3>
+        <%= render :partial => 'address_vcard', :locals => { :address => AddressPresenter.new(current_order.billing_address, self), :editable => true } %>
+
+        <h3>Shipping Address</h3>
+        <%= render :partial => 'address_vcard', :locals => { :address => AddressPresenter.new(current_order.shipping_address, self), :editable => true } %>
+
+        <h3>Shipping Option</h3>
+        <p><%= current_order.shipping_option %></p>
+      </div>
+    </div>
+    <div class="col4">
+      <div class="well gift">
+        <h3>Is this a gift?</h3>
+<% if current_order.show_gift_recipient_email? %>
+        <p class="note">By choosing Gift, you're handing over control of this page to the recipient. Give us their email address and include a personal message if you like.</p>
+<% else %>
+        <p class="note">If you choose &#8220;yes&#8221;, we won't include a receipt with your order.</p>
+<% end %>
+        <%= form.input :is_gift, :as => :radio_buttons, :label => false, :collection => [["Yes", true], ["No", false]] %>
+<% if current_order.show_gift_recipient_email? %>
+        <%= form.input :gift_recipient_email %>
+<% end %>
+        <%= form.input :gift_recipient_message, :label => "Include a personal message.", :as => :text, :input_html => { :cols => "20", :rows => "3" } %>
+      </div>
+    </div>
+    <div class="col4 end">
+      <div class="well">
+        <h3>Payment Details</h3>
+        <%= render :partial => 'payment_card', :locals => { :payment_card => PaymentCardPresenter.new(current_order.payment_card, self) } %>
+        <%= form.full_error :payment_card, :class => "error" %>
+
+        <h3>Order Details</h3>
+        <ul id="order-total">
+          <li class="subtotal">Subtotal: <em><%= current_order.formatted_subtotal %></em></li>
+<% if current_order.has_discount? %>
+          <li class="discount">Discount: <em>-<%= current_order.formatted_discount_amount %></em></li>
+<% end %>
+          <li class="shipping">Shipping: <em><%= current_order.formatted_shipping_cost %></em></li>
+          <li class="tax">Sales Tax: <em><%= current_order.formatted_sales_tax %></em></li>
+          <li class="total">Grand Total: <em><%= current_order.formatted_total %></em></li>
+        </ul>
+        <button type="submit" class="btn btn-large btn-primary submit-btn">Complete Your Order</button>
+      </div>
+    </div>
+    <% end %>
+  </div><!-- /.block -->
+</section><!-- /#content -->
+
+<%= content_for(:javascripts) do %>
+  <%= javascript_include_tag 'store/review' %>
+<% end %>

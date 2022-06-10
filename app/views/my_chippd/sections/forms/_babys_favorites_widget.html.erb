@@ -1,0 +1,46 @@
+<div id="babys_favorites" data-bind="template: 'widgets/babys_favorites'">
+  <p style="color: #ccc">Loading...</p>
+</div>
+
+<script type="text/html" id="widgets/babys_favorites">
+  <!-- ko foreach: favorites -->
+  <div class="favorite well inner">
+    <div class="control-group">
+      <label class="string required">Category</label>
+      <div class="controls">
+        <input type="text" data-bind="value: category" required>
+        <p class="help-block">e.g. Animal</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="string required">Title</label>
+      <div class="controls">
+        <input type="text" data-bind="value: title" required>
+        <p class="help-block">e.g. Pigeon</p>
+      </div>
+    </div>
+
+    <!-- ko if: $root.canRemove($data) -->
+      <a data-icon="-" data-bind="click: $root.remove">Remove favorite</a>
+    <!-- /ko -->
+  </div>
+  <!-- /ko -->
+  <a data-icon="+" data-bind="click: addAnother">add another</a>
+</script>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    (function(elem){
+      var model;
+      <% if @section.persisted? %>
+        model = Chippd.BabysFavorites.fromJS(<%= raw @section.favorites_json %>);
+      <% else %>
+        model = new Chippd.BabysFavorites();
+        model.favorites.push(new Chippd.Favorite());
+      <% end %>
+      ko.applyBindings(model, elem);
+      Chippd.BabysFavorites.bindSectionToForm(model, $("form"));
+    })($("#babys_favorites").get(0));
+  </script>
+<% end %>

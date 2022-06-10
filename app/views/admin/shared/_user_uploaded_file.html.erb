@@ -1,0 +1,13 @@
+<%= form.input :user_uploaded_file, :as => :file %>
+<% if resource.user_uploaded_file? %>
+<div class="clearfix preferences">
+  <div class="input">
+    <ul class="inputs-list">
+      <li><b>Current File</b>: <%= link_to(File.basename(resource.user_uploaded_file.url), resource.user_uploaded_file.url) %></li>
+      <% if admin_signed_in? %>
+      <li><%= form.input :remove_user_uploaded_file, :label => "Remove current file", :as => :boolean, :wrapper => :label_wrapped %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<% end %>

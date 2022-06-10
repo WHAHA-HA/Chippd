@@ -1,0 +1,29 @@
+<section id="content" class="store container">
+  <div id="infobar" class="block">
+    <div class="col12">
+      <%= ariane.render %>
+      <%= current_order.link_to_with_quantity if current_order? %>
+    </div>
+  </div>
+  <div class="block">
+    <header class="col12">
+      <h1>Select Your Product</h1>
+    </header>
+  </div><!-- /.block -->
+  <div class="block">
+<% @products.each do |product| %>
+    <div class="item col4">
+      <a href="<%= store_product_path(product) %>" class="group">
+        <%= product.default_image.medium_image %>
+        <h3><%= product.name %></h3>
+        <%= product.formatted_price %>
+        <% if product.preorder? %>
+        <p class="preorder">Coming Soon</p>
+        <% elsif product.contact_for_purchase? %>
+        <p class="contact-for-purchase">Discounted Pricing & Made-to-Order Services Available</p>
+        <% end %>
+      </a>
+    </div>
+<% end %>
+  </div><!-- /.block -->
+</section>

@@ -1,0 +1,10 @@
+<div class="btn-group push">
+  <%= link_to(new_resource_path, :class => 'btn btn-primary') do %>
+    New <%= singular_resource %>
+  <% end %>
+</div>
+
+<%= simple_table_for collection, :with => "#{resource_class}Table", :present_with => CrushTablePresenter %>
+
+<%= make_sortable("#{resource_class.to_s.downcase}-rows", sort_collection_path) %>
+

@@ -1,0 +1,5 @@
+Welcome <%= @customer.full_name %>!
+
+You can confirm your account email through the link below:
+
+<%= link_to 'Confirm my account', confirmation_url(@customer, :confirmation_token => @customer.confirmation_token) %>

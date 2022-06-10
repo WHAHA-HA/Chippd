@@ -1,0 +1,62 @@
+<%= content_for(:logo_class, 'landing') %>
+
+<% content_for(:nav) do %>
+  <%= page.title %>
+<% end %>
+
+
+<!-- Sides -->
+<section id="deck">
+  <div id="featured" class="flexslider">
+    <ul class="slides">
+      <% page.images.each do |image| %>
+        <%= image.to_li %>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+
+<!--Calls to action-->
+<section id="calls-to-action" class="container">
+  <div class="block">
+    <section class="video">
+      <a data-toggle="modal" href="#promoVideo">
+        <p>Watch our video</p>
+      </a>
+    </section>
+    <section class="app">
+      <a href="<%= go_path %>">
+        <p>Get the Chipp&#8217;d app</p>
+        <%= image_tag('iphone-chippd.png', :alt => "Chipp'd on iPhone") %>
+      </a>
+    </section>
+    <section class="showcase">
+      <%= page.link_to_use_case %>
+    </section>
+  </div>
+</section>
+
+<%= render '/shared/video_modal' %>
+
+
+<!-- Features -->
+<section id="features" class="container">
+  <div class="block">
+    <div class="col12 landing-feature">
+      <%= page.tagline %>
+    </div>
+  </div>
+  <div class="block process">
+    <% page.steps.each do |step| %>
+      <%= step.to_html %>
+    <% end %>
+  </div>
+  <div class="block features__call-to-action">
+    <div class="col12">
+      <%= page.call_to_action %>
+      <%= page.link_to_next_step %>
+    </div>
+  </div>
+</section>
+<!-- /.features -->

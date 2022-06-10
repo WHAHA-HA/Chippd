@@ -1,0 +1,21 @@
+<% tab_active_css = (!!local_assigns[:tab_active]) ? 'active' : '' %>
+
+<div class="tab-pane <%= tab_active_css %> b2b-asset-statistics" data-page="<%= page.to_param %>" id="<%= dom_id(page, "asset_statistics_#{time_period}") %>">
+  <div class="statgroup">
+    <ul class="statlist">
+      <li>Data Used: <%= stat_holder("getBytes: #{time_period}.dataUsed") %></li>
+      <li>Unique Asset Impressions:<%= stat_holder("get: #{time_period}.impressions") %></li>
+    </ul>
+  </div>
+  
+  <div class="statgroup">
+    <p class="stat-title">Most Popular Assets</p>
+    <ul class="statlist statlist-holder" data-path="<%= "#{time_period}.mostPopular" %>">
+    </ul>
+  </div>
+  <div class="statgroup">
+    <p class="stat-title">Least Popular Assets</p>
+    <ul class="statlist statlist-holder" data-path="<%= "#{time_period}.leastPopular" %>">
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<label>Baby Photo</label>
+<!--<div id="uploader_target" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+</div>-->
+<!-- here we add widgetizied file input section iteslf -->
+<div id="file-input-section">
+  <p style="color: #ccc">Loading...</p>
+</div>
+
+<%= form.input :name %>
+<%= form.input :birthday, as: :pastdatepicker, wrapper: :append, input_html: { value: @section.formatted_birthday, 'data-format' => 'yyyy-MM-dd' } %>
+<%= form.input :weight, hint: 'e.g. 2lbs 11oz or 3.45kg', :input_html => { :maxlength => character_limit(:about_baby, :weight) } %>
+<%= form.input :height, hint: 'e.g. 15in or 35cm', :input_html => { :maxlength => character_limit(:about_baby, :height) }  %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existing = null;
+      <% if @section.image_uid.present? %>
+        existing = Chippd.FileUpload.fromJS({
+          id: "<%= @section.image_uid %>",
+          url: "<%= @section.image.remote_url %>"
+        }, Chippd.Image);
+        // original: <%= @section.original.remote_url %>
+      <% end %>
+      $("#uploader_target").initSingleUpload(existing, Chippd.Image);
+    });
+  </script>
+<% end %>

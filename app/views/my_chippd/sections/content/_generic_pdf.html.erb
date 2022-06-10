@@ -1,0 +1,9 @@
+<% if section.available? %>
+  <%= section.link_to_asset %>
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+             id: section.to_param,
+             section: section,
+             error_message: 'There was an error while processing the pdf file.' %>
+<% end %>

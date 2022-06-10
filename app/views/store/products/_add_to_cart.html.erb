@@ -1,0 +1,31 @@
+<%= simple_form_for @line_item, :url => store_order_line_items_path, :validate => false do |form| %>
+  <%= form.input :product_id, :as => :hidden, :input_html => { :value => @product.to_param } %>
+  <%= form.input :price_each, :as => :hidden, :input_html => { :value => @product.price } %>
+  <fieldset id="chippd-type" class="js-reactor">
+    <div class="control-group">
+      <h4>Page Access: <em><a href="<%= how_it_works_path %>">learn more</a></em></h4>
+      <div class="controls hide">
+        <%= form.input :chippd_product_type_id, :as => :radio_buttons, :label => '', :collection => @product.chippd_product_types.collect { |ds| [ds.name, ds.to_param] } %>
+      </div>
+      <ul id="chippd-select">
+        <% @product.chippd_product_types.each do |chippd_product_type| %>
+        <li class="<%= chippd_product_type.option_html_class(@product.chippd_product_types) %>">
+          <a href="#" class="choice" data-target="<%= chippd_product_type.to_param %>">
+            <h3><%= chippd_product_type.short_name %></h3>
+            <div class="subtext">
+              <%= chippd_product_type.short_description %>
+            </div>
+          </a>
+        </li>
+        <% end %>
+      </ul>
+
+    </div>
+  </fieldset>
+  <div id="add-to-cart">
+    <fieldset class="quantity">
+      <%= form.input :quantity, :label => "Qty", :input_html => { :type => 'number', :min => 1 } %>
+    </fieldset>
+    <input type="submit" value="Add to Cart" id="add" class="btn btn-large" />
+  </div>
+<% end %>

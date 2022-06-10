@@ -1,0 +1,8 @@
+<div class="nested-fields well">
+  <%= f.input :name, :label => "Page Name" %>
+  <%= f.input :path, :label => "Path" %>
+  <%= link_to_remove_association f, :class => "btn btn-small" do %>
+    <i class="icon-remove-sign"></i>
+    remove location
+  <% end %>
+</div>

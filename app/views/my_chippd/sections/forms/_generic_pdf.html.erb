@@ -1,0 +1,44 @@
+<%= form.input :title, :input_html => { :maxlength => character_limit(:pdf, :title) } %>
+<!--<div id="uploader_target" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+</div>-->
+<!-- here we add widgetizied file input section iteslf -->
+<div id="file-input-section">
+  <p style="color: #ccc">Loading...</p>
+</div>
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existing = null;
+      <% if @section.file.present? %>
+        existing = Chippd.FileUpload.fromJS({
+          id: "<%= @section.file.remote_url %>",
+          url: "<%= @section.file.remote_url %>"
+        }, Chippd.Pdf);
+
+        //  $("#uploader_target").initSingleUpload(existing, Chippd.Pdf);
+
+            //existing files
+            var result = {};
+            result.id='<%= @section.file.remote_url %>';
+            result.url='<%= @section.file.remote_url %>';
+            var files = [];
+            files.push(result);
+        <% else %>
+           files = null;
+        <% end %>
+        /*jquery upload part*/
+        // Initialize the jQuery File Upload widget:
+        $('#uploader').fileupload({
+            // Uncomment the following to send cross-domain cookies:
+            //xhrFields: {withCredentials: true},
+            url: '/documents',
+            autoUpload: false,
+            acceptFileTypes: /(\.|\/)(pdf)$/i,
+            maxFileSize: 5000000,
+            fileInputTemplateId: 'entry_simple_pdf',
+            existingFiles : files
+        });
+    });
+  </script>
+<% end %>

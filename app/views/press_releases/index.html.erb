@@ -1,0 +1,24 @@
+<section id="content" class="container">
+  <div class="block">
+    <header class="sub-nav">
+      <%= render '/shared/heading_and_subnav' %>
+    </header>
+    <div class="main">
+      <h1><%= @subnav.title %></h1>
+      <ul class="press">
+        <% @press_releases.each do |press_release| %>
+        <li>
+          <a href="<%= press_release_path(press_release) %>">
+            <%= press_release.thumbnail %>
+            <div class="group">
+              <time><%= press_release.published_on %></time>
+              <h3><%= press_release.title %></h3>
+              <%= press_release.abstract %>
+            </div>
+          </a>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div><!-- /.block -->
+</section><!-- /#content -->

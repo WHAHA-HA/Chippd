@@ -1,0 +1,19 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} was successfully created."
+        alert: "There were errors in your submission. Please fix them to create your account."
+      update:
+        notice: "%{resource_name} was successfully updated."
+        alert: "%{resource_name} could not be updated. Please check the errors below."
+      destroy:
+        notice: "%{resource_name} was successfully destroyed."
+        alert: "%{resource_name} could not be destroyed."
+      toggle_visibility:
+        notice: "%{resource_name} visibility was successfully updated."
+        alert: "%{resource_name} visibility could not be updated."

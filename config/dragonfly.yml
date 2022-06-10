@@ -1,0 +1,39 @@
+general: &general
+  aws_access_key_id: AKIAIDWJGCEQOQVGXLIA
+  aws_secret_access_key: 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
+  region: us-east-1
+
+development:
+  bucket_name: chippd-development
+  upload_bucket_name: chippd-uploads-development
+  url_host: dnu9jq9beve9h.cloudfront.net
+  pipeline_id: 1397225695298-7am8xn
+  sqs_queue_url: https://sqs.us-east-1.amazonaws.com/139545379567/chippd-development
+  <<: *general
+
+test:
+  bucket_name: chippd-test
+  upload_bucket_name: chippd-uploads-test
+  url_host: fake.cloudfront.net
+  aws_access_key_id: FAKE
+  aws_secret_access_key: FAKE
+  region: FAKE
+  pipeline_id: FAKE
+  sqs_queue_url: FAKE
+
+staging:
+  bucket_name: chippd-staging
+  upload_bucket_name: chippd-uploads-staging
+  url_host: d3i0qvnbyrzjnl.cloudfront.net
+  pipeline_id: 1397226085069-4ohssu
+  sqs_queue_url: https://sqs.us-east-1.amazonaws.com/139545379567/chippd-staging
+  <<: *general
+
+production:
+  bucket_name: chippd-com-production
+  upload_bucket_name: chippd-uploads-production
+  url_host: d361m0tsbcx9q0.cloudfront.net
+  pipeline_id: 1397226141606-62sfx4
+  sqs_queue_url: https://sqs.us-east-1.amazonaws.com/139545379567/chippd-production
+  <<: *general
+

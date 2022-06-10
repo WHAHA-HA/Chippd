@@ -1,0 +1,7 @@
+<tr>
+  <td class="item-name"><%= line_item.link_to_product %></td>
+  <td class="price"><%= line_item.price_each %></td>
+  <td class="quantity"><%= form.input :quantity, :required => false, :label => false,:input_html => { :type => 'number', :min => 1 } %></td>
+  <td class="total"><%= line_item.price %></td>
+  <td class="icons"><%= line_item.link_to_remove %></td>
+</tr>

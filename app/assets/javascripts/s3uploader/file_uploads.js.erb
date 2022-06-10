@@ -1,0 +1,149 @@
+/* globals ko, FileUpload */
+
+(function () {
+  "use strict";
+  Chippd.FileUploads = Chippd.Object.extend({
+    constructor: function (existing, opts) {
+      var self = this,
+        remainingCount = 0;
+
+      self.uploads = ko.observableArray();
+      self.removedUploads = ko.observableArray();
+      self.onFinished = ko.observable();
+      self.started = ko.observable(false);
+      self.uploaded = ko.observable(false);
+      self.showErrorMessage = ko.observable(false);
+      self.header = (function () {
+        if (_.isFunction(opts.type) && opts.type.pluralName) {
+          return opts.type.pluralName.capitalize();
+        }
+
+        if (opts.type) {
+          return opts.type.capitalize() + "s";
+        }
+      })()
+
+      self.fileIndex = function(file) {
+        return self.uploads.indexOf(file) + 1;
+      };
+
+      self.uploadsToSubmit = ko.computed(function () {
+        return _.filter(this.uploads(), function (f) {
+          return !!f.chosenFile() || f.url();
+        });
+      }, self);
+
+      self.uploadsWithFile = ko.computed(function () {
+        return _.filter(this.uploads(), function (f) {
+          return !!f.chosenFile();
+        });
+      }, self);
+
+      self.hasEnough = ko.computed(function () {
+        return this.uploadsToSubmit().length >= opts.min;
+      }, self);
+
+      self.hasTooMany = ko.computed(function () {
+        if (!opts.max) { return false; }
+        return this.uploadsToSubmit().length > opts.max;
+      }, self);
+
+      self.canStart = ko.computed(function () {
+        return this.hasEnough() && !this.hasTooMany();
+      }, self);
+
+      self.start = function () {
+        var uploads = self.uploadsToSubmit(),
+          finishedCb = self.onFinished(),
+          started = 0;
+
+        if (uploads.length === 0) {
+          throw new Error("Cannot start upload without any selected files");
+        }
+
+        _.each(uploads, function (f) {
+          if (f.id() && !f.chosenFile()) {
+            return;
+          }
+          f.onFinished(function () {
+            remainingCount -= 1;
+            if (remainingCount === 0) {
+              if (_.isFunction(finishedCb)) {
+                self.uploaded(true);
+                finishedCb(uploads);
+              }
+            }
+          });
+          f.start();
+          started += 1;
+        });
+
+        self.started(true);
+        self.uploads(uploads);
+
+        if (started == 0) {
+          // No uploads are started, we are probably just
+          // editing the gallery title. Immediately fire the
+          // `onFinished` event.
+          setTimeout(function () {
+            if (_.isFunction(finishedCb)) {
+              self.uploaded(true);
+              finishedCb(uploads);
+            }
+          }, 0);
+        } else {
+          remainingCount = started;
+        }
+      };
+
+      self.addUpload = function (upload) {
+        upload.type(opts.type);
+        upload.chosenFile.subscribe(function () {
+          self.uploads.notifySubscribers();
+        });
+        self.uploads.push(upload);
+      };
+
+      self.addAnother = function () {
+        var upload = _.isFunction(opts.type) ? new opts.type() : new Chippd.FileUpload();
+        if (opts.helpText) {
+          upload.helpText(opts.helpText);
+        }
+        self.addUpload(upload);
+      };
+
+      self.removeUpload = function (upload) {
+        var removed = self.uploads.remove(upload);
+        if (removed.length != 0) {
+          removed = removed[0];
+          self.removedUploads.push(removed);
+        }
+      };
+
+      self.canDelete = function (upload) {
+        return _.indexOf(self.uploads(), upload) >= opts.min;
+      };
+
+      self.cancelUpload = function (upload) {
+        remainingCount -= 1;
+        if (remainingCount === 0) {
+          upload.cancel();
+          self.started(false);
+        } else {
+          self.uploads.remove(upload);
+          upload.cancel();
+        }
+      };
+
+      if (existing && existing.length > 0) {
+        _.each(existing, function (file) {
+          self.addUpload(file);
+        });
+      } else {
+        self.addAnother();
+      }
+
+      self.existing = existing;
+    }
+  });
+})();

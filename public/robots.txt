@@ -1,0 +1,6 @@
+User-Agent: *
+Disallow: /media-room
+Disallow: /admin/
+Disallow: /my-chippd/
+Disallow: /store/order/
+Sitemap: https://chippd.com/sitemap.xml.gz

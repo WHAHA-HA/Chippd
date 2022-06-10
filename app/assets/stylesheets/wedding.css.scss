@@ -1,0 +1,374 @@
+@import "reset.css.scss";
+@import "widget.css.scss";
+
+$script: 'cylburn_regularregular', cursive;
+
+/*
+ Type
+============================================================================= */
+h1, h2, h3, h4 {
+  font-weight:bold;
+  text-align:center;
+  text-transform:uppercase;
+}
+h1 { font-family:$condensed; font-size:30px; font-weight:normal; }
+h2 { font-family:$condensed; font-size:24px; font-weight:normal; }
+h3 { font-family:$condensed; font-size:22px; font-weight:normal; }
+.sectionHeading {
+  background:asset-url("widgets/banner-stroke.png", image) repeat-x 50% 50%;
+  color:$purple-lt;
+  font-family:$sans-stack;
+  font-size:1em;
+  font-weight:normal;
+  margin:0 auto 1.75em;
+  text-align:center;
+  text-transform:uppercase;
+  width:95%;
+  span {
+    background:#fff;
+    letter-spacing:3px;
+    padding:0 .5em;
+  }
+}
+  .script {
+    font-family:$script;
+    font-size:4em;
+    font-weight:normal;
+    text-transform:capitalize;
+  }
+.note { color:#8f8f8f; margin:auto; width:80%; }
+.button {
+  background:#6d4c79;
+  border:2px solid #6d4c79;
+  color:#6d4c79;
+  color:rgba(109,76,121,.6);
+  border-radius:.25em .25em;
+  color:#fff;
+  cursor:pointer;
+  display:inline-block;
+  font-family:$condensed;
+  font-size:1.75em;
+  margin:0 .5em 0 0;
+  padding:.5em 1em;
+  text-transform:uppercase;
+  width:188px;
+  -webkit-transition:border linear .2s;
+  -moz-transition:border linear .2s;
+  -ms-transition:border linear .2s;
+  -o-transition:border linear .2s;
+  input { display:none; }
+}
+.button.active { background:#c8b8cd; border:2px solid #6d4c79; color:#6d4c79; }
+.button.inactive { background:#c8b8cd; border:2px solid #c8b8cd; color:#9b83a4; }
+.button.small { font-size:1.5em; padding:.25em .5em; width:170px; }
+.button:hover { border:2px solid #fff; border:2px solid rgba(255,255,255,.3); }
+
+
+/*
+ Save the Date
+============================================================================= */
+#saveTheDate { text-align:center; }
+  #saveTheDate .sectionHeading {
+    background:none;
+    color:$purple-lt;
+    font-size:1em;
+    margin:2.75em 0 2em;
+    letter-spacing:3px;
+    width:100%;
+  }
+#saveTheDate .script {
+  font-family:$script;
+  font-size:5.25em;
+  font-style:italic;
+  font-weight:normal;
+  line-height:.9em;
+  margin-bottom:.5em;
+  text-transform:capitalize;
+}
+  #saveTheDate .script em { color:$purple-lt; display:block; }
+#saveTheDate h3 {
+  font-family:$condensed;
+  font-size:5em;
+  font-weight:normal;
+  margin:0;
+}
+#saveTheDate .detailList { font-size:2.25em; }
+  #saveTheDate li { text-align:center; }
+
+
+
+/*
+ RSVP
+============================================================================= */
+#invite {
+  .no { margin:1.25em auto; }
+  .group { font-family:$condensed; margin:.25em auto; }
+  .address {
+    margin:2em auto;
+    .group { margin-bottom:1em; width:55%; }
+    .time {
+      border-right:1px solid $purple-lt;
+      float:left;
+      font-size:2.75em;
+      font-weight:normal;
+      padding:3px .5em;
+      text-transform:uppercase;
+    }
+    .addy {
+      float:left;
+      font-family:$sans-stack;
+      font-size:1em;
+      padding:.5em .75em;
+      text-align:left;
+      text-transform:uppercase;
+    }
+    h2 { font-size:2em; }
+  }
+  form {
+
+  }
+}
+
+#thankyou {
+  display:none;
+  .button { padding:.25em; }
+  .amp {
+    color:$purple-med;
+    display:block;
+    font-size:2.5em;
+    font-family:$condensed;
+    text-align:center;
+    width:100%;
+  }
+  h2 { margin-bottom:1em; }
+}
+#rsvpForm {
+  background-color:$purple-lt;
+  padding:4em 2em;
+  h1 { font-size:2.5em; margin:0 0 .5em; }
+  h2 { font-size:2em; margin:1em 0 0; }
+  .amp {
+    color:$purple-med;
+    display:block;
+    font-size:2.5em;
+    font-family:$condensed;
+    margin-bottom:.75em;
+    text-align:center;
+    width:100%;
+  }
+  .guest {
+    label { display:block; text-align:center; }
+    .mealChoice { margin-bottom:2em; }
+    .radio { display:inline-block; text-align:left; }
+    input[type="text"] {
+      background:#927a9c;
+      border:none;
+      border-radius:5px 5px;
+      color:#fff;
+      display:inline-block;
+      font-family:$condensed;
+      font-size:1.6em;
+      padding:.5em 1em .25em;
+      text-align:center;
+      text-transform:uppercase;
+    }
+    ::-webkit-input-placeholder { color: #c7b8cc; }
+    :-moz-placeholder { /* Firefox 18- */ color: #c7b8cc; }
+    ::-moz-placeholder {  /* Firefox 19+ */ color: #c7b8cc;   }
+    :-ms-input-placeholder { color: #c7b8cc; }
+  }
+  .mealChoice {
+    margin:0 0 2em;
+    .radio {
+      background-image:url('widgets/radio-off.png');
+      background-repeat:no-repeat;
+      background-position:4px 50%;
+      background-size:12px 12px;
+      margin:0 .5em 0 0;
+      input {
+        visibility:hidden;
+      }
+    }
+    .radio.selected { background-image:url('widgets/radio-on.png'); }
+  }
+  p { margin:1.5em 0 0; }
+  strong { font-weight:bold; }
+  #addGuest.inactive { cursor:default; }
+  #addGuest.inactive:hover { border:2px solid #c8b8cd; }
+}
+
+
+/*
+ The Couple
+============================================================================= */
+#couple {
+  background:#fff asset-url("widgets/wedding-heart-titles.png", image) no-repeat 50% 98%;
+  padding-bottom:4em;
+  position:relative;
+  .grid { margin:auto; width:92%; }
+  .full { border:none; }
+  .half { border:none; margin-bottom:1em; width:47%; }
+    .half:nth-child(odd) { margin-right:3%; }
+    .half:nth-child(even) { float:right; }
+  .avatar { display:block; margin:0 auto .25em; }
+  .smallBanner {
+    background-size:190px 56px;
+    font-weight:normal;
+    font-size:.8em;
+    margin:-1em auto 0;
+    padding:0.65em 1em;
+    position:relative;
+    z-index:10;
+  }
+  .couple h2, .couple h3, .couple p { line-height:1em; text-align:left; }
+  .sectionHeading:nth-child(1n+2) {margin-top:2em;}
+  .script { font-size:1.3em; margin-bottom:.5em; }
+  .amp {
+    color:$purple-med;
+    font-family:$condensed;
+    font-size:3em;
+    font-weight:normal;
+    left:0;
+    position:absolute;
+    text-align:center;
+    top:230px;
+    width:100%;
+  }
+  h2 { font-size:1em; font-weight:normal; line-height:1em; }
+  h3 { color:$purple-lt; font-family:$sans-stack; font-size:.45em; font-weight:normal; margin-bottom:.25em; }
+  .couple p { color:#8f8f8f; font-family:$sans-stack; font-size:.45em; font-weight:normal; line-height:1.4em; text-transform:none; }
+}
+
+#timeline {
+  background:#fff asset-url("widgets/wedding-heart-titles.png", image) no-repeat 50% 99%;
+  padding-bottom:4em;
+  hr {
+    background:#fff asset-url("widgets/wedding-heart-titles.png", image) no-repeat 50% 98%;
+    border:none;
+    margin-bottom:1em;
+    padding:1em 0;
+  }
+  h3 { font-size:2em; }
+  h4 { color:$purple-lt; margin-bottom:1em; }
+  ol { margin:1em 0; }
+  li {
+    background:asset-url("widgets/timeline-circle.png", image) no-repeat 100% 0;
+    color:#8f8f8f;
+    float:left;
+    line-height:1.6em;
+    padding:3em 1.25em;
+    text-align:right;
+    width:51%;
+    ul { list-style:none; }
+    li { background:none; float:none; padding:0; text-align:inherit; width:auto; }
+    img { display:inline-block; max-width:auto; width:auto; }
+    h1 { color:$purple-med; font-size:1.75em; text-align:inherit; }
+    h2 { color:$purple-lt; font-family:$sans-stack; font-size:1em; font-weight:normal; text-align:inherit; }
+    p { font-size:1em; }
+  }
+  li:nth-child(even) {
+    background:none;
+    border:none;
+    float:right;
+    padding:3em .75em;
+    text-align:left;
+    width:49%;
+  }
+  li:nth-child(2n+1) { clear:left; }
+}
+
+
+#events {
+  ol { margin:auto; width:80%; }
+  li {
+    border-bottom:1px solid #d6d6d6;
+    line-height:1.8em;
+    padding:.75em 0;
+    position:relative;
+    text-align:left;
+    h1 { font-size:2em; text-align:inherit; }
+    h2 { color:$purple-lt; font-family:$sans-stack; font-size:1em; font-weight:normal; text-align:inherit; }
+    img { max-width:auto; position:absolute; top:1em; right:0; width:auto; }
+    p { color:#8f8f8f; font-size:1.2em; }
+    a { color:$purple-med; }
+  }
+  li:last-child { border:none; }
+}
+
+
+#places {
+  line-height:1.4em;
+  img { margin:auto; max-width:auto; width:auto; }
+  h2 { font-size:3em; margin:.5em 0; }
+  a { color:$purple-lt; }
+  .addy { font-weight:bold; }
+  .on { color:$purple-med; font-family:$condensed; font-size:1.3em; letter-spacing:-1px; line-height:1.6em;}
+  .off { color:$purple-lt; font-family:$condensed; font-size:1.3em; letter-spacing:-1px; line-height:1.6em;}
+  .grid {
+    text-align:center;
+    margin:2em auto;
+    width:70%;
+    .half { border:none; text-align:center; }
+    .right { text-align:center; }
+  }
+}
+
+
+#registry {
+  background:#fff asset-url("widgets/wedding-heart-titles.png", image) no-repeat 50% 95%;
+  padding-bottom:4em;
+  .button {
+    background:$purple-lt;
+    border:none;
+    color:$purple-med;
+    font-size:1.8em;
+    font-weight:normal;
+    line-height:.8em;
+    margin:.5em;
+    padding:.5em 1em .25em;
+    text-decoration:none;
+    width:225px;
+    span { color:#e2dbe5; font-size:70%; font-weight:normal; }
+  }
+  h2 { margin:1.5em auto; width:90%; }
+  p { color:#8f8f8f; font-size:1em; }
+}
+
+
+
+.centeredLabel {
+  background:asset-url("widgets/banner-stroke.png", image) repeat-x 50% 50%;
+  display:inline-block;
+  font-size:1em;
+  font-weight:normal;
+  margin:1em 0;
+  padding:0 2em;
+  span {
+    background:#fff;
+    color:$purple-lt;
+    padding:0 .75em;
+    text-transform:uppercase;
+  }
+}
+
+.detailList { margin:1em auto 1em; width:70%; }
+  .detailList .half { border-bottom:none; font-size:98%; }
+  .detailList li.weight { width:55%; }
+  .detailList li.length { width:45%; }
+
+
+/*
+ Wedding Flourish
+============================================================================= */
+.hearts {
+  background: asset-url("widgets/wedding-heart-titles.png", image) no-repeat 50% 5%,
+        asset-url("widgets/wedding-heart-titles.png", image) no-repeat 50% 95%;
+  background-color:#fff;
+  padding-bottom:60px;
+}
+.hearts.dark {
+  background: asset-url("widgets/heart-dark.png", image) no-repeat 50% 5%,
+        asset-url("widgets/heart-dark.png", image) no-repeat 50% 95%;
+  background-color:$purple-lt;
+  padding:4em 0;
+}

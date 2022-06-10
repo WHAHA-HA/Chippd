@@ -1,0 +1,17 @@
+<% if section.available? %>
+
+<div class="fluid-width-video-wrapper">
+  <%= section.video_embed %>
+</div>
+  <%= section.caption %>
+
+<% elsif section.processing? %>
+
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/video_pusher_javascript', id: section.to_param, section: section %>
+
+<% elsif section.not_available? %>
+
+  <%= section.not_available_message %>
+
+<% end %>

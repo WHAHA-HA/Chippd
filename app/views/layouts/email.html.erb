@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+/* Client-specific Styles */
+#outlook a { padding: 0; }  /* Force Outlook to provide a "view in browser" button. */
+.ReadMsgBody { width: 100%; }
+.ExternalClass { width: 100%; display:block !important; } /* Force Hotmail to display emails at full width */
+/* Reset Styles */
+img { height: auto; line-height: 100%; outline: none; text-decoration: none; display: block;}
+br, strong br, b br, em br, i br { line-height:100%; }
+h1, h2, h3, h4, h5, h6 { line-height: 100% !important; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+/* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited { color: purple !important; }
+/* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */
+.yshortcuts, .yshortcuts a, .yshortcuts a:link,.yshortcuts a:visited, .yshortcuts a:hover, .yshortcuts a span {
+color: black; text-decoration: none !important; border-bottom: none !important; background: none !important;
+}
+/* Fonts and Content */
+/* Prevent Webkit and Windows Mobile platforms from changing default font sizes on header and footer. */
+body { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }
+a { color: #6c4b78; text-decoration: none; font-weight: bold; }
+</style>
+
+<!--[if gte mso 9]>
+<style>
+.article-content ol,
+.article-content ul {
+  margin: 0 0 0 24px;
+  padding: 0;
+  list-style-position: inside;
+}
+</style>
+<![endif]-->
+
+</head>
+<body style="width: 100%; background-color: #6c4b78; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#6c4b78">
+<tbody>
+<tr>
+<td align="center" bgcolor="#6c4b78">
+
+  <table style="margin:0 10px;" width="640" cellpadding="0" cellspacing="0" border="0">
+    <tbody>
+      <tr>
+        <td width="640" height="20"></td>
+      </tr>
+      <tr>
+        <td width="640">
+
+          <table id="top-bar" width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="border-radius:6px 6px 0px 0px; -moz-border-radius: 6px 6px 0px 0px; -webkit-border-radius:6px 6px 0px 0px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; background-color: #FFFFFF; color: #ededed;">
+            <tbody>
+              <tr>
+                <td width="15"></td>
+                <td width="350" valign="middle" align="left">
+
+                  <table width="350" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      <tr>
+                        <td width="350" height="8"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table width="350" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      <tr>
+                        <td width="350" height="8"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </td>
+                <td width="30"></td>
+                <td width="255" valign="middle" align="right">
+
+                  <table width="255" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      <tr>
+                        <td width="255" height="8"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                    </tbody>
+                  </table>
+                  <table width="255" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      <tr>
+                        <td width="255" height="8"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </td>
+                <td width="15"></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </td>
+      </tr>
+      <tr>
+        <td id="header" width="640" align="center" bgcolor="#FFFFFF">
+          <img id="customHeaderImage" label="Header Image" editable="true" width="640" src="<%= URI.join(base_url, image_path('email-header.jpg')) %>" border="0" align="top" style="display: inline">
+        </td>
+      </tr>
+
+      <tr>
+        <td width="640" height="30" bgcolor="#ffffff"></td>
+      </tr>
+      <tr id="simple-content-row">
+        <td width="640" bgcolor="#ffffff">
+
+          <table width="640" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr>
+                <td width="30"></td>
+                <td width="580">
+
+
+                  <%= yield %>
+
+
+                </td>
+                <td width="30"></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td width="640" height="15" bgcolor="#ffffff"></td>
+      </tr>
+      <tr>
+        <td width="640">
+
+          <table id="footer" width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#411750" style="border-radius:0px 0px 6px 6px; -moz-border-radius: 0px 0px 6px 6px; -webkit-border-radius:0px 0px 6px 6px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+            <tbody>
+              <tr>
+                <td width="30"></td>
+                <td width="360" height="30"></td>
+                <td width="60"></td><td width="160"></td>
+                <td width="30"></td>
+              </tr>
+              <tr>
+                <td width="30"></td>
+                <td width="360" valign="top">
+                  <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left" style="font-size: 12px; line-height: 15px; color: #E5E5e5; margin-top: 0px; margin-bottom: 15px;"><span>Please add <b style="color: white;">do-not-reply@chippd.com</b> to your address book to ensure delivery to your inbox.</span></p></span>
+                  <p align="left" class="footer-content-left" style="color: #E5E5e5;">Connect with us:<br />
+                  <a style="color: white; text-decoration: none; font-weight: bold;" href="https://www.facebook.com/chippd">Facebook</a> | <a style="color: white; text-decoration: none; font-weight: bold;" href="https://twitter.com/chippdnyc">Twitter</a> | <a style="color: white; text-decoration: none; font-weight: bold;" href="http://chippd.tumblr.com">Tumblr</a></p>
+                </td>
+                <td width="60"></td>
+                <td width="160" valign="bottom">
+                  <p align="right" style="color: #E5E5E5; white-space: nowrap;"><span>Chipp'd Ltd.</span><br>
+                  <span>228 Park Ave S #40297</span><br>
+                  <span>New York, NY 10003-1502</span></p>
+                </td>
+                <td width="30"></td>
+              </tr>
+              <tr>
+                <td width="30"></td>
+                <td width="360" height="15"></td>
+                <td width="60"></td>
+                <td width="160"></td>
+                <td width="30"></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    <tr>
+      <td width="640" height="60"></td>
+    </tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

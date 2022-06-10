@@ -1,0 +1,37 @@
+<div class="vcard">
+  <div class="current-file well inner vcard">
+    <label style="display: block;">Image <em>(optional)</em></label>
+    <% if @section.image_uid.present? %>
+    <div class="current thumb">
+      <div class="image-wrap">
+        <p>Current Image</p>
+        <%= image_tag @section.image.url %>
+      </div>
+    </div>
+    <% end %>
+    <%= form.input :image, :label =>"", :hint => "Add a photo or your company logo and it will be displayed on the top right of your vCard.  Should be at least 150x150 pixels.", :as => :file %>
+  </div>
+
+  <%= form.input :name %>
+  <%= form.input :url, label: "URL <em>(optional)</em>", :hint => 'The name in your vCard will link to this website.' %>
+  <%= form.input :email, label: 'Email <em>(optional)</em>' %>
+
+  <div class="group-inputs">
+    <%= form.input :company, label: 'Company <em>(optional)</em>', :wrapper_html => { :class => 'company' } %>
+    <%= form.input :phone, label: 'Phone <em>(optional)</em>', :wrapper_html => { :class => 'phone' } %>
+  </div>
+
+  <%= form.input :address, label: 'Street Address <em>(optional)</em>', hint: 'e.g. 123 Main Street, Suite 33' %>
+  <div class="group-inputs">
+    <%= form.input :city, label: 'City <br /><em>(optional)</em>',  :wrapper_html => { :class => 'city' } %>
+    <%= form.input :state, label: 'State <em>(optional)</em>', :wrapper_html => { :class => 'state' } %>
+    <%= form.input :postal_code, label: 'Postal Code <br><em>(optional)</em>', :wrapper_html => { :class => 'postal' } %>
+  </div>
+  <%= form.input :country, label: 'Country <em>(optional)</em>', :priority => ["United States"] %>
+
+  <div class="options">
+    <%= form.input :link_to_map, :as => :boolean, :wrapper => :checkbox %>
+    <%= form.input :link_to_vcard, :label => "Make vCard available for download", :as => :boolean, :wrapper => :checkbox %>
+  </div>
+
+</div>

@@ -1,0 +1,46 @@
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Hello <%= @order.billing_address.first_name %>,</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Joy is just around the corner.</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Your box of handcrafted goodies left the building today via <%= @order.shipping_option %><% if @order.estimated_delivery_date? %> and should get to you by <%= @order.estimated_delivery_date %><% end %>.</p>
+
+<%- if @order.tracking_number? -%><p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">You can monitor your package’s whereabouts anytime you like using this tracking number: <%= @order.tracking_number %>.</p><%- end -%>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Here’s a reminder of what you’re getting:</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Order number #<%= @order.number %>, placed on <%= @order.purchased_at.stamp(configatron.date_formats.invoice) %>:</p>
+
+<ul style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+<% @order.line_items.each do |line_item| %>
+  <li><%= line_item.name.html_safe %> - <%= line_item.quantity %> x <%= line_item.price_each %> + <%= line_item.price_each %> = <%= line_item.price %></li>
+<% end %>
+</ul>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+  Subtotal: <%= @order.formatted_subtotal %><br>
+  Shipping: <%= @order.formatted_shipping_cost %><br>
+  Sales Tax: <%= @order.formatted_sales_tax %><br>
+  Grand Total: <%= @order.formatted_total %>
+</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">We're shipping to:</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+  <%= @order.shipping_address.first_name %> <%= @order.shipping_address.last_name %><br>
+  <%= @order.shipping_address.address_1 %> <%= @order.shipping_address.address_2 %><br>
+  <%= @order.shipping_address.city %>, <%= @order.shipping_address.state %> <%= @order.shipping_address.postal_code %>
+</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">We hope you’ve been busy building your page, but if you haven’t, well…what are you waiting for? Visit <%= link_to(base_url, base_url) %> from your computer and get started right now.</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">If you need to check on the status of your order or have any questions at all, please contact us at <%= mail_to('orders@chippd.com') %>. We’re always here for you.</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+Until next time,<br>
+Chipp'd
+</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+  Learn about our <%= link_to('return policy', faq_url(:anchor => 'faq_50089ea6de57e9000200001a')) %>.<br>
+  For anything else, check out our <%= link_to('FAQs', faq_url) %>.
+</p>

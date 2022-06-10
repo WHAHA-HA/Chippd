@@ -1,0 +1,20 @@
+<div class="repeatable-field current-file well inner nested-fields">
+
+  <% if f.object.image_uid.present? %>
+  <div class="current thumb">
+    <div class="image-wrap">
+      <p>Current Image</p>
+      <%= image_tag f.object.thumb.url, :class => "thumbnail", :width => "150", :height => "150" %>
+    </div>
+  </div>
+  <%= f.input :image, :as => :file, :label => "Upload image", :input_html => { :accept => "image/*" } %>
+  <% else %>
+  <%= f.input :image, :as => :file, :label => "Upload image", :input_html => { :accept => "image/*", :class => "required" } %>
+  <% end %>
+  <%= link_to_remove_association f, :class => "btn btn-small remove", 'aria-hidden' => 'true', 'data-icon' => '*' do %>
+    remove image
+  <% end %>
+
+  <span class="collection-number badge"></span>
+</div>
+

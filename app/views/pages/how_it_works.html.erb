@@ -1,0 +1,85 @@
+<section id="content" class="container how-to">
+	<div class="block">
+    <div class="col12">
+      <p class="summary">Every Chipp'd product is a key that unlocks a customizable mobile page. Pick a product, add content to your page, and use the product to control who sees it.
+</p>
+    </div>
+  </div>
+  <div class="block">
+  	<header class="col3">
+      <h1>Pick a product.</h1>
+      <p>Chipp'd products range from handmade jewelry that unlock multimedia pages to letterpress printed greeting cards that contain a private video message.</p>
+      <p>Each product offers a unique blend of content options for sharing that’s designed to suit the occasion.</p>
+    </header>
+    <div class="col9 end">
+    <% @product_collections.each do |product_collection| %>
+      <a href="<%= product_collection.collection_url %>" class="well" style="background-image: url('<%= asset_path(product_collection.how_it_works_image.remote_url) %>');">
+        <%= image_tag(product_collection.inverse_image.remote_url, :alt => "Chipp'd #{product_collection.name}", :class => "icon") %>
+        <h2><%= product_collection.name %></h2>
+        <p class="overlay"><%= product_collection.long_description %><br>
+        <strong class="example_link" data-sample-url="<%= product_collection.sample_url %>">See what you can build.</strong></p>
+      </a>
+    <% end %>
+    </div>
+  </div><!-- /.block -->
+   <div class="block">
+  	<header class="col3">
+      <h1>Build your page.</h1>
+      <p>Personalize your page with a combination of photos, audio, video, text, and more with our easy-to-use page builder.</p>
+      <p>Enjoy unique content options like a digital Locket, downloadable vCard, RSVP widget, and more.</p>
+    </header>
+    <div class="col9 end">
+    	<div class="well photo">
+    		<%= image_tag('featured/page-builder-1440.jpg', :alt => "Chipp'd Page Builder") %>
+    	</div>
+    </div>
+  </div><!-- /.block -->
+
+  <div class="block">
+  	<header class="col3">
+      <h1>Share your page.</h1>
+      <p>Every Chipp'd product contains a unique code that unlocks a customizable mobile page.</p>
+      <p>Scanning this code using <a href="<%= go_path %>">our free app</a> triggers an authentication mechanism that checks whether the scanner has permission to access the page. If they do, the URL concealed in the code is activated and the page is displayed.</p>
+    </header>
+    <div class="col9 end">
+    	<%= image_tag('chippd-app.jpg', :alt => "photo",:class => "large") %>
+    </div>
+  </div><!-- /.block -->
+
+  <div class="block">
+    <header class="col3">
+      <h1>Privacy options.</h1>
+      <p>Every Chipp'd product offers you total control over the privacy of your content. You can track who's been viewing your page and revoke their access anytime you like.</p>
+    </header>
+    <div class="col9 end">
+      <%= image_tag('how-it-works-privacy.jpg', :alt => "photo",:class => "large") %>
+    </div>
+  </div><!-- /.block -->
+  <div class="block">
+    <header class="col3">
+      <p style="margin-top: 8px;">With Story, anyone using the Chipp'd app can scan the code on the product to view your content. For all our other collections, each person must scan the product you've given them to gain access to your page.</p>
+      <p>You can add an extra layer of security to a page from these collections by forcing recipients to scan the code on their product each time they want to view your page.</p>
+    </header>
+     <div class="col9 end">
+       <%= image_tag('privacy.jpg', :alt => "photo",:class => "large") %>
+    </div>
+  </div>
+
+<% noop do %>
+  <div class="block">
+    <header class="col3">
+      <p>For all our other collections, each product can only be used by one person to gain access to a page.</p>
+      <p>You can add an extra layer of security by forcing recipients to scan the code on their product each time they want to view your page.</p>
+    </header>
+    <div class="col9 end">
+      <%= image_tag('privacy.jpg', :alt => "photo",:class => "large") %>
+    </div>
+  </div><!-- /.block -->
+<% end %>
+
+
+  <div class="block">
+  	<p class="faq">Have more questions? Check out <a href="<%= faq_path %>">our FAQs</a> or send us a <a href="<%= contact_us_path %>">message.</a></p>
+  </div>
+
+</section><!-- /#content -->

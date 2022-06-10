@@ -1,0 +1,17 @@
+<div class="btn-group pull-right">
+<% unless options[:skip_visibility] %>
+  <%= link_to(toggle_visibility_resource_path(object), :method => :put, :class => 'btn') do %>
+    <%= toggle_visibility_text(object) %>
+  <% end %>
+<% end %>
+<% unless options[:skip_edit] %>
+  <%= link_to(edit_resource_path(object), :class => 'btn') do %>
+    Edit
+  <% end %>
+<% end %>
+<% unless options[:skip_destroy] %>
+  <%= link_to(resource_path(object), :method => :delete, :class => "#{dom_class(object, 'destroy')} btn btn-destroy") do %>
+    Delete
+  <% end %>
+<% end %>
+</div>

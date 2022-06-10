@@ -1,0 +1,5 @@
+<%= render :partial => "/admin/shared/create_and_paginate" %>
+
+<%= simple_table_for collection, :with => "#{resource_class}Table", :present_with => CrushTablePresenter %>
+
+<%= paginate collection %>

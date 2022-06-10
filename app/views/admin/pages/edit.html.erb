@@ -1,0 +1,35 @@
+<%= ariane.render %>
+
+<%= simple_form_for resource, :url => resource_path(resource), :html => { :multipart => true } do |form| %>
+  <div class="row">
+    <div class="span8">
+        <%= render :partial => 'form', :locals => { :form => form } %>
+    </div>
+    <div class="span4">
+      <dl>
+        <dt>Created</dt>
+        <dd><%= resource.created_at.stamp(configatron.datetime_formats.default) %></dd>
+        <dt>Updated</dt>
+        <dd><%= resource.updated_at.stamp(configatron.datetime_formats.default) %></dd>
+      </dl>
+    </div>
+  </div>
+  <%= form.error :base %>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary" data-loading-text="saving...">Save changes</button>
+    <%= link_to("Cancel", collection_path, :class => 'btn') %>
+  </div>
+<% end %>
+
+<h4>Line Items</h4>
+<%= simple_table_for resource.line_items, :with => CustomerLineItemTable, :present_with => CrushTablePresenter %>
+
+<hr />
+
+<h4>Members</h4>
+<%= simple_table_for resource.memberships, :with => "MembershipTable", :present_with => CrushTablePresenter %>
+
+<hr />
+
+<h4>Page Sections</h4>
+<%= simple_table_for resource.sections, :with => "PageSectionTable", :present_with => CrushTablePresenter %>

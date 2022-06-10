@@ -1,0 +1,6 @@
+<%= form.input :your_name, :label => "Name" %>
+<%= form.input :fiancee_name, :label => "Fiancé/Fiancée's Name" %>
+<%= form.input :happens_on, :label => "Date", :as => :datepicker, :wrapper => :append, :input_html => { :value => @section.formatted_happens_on, 'data-format' => 'yyyy-MM-dd' } %>
+<%= form.input :location, :label => "Venue", :input_html => {:maxlength => "45" }, :hint => "e.g. New York, NY or Hudson Valley Farm. <br>Should be 45 characters or less.".html_safe %>
+
+

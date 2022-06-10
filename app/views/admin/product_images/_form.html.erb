@@ -1,0 +1,17 @@
+<div class="current-file well">
+  <%= form.input :image, :as => :file, :hint => 'Large image files (about 1.5MB and up) may fail to upload.' %>
+
+  <% if resource.image_uid.present? %>
+  <p class="push">Current Image</p>
+  <a data-toggle="modal" href="#<%= dom_id(resource, 'current-image') %>" >
+    <%= image_tag resource.small.url, :class => "thumbnail", :width => "128", :height => "72" %>
+  </a>
+  <div class="modal" id="<%= dom_id(resource, 'current-image') %>" style="display:none;padding:5px 5px 0 5px;">
+    <%= image_tag resource.medium.url %>
+  </div>
+  <% end %>
+</div>
+
+<%= form.input :caption, :input_html => {:class => "span6" } %>
+
+<%= is_visible_radio_buttons(form) %>

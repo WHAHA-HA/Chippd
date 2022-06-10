@@ -1,0 +1,71 @@
+<div class="baby-family">
+  <label class="section-label">About Mommy</label>
+
+  <div class="inner well">
+    <label>Mommy's Photo</label>
+    <div id="mother_uploader" data-bind="template: 'singleUpload'">
+      <p style="color: #ccc">Loading...</p>
+    </div>
+
+
+    <%= form.input :mother_name, :label => "Mommy's Name", :input_html => { :maxlength => character_limit(:baby_family, :mother_name) }, :hint => character_limit_message(:baby_family, :mother_name) %>
+    <%= form.input :mother_bio, :label => "About Mommy", :as => :text, :input_html => { :maxlength => configatron.character_limits.baby_family.mother_bio }, :hint => character_limit_message(:baby_family, :mother_bio) %>
+  </div>
+
+  <hr class="section-divider">
+
+  <label class="section-label">About Daddy</label>
+  <div class="inner well">
+    <label>Daddy's Photo</label>
+    <div id="father_uploader" data-bind="template: 'singleUpload'">
+      <p style="color: #ccc">Loading...</p>
+    </div>
+
+    <%= form.input :father_name, :label => "Daddy's Name", :input_html => {:maxlength => configatron.character_limits.baby_family.father_name }, :hint => character_limit_message(:baby_family, :father_name) %>
+    <%= form.input :father_bio, :label => "About Daddy", :as => :text, :input_html => { :maxlength => configatron.character_limits.baby_family.father_bio }, :hint => character_limit_message(:baby_family, :father_bio) %>
+  </div>
+
+  <% content_for :javascripts do %>
+    <script type="text/javascript">
+      $(function () {
+        var existingMother = existingFather = null,
+          message = "Should be at least 300x300 pixels.";
+
+        <% if @section.mother_image_uid.present? %>
+          existingMother = Chippd.FileUpload.fromJS({
+            id: "<%= @section.mother_image_uid %>",
+            url: "<%= @section.mother_image.remote_url %>"
+          }, Chippd.Image);
+        <% end %>
+
+        <% if @section.father_image_uid.present? %>
+          existingFather = Chippd.FileUpload.fromJS({
+            id: "<%= @section.father_image_uid %>",
+            url: "<%= @section.father_image.remote_url %>"
+          }, Chippd.Image);
+        <% end %>
+
+
+      /*  $("#mother_uploader").initSingleUpload(existingMother, Chippd.Image, "upload_mother", message);
+        $("#father_uploader").initSingleUpload(existingFather, Chippd.Image, "upload_father", message);
+*/
+        var files = [];
+        if(existingMother) files.push(existingMother);
+        if(existingFather) files.push(existingFather);
+        //jQuery Version...
+          //jQuery Version...
+          $('#uploader').fileupload({
+              // Uncomment the following to send cross-domain cookies:
+              //xhrFields: {withCredentials: true},
+              url: '/documents',
+              autoUpload: false,
+              acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+              fileTemplateContainerId : ['mother_uploader', 'father_uploader'],
+              fileInputTemplateId:['mother_parent_upload','father_parent_upload'],
+              existingFiles: files,
+              maxFileSize: 5000000,
+          });
+      });
+    </script>
+  <% end %>
+</div>

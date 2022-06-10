@@ -1,0 +1,2 @@
+class ResumePresenter < LinkToOrDownloadableAssetPresenter
+end

@@ -1,0 +1,25 @@
+//= require s3uploader/s3upload
+//= require s3uploader/file_upload
+//= require s3uploader/file_uploads
+//= require_tree ./chippd_ui
+//= require s3uploader/singleFileUpload
+//= require s3uploader/multiFileUpload
+
+//= require_tree ./jquery_uploader
+//= require_tree ./cors
+//= require_tree ./vendor
+
+//= require s3uploader/jquery.fileupload
+//= require s3uploader/jquery.fileupload-process
+//= require s3uploader/jquery.fileupload-ui
+//= require s3uploader/jquery.fileupload-validate
+//= require s3uploader/jquery.iframe-transport
+//= require s3uploader/jquery.fileupload-image
+//= require s3uploader/jquery.fileupload-audio
+
+//= require_self
+if (!String.prototype.capitalize) {
+  String.prototype.capitalize = function () {
+    return this.charAt(0).toUpperCase() + this.substr(1);
+  };
+}

@@ -1,0 +1,62 @@
+<label class="section-label">The Bride</label>
+<label class="file required">Photo</label>
+<div id="bride_uploader" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+</div>
+
+<%= form.input :bride_name, :label => "Name", :input_html => { :maxlength => configatron.character_limits.the_couple.bride_name }, :hint => character_limit_message(:the_couple, :bride_name) %>
+<%= form.input :bride_parents, :label => "Parents", :input_html => { :maxlength => configatron.character_limits.the_couple.bride_parents }, :hint => hints("e.g. Daughter of Jack and Jill Smith.", character_limit_message(:the_couple, :bride_parents)) %>
+<%= form.input :bride_bio, :label => "About", :as => :text, :input_html => { :maxlength => configatron.character_limits.the_couple.bride_bio }, :hint => character_limit_message(:the_couple, :bride_bio) %>
+
+<hr class="section-divider">
+
+<label class="section-label">The Groom</label>
+<label class="file required">Photo</label>
+<div id="groom_uploader" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+  <p class="help-block">Should be at least 300x300 pixels.</p>
+</div>
+
+<%= form.input :groom_name, :label => "Name", :input_html => { :maxlength => configatron.character_limits.the_couple.groom_name }, :hint => character_limit_message(:the_couple, :groom_name) %>
+<%= form.input :groom_parents, :label => "Parents", :input_html => { :maxlength => configatron.character_limits.the_couple.groom_parents }, :hint => hints("e.g. Son of John and Jane Doe.", character_limit_message(:the_couple, :groom_parents)) %>
+<%= form.input :groom_bio, :label => "About", :as => :text, :input_html => { :maxlength => configatron.character_limits.the_couple.groom_bio }, :hint => character_limit_message(:the_couple, :groom_bio) %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existingBride = existingGroom = null;
+
+      <% if @section.bride_image_uid.present? %>
+        existingBride = Chippd.FileUpload.fromJS({
+          id: "<%= @section.bride_image_uid %>",
+          url: "<%= @section.bride_image.remote_url %>"
+        }, Chippd.Image);
+      <% end %>
+
+      <% if @section.groom_image_uid.present? %>
+        existingGroom = Chippd.FileUpload.fromJS({
+          id: "<%= @section.groom_image_uid %>",
+          url: "<%= @section.groom_image.remote_url %>"
+        }, Chippd.Image);
+      <% end %>
+
+      /*$("#bride_uploader").initSingleUpload(existingBride, Chippd.Image, "upload_bride");
+      $("#groom_uploader").initSingleUpload(existingGroom, Chippd.Image, "upload_groom");*/
+      var files = [];
+      if(existingBride) files.push(existingBride);
+      if(existingGroom) files.push(existingGroom);
+      //jQuery Version...
+      $('#uploader').fileupload({
+           // Uncomment the following to send cross-domain cookies:
+            //xhrFields: {withCredentials: true},
+            url: '/documents',
+           autoUpload: false,
+           acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+           fileTemplateContainerId : ['bride_uploader', 'groom_uploader'],
+           fileInputTemplateId:['couple_bride_upload','couple_groom_upload'],
+           existingFiles:files,
+           maxFileSize: 5000000,
+        });
+    });
+  </script>
+<% end %>

@@ -1,0 +1,16 @@
+<% if section.available? %>
+    <h1 class="sectionHeading"><span>The Engagement</span></h1>
+    <%= section.title %>
+    <ul class="rslides">
+      <% section.images.each do |image| %>
+          <li>
+            <div class="image-container" style="background-image: url(<%= image.show_image %>);">
+            </div>
+          </li>
+      <% end %>
+    </ul>
+<% else %>
+    <%= section.processing_message %>
+    <%= render 'my_chippd/sections/content/gallery_pusher_javascript',
+               id: section.to_param, section: section %>
+<% end %>

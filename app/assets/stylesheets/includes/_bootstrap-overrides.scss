@@ -1,0 +1,137 @@
+.btn-group {
+  font-size: 1em;
+}
+
+.tooltip {
+  font-size: .875em;
+}
+.tooltip-inner {
+  padding: 10px;
+}
+.help-inline {
+  font-size: .75em;
+  text-transform: uppercase;
+}
+#content {
+  .controls {
+    input.error {
+      border-color: #b94a48;
+    }
+    input.error:focus {
+      @include box-shadow(0 0 6px lighten(#b94a48, 20%));
+    }
+  }
+  .help-inline.error {
+    margin-bottom: 0;
+    color: #b94a48;
+  }
+  dl + .help-inline.error {
+    margin-bottom: 1.5em;
+  }
+}
+
+#content .alert {
+  a {
+    color: inherit;
+    font-weight: bold;
+    text-shadow: none;
+  }
+  h4 {
+    margin: .5em 0;
+  }
+  ul {
+    padding-left: 1em;
+    margin: 0 0 .5em 0;
+  }
+  .close {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+}
+
+.modal {
+	color: #444;
+	.close {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+	.modal-header {
+		h3 { margin-top: .5em; }
+		p {
+			margin-bottom: .5em;
+			color: #666;
+			font-size: .875em;
+		}
+	}
+	modal-footer {
+		a.btn {
+			width: 47.5%;
+		}
+	}
+	form {
+		margin-bottom: 0;
+		label { color: #444; }
+	}
+  input[type="text"], textarea {
+    width: 96%;
+    padding: .75em 2%;
+  }
+  .btn {
+  	margin-top: 0;
+  	float: left;
+    width: 47.5%;
+    padding: .75em 0;
+  }
+  .btn-primary {
+  	float: right;
+  }
+}
+#promoVideo {
+	.modal-header {
+		border-bottom: none;
+	}
+	.modal-body {
+		clear: both;
+		max-height: none;
+	}
+}
+
+#content .modal {
+	form {
+		margin-bottom: 0;
+		label { color: #444; }
+	}
+}
+
+// BUTTONS
+#content {
+  .btn { color: #444; }
+  .btn-primary { color: #F5F5F5; }
+}
+
+@media only screen and (min-width: 960px) {
+	#promoVideo {
+		width: 800px;
+		margin: -250px 0 0 -400px;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.modal {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    margin: 0;
+    &.fade.in { top: 35%; }
+    .modal-header .close {
+    	padding: 10px;
+    	margin: -10px;
+    }
+	}
+}

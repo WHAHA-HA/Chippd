@@ -1,0 +1,15 @@
+<div class="guest nested-fields repeatable-field<%= ' first-guest' if rsvp_response.guests.first == f.object %>">
+  <%= f.input :name, :input_html => { :value => '' } %>
+
+  <% if section.meal_options? %>
+  <div class="meal-choice-wrapper">
+    <h3>Meal choice</h3>
+    <div class="mealChoice">
+      <%= f.input :meal, :as => :radio_buttons, :label => "", :collection => section.meal_options %>
+    </div>
+  <% end %>
+
+  <%= link_to_remove_association f, :class => "secondary", 'aria-hidden' => 'true', 'data-icon' => '-' do %>
+    remove guest
+  <% end %>
+</div>

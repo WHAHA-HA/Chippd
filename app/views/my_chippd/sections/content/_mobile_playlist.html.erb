@@ -1,0 +1,22 @@
+<%= section.title %>
+
+<% if section.available? %>
+
+  <ul class="playlist">
+    <% section.mobile_tracks.each do |track| %>
+    <li class="track" data-impressions-behavior="click">
+      <%= track.link_to_track %>
+    </li>
+    <% end %>
+  </ul>
+
+<% elsif section.processing? %>
+
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/playlist_pusher_javascript', id: section.to_param, section: section %>
+
+<% elsif section.not_available? %>
+
+  <%= section.not_available_message %>
+
+<% end %>

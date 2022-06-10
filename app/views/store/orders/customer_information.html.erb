@@ -1,0 +1,89 @@
+<section id="content" class="store checkout container">
+  <%= simple_form_for @order, :url => save_customer_information_for_store_order_path, :html => { :method => :put, :id => "checkout-form" } do |form| %>
+  <div class="block">
+    <h1>Shipping and Billing</h1>
+    <%= form.error_notification %>
+    <div class="col4" id="shipping_address_attributes">
+      <div class="well">
+      <%= form.simple_fields_for :shipping_address do |shipping_address_form| %>
+      <h3>Shipping Address</h3>
+      <%= shipping_address_form.input :first_name, :validate => true, :input_html => { 'data-sync-with-billing' => 'true' } %>
+      <%= shipping_address_form.input :last_name, :validate => true, :input_html => { 'data-sync-with-billing' => 'true' } %>
+      <%= shipping_address_form.input :address_1, :validate => true, :input_html => { 'data-sync-with-billing' => 'true' } %>
+      <%= shipping_address_form.input :address_2, :input_html => { 'data-sync-with-billing' => 'true' } %>
+      <%= shipping_address_form.input :city, :validate => true, :input_html => { 'data-sync-with-billing' => 'true' } %>
+      <%= shipping_address_form.input :state, :collection => configatron.select_data.us_states, :include_blank => false, :input_html => { 'data-sync-with-billing' => 'true' } %>
+      <%= shipping_address_form.input :postal_code, :input_html => { :class => 'span2', 'data-sync-with-billing' => 'true' }, :validate => true %>
+      <%= shipping_address_form.input :country, :as => :hidden %>
+      <% end %>
+      </div>
+    </div>
+    <div class="col4" id="billing_address_attributes">
+      <div class="well">
+      <h3><span class="title">Billing Address</span> <span class="copy-over"><%= form.input :billing_same_as_shipping, :label => "Same as shipping?", :as => :boolean, :wrapper => :checkbox %></span></h3>
+      <%= form.simple_fields_for :billing_address do |billing_address_form| %>
+      <%= billing_address_form.input :first_name, :validate => true %>
+      <%= billing_address_form.input :last_name, :validate => true %>
+      <%= billing_address_form.input :address_1, :validate => true %>
+      <%= billing_address_form.input :address_2 %>
+      <%= billing_address_form.input :city, :validate => true %>
+      <%= billing_address_form.input :state, :collection => configatron.select_data.us_states, :include_blank => false %>
+      <%= billing_address_form.input :postal_code, :input_html => { :class => 'span2' }, :validate => true %>
+      <%= billing_address_form.input :country, :as => :hidden %>
+      <% end %>
+      </div>
+    </div>
+    <div class="col4 end" id="shipping_and_payment_attributes">
+      <div class="well">
+        <h3>Shipping Options</h3>
+        <%= form.input :shipping_option, :label => false, :as => :radio_buttons, :collection => @shipping_options, :checked => @default_shipping_option %>
+
+        <h3>Payment Details</h3>
+        <div class="cc-icons">
+          <%= image_tag('icon-visa.png', :alt => "Visa", :title => "Visa") %>
+          <%= image_tag('icon-mastercard.png', :alt => "Mastercard", :title => "Mastercard") %>
+          <%= image_tag('icon-amex.png', :alt => "American Express", :title => "American Express") %>
+          <%= image_tag('icon-discover.png', :alt => "Discover", :title => "Discover") %>
+          <%= image_tag('icon-jcb.png', :alt => "JCB", :title => "JCB") %>
+          <%= image_tag('icon-dinersclub.png', :alt => "Diner's Club", :title => "Diner's Club") %>
+          <p>Accepted cards</p>
+        </div>
+
+        <div class="control-group string optional">
+          <label class="string optional" for="order_card_number">Card number</label>
+          <div class="controls">
+            <input class="string optional card-number" size="20" type="text" autocomplete="off" data-label="Card number" data-validate="[{&quot;kind&quot;:&quot;presence&quot;,&quot;options&quot;:{},&quot;messages&quot;:{&quot;blank&quot;:&quot;can't be blank&quot;}}]">
+          </div>
+        </div>
+        <div class="control-group string optional card-details">
+          <label class="string optional" for="order_exp_month">Expiration (MM/YYYY)</label>
+          <div class="controls">
+            <input class="string optional card-exp_month" size="2" type="text" data-label="Expiration month" data-validate="[{&quot;kind&quot;:&quot;presence&quot;,&quot;options&quot;:{},&quot;messages&quot;:{&quot;blank&quot;:&quot;can't be blank&quot;}},{&quot;kind&quot;:&quot;numericality&quot;,&quot;options&quot;:{},&quot;messages&quot;:{&quot;not_a_number&quot;:&quot;is not a number&quot;}},{&quot;kind&quot;:&quot;length&quot;,&quot;options&quot;:{&quot;is&quot;:2},&quot;messages&quot;:{&quot;wrong_length&quot;:&quot;is the wrong length (should be 2 characters)&quot;,&quot;blank&quot;:&quot;can't be blank&quot;}}]">
+            <span>/</span>
+            <input class="string optional card-exp_year" size="4" type="text" data-label="Expiration year" data-validate="[{&quot;kind&quot;:&quot;presence&quot;,&quot;options&quot;:{},&quot;messages&quot;:{&quot;blank&quot;:&quot;can't be blank&quot;}},{&quot;kind&quot;:&quot;numericality&quot;,&quot;options&quot;:{},&quot;messages&quot;:{&quot;not_a_number&quot;:&quot;is not a number&quot;}},{&quot;kind&quot;:&quot;length&quot;,&quot;options&quot;:{&quot;is&quot;:4},&quot;messages&quot;:{&quot;wrong_length&quot;:&quot;is the wrong length (should be 4 characters)&quot;,&quot;blank&quot;:&quot;can't be blank&quot;}}]">
+          </div>
+        </div>
+        <div class="control-group string optional card-details">
+          <label class="string optional" for="order_cvc">CVC <a href="#" tabIndex="-1" class="tooltip-trigger" rel="tooltip" data-original-title="Your Card Verification Code (CVC) is a 3-digit number printed on the back of your Visa/Mastercard. The American Express verification number is a 4-digit number printed on the front of your card (to the right of your card number).">?</a></label>
+          <div class="controls">
+            <input class="string optional card-cvc" size="4" type="text" autocomplete="off" data-label="CVC" data-validate="[{&quot;kind&quot;:&quot;presence&quot;,&quot;options&quot;:{},&quot;messages&quot;:{&quot;blank&quot;:&quot;can't be blank&quot;}},{&quot;kind&quot;:&quot;numericality&quot;,&quot;options&quot;:{},&quot;messages&quot;:{&quot;not_a_number&quot;:&quot;is not a number&quot;}},{&quot;kind&quot;:&quot;length&quot;,&quot;options&quot;:{&quot;maximum&quot;:4,&quot;minimum&quot;:3},&quot;messages&quot;:{&quot;too_short&quot;:&quot;is too short (minimum is 3 characters)&quot;,&quot;too_long&quot;:&quot;is too long (maximum is 4 characters)&quot;,&quot;blank&quot;:&quot;can't be blank&quot;}}]">
+          </div>
+        </div>
+
+        <%= form.error :payment_card, :class => "error" %>
+
+        <%= form.input :customer_id, :as => :hidden, :input_html => { :value => current_customer.to_param }, :wrapper_html => { :id => "customer-id-wrapper" } %>
+        <button type="submit" class="btn btn-large submit-btn">Review Your Order</button>
+      </div>
+    </div>
+  </div><!-- /.block -->
+  <% end %>
+</section><!-- /#content -->
+
+<%= content_for(:javascripts) do %>
+  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+  <script type="text/javascript" charset="utf-8">
+    Stripe.setPublishableKey('<%= configatron.stripe.publishable_key %>');
+  </script>
+  <%= javascript_include_tag 'store/customer_information' %>
+<% end %>

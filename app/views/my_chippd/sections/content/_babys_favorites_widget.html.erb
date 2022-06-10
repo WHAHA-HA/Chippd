@@ -1,0 +1,6 @@
+<h1 class="sectionHeading">Baby's Favorites</h1>
+<ul class="grid group">
+  <% section.favorites.each do |favorite| %>
+  <li class="full"><em><%= favorite.category %></em> <%= favorite.title %></li>
+  <% end %>
+</ul>

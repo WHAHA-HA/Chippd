@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="span4">
+    <div class="btn-group push">
+      <%= link_to(paid_admin_orders_path, :class => "btn#{is_active?(controller.action_name, 'paid', ' active')}") do %>
+        Paid <span class="badge"><%= order_counts[:paid] %></span>
+      <% end %>
+      <%= link_to(shipped_admin_orders_path, :class => "btn#{is_active?(controller.action_name, 'shipped', ' active')}") do %>
+        Shipped <span class="badge"><%= order_counts[:shipped] %></span>
+      <% end %>
+      <%= link_to(canceled_admin_orders_path, :class => "btn#{is_active?(controller.action_name, 'canceled', ' active')}") do %>
+        Canceled <span class="badge"><%= order_counts[:canceled] %></span>
+      <% end %>
+    </div>
+  </div>
+  <div class="span8">
+    <%= form_tag search_admin_orders_path, :method => :post, :class => 'form-search pull-right' do %>
+    <%= text_field_tag 'number', '', :placeholder => 'search by number', :class => 'span2 search-query' %>
+    <button type="submit" class="btn btn-info" data-loading-text="saving...">Search</button>
+    <% end %>
+  </div>
+</div>
+
+<%= simple_table_for collection, :with => "#{resource_class}Table", :present_with => CrushTablePresenter %>

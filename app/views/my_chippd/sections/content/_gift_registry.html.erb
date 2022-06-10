@@ -1,0 +1,13 @@
+<h1 class="sectionHeading"><span>Gift Registry</span></h1>
+
+<% section.sources.each do |source| %>
+  <a href="<%= source.url %>" class="button">
+    <%= source.name %>
+    <span><%= source.base_url %></span>
+  </a>
+<% end %>
+
+<% section.when_a_mail_to_address_exists do %>
+  <h2 class="sectionHeading"><span>To mail a gift, please address to</span></h2>
+  <%= section.mail_to_address %>
+<% end %>

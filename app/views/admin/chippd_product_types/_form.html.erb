@@ -1,0 +1,21 @@
+<%= form.input :name %>
+<%= form.input :admin_note, :input_html => {:class => "span6" }, :hint => 'Optional note to help differentiate settings with the same name.' %>
+<%= form.input :short_description, :as => :text, :label => 'Description', :input_html => {:class => "span6" } %>
+
+<div class="current-file well">
+  <%= form.input :image, :as => :file %>
+
+  <% if resource.image_uid.present? %>
+  <p class="push">Current Image</p>
+  <a data-toggle="modal" href="#<%= dom_id(resource, 'current-image') %>" >
+    <%= image_tag resource.image.thumb('100x80#').url, :class => "thumbnail", :width => "100", :height => "80" %>
+  </a>
+  <div class="modal" id="<%= dom_id(resource, 'current-image') %>" style="display:none;padding:5px 5px 0 5px;">
+    <%= image_tag resource.image.remote_url %>
+  </div>
+  <% end %>
+</div>
+
+<%= form.input :privacy, :collection => ChippdProductType::PRIVACY_OPTIONS.collect { |o| [o.to_s.titleize, o] }, :hint => "Whether a page of this type will show up under the Private or Public section of the mobile applications." %>
+<%= form.input :fixed_quantity, :hint => "The number of people who can be a part of a page that is this type." %>
+<%= form.input :force_unique_page, :label => "Force unique page?", :as => :boolean, :wrapper => :checkbox, :hint => "If checked, customers will not have the option to group products of this type that they purchase with an already existing page." %>

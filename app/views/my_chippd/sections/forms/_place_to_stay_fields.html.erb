@@ -1,0 +1,68 @@
+<div class="places-to-stay">
+  <div class="well inner <% if featured %>featured <% else %>repeatable-field <% end %>nested-fields">
+    <% if featured %>
+      <label>Photo</label>
+      <div class="featured">
+        <!--<div id="uploader_target" data-bind="template: 'singleUpload'">
+          <p style="color: #ccc">Loading...</p>
+        </div>-->
+        <!-- here we add widgetizied file input section iteslf -->
+        <div id="file-input-section">
+          <p style="color: #ccc">Loading...</p>
+        </div>
+      </div>
+
+
+      <% content_for :javascripts do %>
+        <script type="text/javascript">
+          $(function () {
+            var existing = null;
+            <% if @section.featured_place.image_uid.present? %>
+              existing = Chippd.FileUpload.fromJS({
+                id: "<%= @section.featured_place.image_uid %>",
+                url: "<%= @section.featured_place.image.remote_url %>"
+              }, Chippd.Image);
+
+              //existing photo
+              var result = {};
+              result.id='<%= @section.featured_place.image_uid %>';
+              result.url='<%= @section.featured_place.image.remote_url %>';
+              var files = [];
+              files.push(result);
+
+            <% else %>
+              files = null;
+            <% end %>
+            $("#uploader_target").initSingleUpload(existing, Chippd.Image);
+          });
+        </script>
+      <% end %>
+    <% end %>
+
+    <%= f.input :name, :label => "Place Name" %>
+
+    <div class="place_address">
+      <%= f.input :address, label: 'Address <em>(optional)</em>', hint: 'e.g. 123 Main Street'%>
+    </div>
+    <div class="group-inputs">
+      <%= f.input :city, label: 'City <br /><em>(optional)</em>', :wrapper_html => { :class => 'city' } %>
+      <%= f.input :state, label: 'State <em>(optional)</em>', :wrapper_html => { :class => 'state' } %>
+      <%= f.input :postal_code, label: 'Postal Code <br/><em>(optional)</em>', :wrapper_html => { :class => 'postal' } %>
+    </div>
+    <%= f.input :country, label: 'Country <em>(optional)</em>', :priority => ["United States"] %>
+
+    <%= f.input :price, :label => "Price", :as => :radio_buttons, :collection => [['$', 1], ['$$', 2], ['$$$', 3], ['$$$$', 4]], :input_html => { :class => 'required price' }, :include_blank => false %>
+    <%= f.input :phone, label: 'Phone <em>(optional)</em>', :wrapper_html => { :class => 'phone' } %>
+    <%= f.input :url, :label => "URL", :hint => "e.g. http://example.com" %>
+    <%= f.input :booking_info, :label => "Booking Information <em>(optional)</em>", :hint => "e.g. discount code or party name" %>
+
+    <% unless featured %>
+      <%= link_to_remove_association f, :class => "remove-instance", 'aria-hidden' => 'true' do %>
+        remove
+      <% end %>
+
+      <span class="collection-number badge places"></span>
+    <% end %>
+  </div>
+</div>
+

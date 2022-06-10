@@ -1,0 +1,39 @@
+<label class="section-label">Baby's Bio</label>
+
+<label>Baby Photo</label>
+<!--<div id="uploader_target" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+</div>-->
+<!-- here we add widgetizied file input section iteslf -->
+<div id="file-input-section">
+  <p style="color: #ccc">Loading...</p>
+</div>
+
+<%= form.input :first_name, hint: character_limit_message(:baby_arrives, :first_name), input_html: { :maxlength => character_limit(:baby_arrives, :first_name) } %>
+<%= form.input :last_name, hint: character_limit_message(:baby_arrives, :last_name), input_html: { :maxlength => character_limit(:baby_arrives, :last_name) }%>
+<%= form.input :birthday, as: :datepicker, wrapper: :append, input_html: { value: @section.formatted_birthday, 'data-format' => 'yyyy-MM-dd' } %>
+<%= form.input :weight, hint: 'e.g. 2lbs 11oz or 3.45kg', input_html: { :maxlength => character_limit(:baby_arrives, :weight) } %>
+<%= form.input :height, hint: 'e.g. 15in or 35cm', input_html: { :maxlength => character_limit(:baby_arrives, :height) } %>
+<%= form.input :hospital, label: 'Name of Hospital', hint: character_limit_message(:baby_arrives, :hospital), input_html: { :maxlength => character_limit(:baby_arrives, :hospital) } %>
+<%= form.input :parents, label: "Baby's Parents", hint: hints('e.g. John & Jane Smith', character_limit_message(:baby_arrives, :parents)), input_html: { :maxlength => character_limit(:baby_arrives, :parents) } %>
+<hr class="section-divider">
+<label class="section-label">On The Day Baby Was Born</label>
+<%= form.input :president, label: 'President <em>(optional)</em>', hint: 'e.g. Barack Obama' %>
+<%= form.input :population, label: "World's Population <em>(optional)</em>", hint: 'e.g. 7 million' %>
+<%= form.input :top_artists, label: 'Top Of The Charts <em>(optional)</em>', hint: 'e.g. Lady Gaga' %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existing = null;
+      <% if @section.image_uid.present? %>
+        existing = Chippd.FileUpload.fromJS({
+          id: "<%= @section.image_uid %>",
+          url: "<%= @section.image.remote_url %>"
+        }, Chippd.Image);
+        // original: <%= @section.original.remote_url %>
+      <% end %>
+      $("#uploader_target").initSingleUpload(existing, Chippd.Image);
+    });
+  </script>
+<% end %>

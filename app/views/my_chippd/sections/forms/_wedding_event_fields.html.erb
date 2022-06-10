@@ -1,0 +1,33 @@
+<div class="repeatable-field nested-fields">
+
+
+  <% if f.object.image_uid.present? %>
+  <div class="current thumb">
+    <div class="image-wrap">
+      <p>Current Image</p>
+      <%= image_tag f.object.thumb.url, :class => "thumbnail", :width => "150", :height => "150" %>
+    </div>
+  </div>
+  <div class="current-file well inner repeatable-field nested-fields wedding-event">
+    <%= f.input :image, :as => :file, :input_html => { :accept => "image/*" } %>
+  </div>
+  <% else %>
+  <label>Upload Image</label>
+  <div class="current-file well inner repeatable-field nested-fields wedding-event">
+    <%= f.input :image, :as => :file, :input_html => { :accept => "image/*", :class => "required" } %>
+  </div>
+  <% end %>
+
+  <%= f.input :what, :label => "What", :hint => "e.g. Rehearsal Dinner, or Ceremony" %>
+  <%= f.input :when, :label => "When", :hint => "e.g. Saturday 6.1.14 / 4:00pm" %>
+  <%= f.input :where, :label => "Where", :hint => "e.g. Argyle Country Club, 1234 Main street", :input_html => { :class => 'required' }%>
+  <%= f.input :url, :label => "URL <em>(optional)</em>".html_safe, :hint => "e.g. http://example.com" %>
+  <%= f.input :note, :label => "Note <em>(optional)</em>".html_safe, :hint => "Information about attire, parking, etc." %>
+
+  <%= link_to_remove_association f, :class => "btn btn-small remove", 'aria-hidden' => 'true', 'data-icon' => '-' do %>
+    remove event
+  <% end %>
+
+  <span class="collection-number badge"></span>
+</div>
+

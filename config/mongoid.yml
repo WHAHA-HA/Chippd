@@ -1,0 +1,41 @@
+development:
+  options:
+    include_root_in_json: false
+  sessions:
+    default:
+      database: chippd-development
+      hosts:
+        - localhost:<%= ENV['BOXEN_MONGODB_PORT'] || 27017 %>
+
+test:
+  options:
+    include_root_in_json: false
+  sessions:
+    default:
+      database: chippd-test
+      hosts:
+        - localhost:<%= ENV['BOXEN_MONGODB_PORT'] || 27017 %>
+
+staging:
+  options:
+    include_root_in_json: false
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        consistency: :strong
+        max_retries: 30
+        retry_interval: 1
+        timeout: 15
+
+production:
+  options:
+    include_root_in_json: false
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        consistency: :strong
+        max_retries: 30
+        retry_interval: 1
+        timeout: 15

@@ -1,0 +1,56 @@
+<div class="baby_grows">
+  <!--  <div id="uploader_target" data-bind="template: 'uploads'">
+      <p style="color: #ccc">Loading...</p>
+    </div>-->
+  <!-- here we add widgetizied file input section iteslf -->
+  <div class="playlist-container">
+    <!-- file input tempalte -->
+    <div id="file-input-section">
+      <!-- wedding_multi_upload will be repeated...-->
+      <p style="color: #ccc">Loading...</p>
+    </div>
+    <div>
+      <!-- ko template: "uploads_footer" --><!-- /ko -->
+      <div class="links">
+        <a class="add-instance" data-bind="click: addGroomsman" ><span class="icon">+</span><span class="text">add another</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <% content_for :javascripts do %>
+      <script type="text/javascript">
+          $(function () {
+              var existing = Chippd.FileUpload.fromJS(
+                      <%= raw @section.baby_images_json %>,
+                      Chippd.BeforeBaby
+              );
+              //<%= @section.baby_images.collect { |a| a.original.remote_url }.join("\n// ") %>
+
+              /*  $("#uploader_target").initMultiUpload(existing, {
+               type: Chippd.BeforeBaby,
+               max: <%= BeforeBaby::MAXIMUM_NUMBER_OF_IMAGES %>,
+               min: <%= BeforeBaby::MINIMUM_NUMBER_OF_IMAGES %>
+               });*/
+
+              //jquery uploader...
+
+              //load existing files for template
+              var files = JSON.parse('<%= raw @section.baby_images_json %>');
+
+              $('#uploader').fileupload({
+                  // Uncomment the following to send cross-domain cookies:
+                  //xhrFields: {withCredentials: true},
+                  url                 : '/documents',
+                  multiUpload         : true,
+                  fileInputTemplateId  : 'beforebaby_multi_upload',
+                  autoUpload          : false,
+                  acceptFileTypes     : /(\.|\/)(gif|jpe?g|png)$/i,
+                  maxFileSize         : 5000000,
+                  existingFiles       : files
+              });
+
+          });
+      </script>
+  <% end %>
+</div>

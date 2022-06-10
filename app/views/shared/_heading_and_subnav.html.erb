@@ -1,0 +1,5 @@
+<ul class="nav-seq">
+<% @subnav.nav_items.each do |nav_item| %>
+  <li><a href="<%= nav_item.path %>"><%= nav_item.title %></a></li>
+<% end %>
+</ul>

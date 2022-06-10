@@ -1,0 +1,39 @@
+<% if section.available? %>
+
+  <h2 class="sectionHeading"><span>The Wedding Party</span></h2>
+  <ul class="bridesmaids">
+    <h1 class="script">Bridesmaids</h1>
+    <% section.bridesmaid_images.each do |image| %>
+      <li>
+        <span class="avatar">
+          <%= image.image %>
+        </span>
+        <hgroup>
+          <h2><%= image.name %></h2>
+          <h3><%= image.title %></h3>
+        </hgroup>
+      </li>
+  <% end %>
+  </ul>
+  <ul class="groomsmen">
+    <h1 class="script">Groomsmen</h1>
+    <% section.groomsman_images.each do |image| %>
+      <li>
+        <span class="avatar">
+          <%= image.image %>
+        </span>
+        <hgroup>
+          <h2><%= image.name %></h2>
+          <h3><%= image.title %></h3>
+        </hgroup>
+      </li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/gallery_pusher_javascript',
+             id: section.to_param, section: section %>
+
+<% end %>

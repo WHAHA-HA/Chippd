@@ -1,0 +1,13 @@
+<section id="content" class="container press">
+  <article class="block">
+    <header class="intro">
+      <time><%= @press_release.published_on %></time>
+      <h1><%= @press_release.title %></h1>
+      <p><a href="<%= press_releases_path %>">&larr; Back</a></p>
+    </header>
+    <div class="main">
+      <%= @press_release.image %>
+      <%= @press_release.body %>
+    </div>
+  </article><!-- /.block -->
+</section><!-- /#content -->

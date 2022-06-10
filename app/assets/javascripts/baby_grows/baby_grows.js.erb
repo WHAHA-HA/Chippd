@@ -1,0 +1,58 @@
+//= require baby_grows/milestone
+
+/* globals ko, Chippd */
+(function() {
+  "use strict";
+
+  Chippd.BabyGrows = Chippd.Object.extend({
+    limitMin: 1,
+    limitMax: 10,
+
+    constructor: function () {
+      var self = this;
+      self.id = ko.observable();
+      self.milestones = ko.observableArray();
+      self.remove = function () {
+        if (self.milestones().length <= self.limitMin) { return; }
+        self.milestones.remove(this);
+      };
+      self.canRemove = function (milestone) {
+        return _.indexOf(self.milestones(), milestone) >= self.limitMin;
+      };
+    },
+
+    addAnother: function () {
+      if (this.milestones().length >= this.limitMax) { return; }
+      this.milestones.push(new Chippd.Milestone());
+    },
+
+    toJS: function () {
+      var js = Chippd.BabyGrows.__super__.toJS.apply(this);
+      return {
+        milestones: js.milestones,
+        id: js.id
+      };
+    }
+  }, /* static properties */ {
+    bindSectionToForm: function (section, form) {
+      $(form).submit(function (e) {
+        var json = JSON.stringify(section.toJS()),
+          encodedJson = encodeURIComponent(json),
+          requiredFields = $(form).find("[required]");
+        if (requiredFields.length > 0 && !requiredFields.valid()) {
+          return false;
+        }
+
+        $(form).append('<input name="section_js" type="hidden" value="' + encodedJson + '">');
+        return true;
+      });
+    },
+
+    fromJS: function (obj) {
+      var model = new Chippd.BabyGrows();
+      model.id(obj.id);
+      model.milestones(Chippd.Object.fromJS(obj.milestones, Chippd.Milestone));
+      return model;
+    }
+  });
+})();

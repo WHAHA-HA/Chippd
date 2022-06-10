@@ -1,0 +1,16 @@
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Hello <%= @order.billing_address.first_name %>,</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">We hope it’s not something we said. We were really looking forward to making your acquaintance!</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">As requested, we’ve canceled your order. Please note that it may take up to 5 days for your bank to process the refund.</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">We’re always on the lookout for things we can do better, so it would be awesome if you could <%= link_to "share your reasons", contact_us_url %> for canceling this order.</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Don’t forget to <%= link_to "check back often", base_url %>. We’re constantly rolling out new products and may even have a super fun promotion for you to enjoy.</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">If you have any problems getting your refund or are simply experiencing canceler’s remorse, contact us via <%= mail_to('orders@chippd.com') %>. We’re happy to help.</p>
+
+<p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+  Be well and joyful,<br>
+  Chipp'd
+</p>

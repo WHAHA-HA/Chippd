@@ -1,0 +1,18 @@
+<%= ariane.render %>
+
+<dl>
+  <dt>Number</dt>
+  <dd><%= content_tag(:code, resource.number) %></dd>
+  <dt>Code Count</dt>
+  <dd><%= resource.code_count %></dd>
+  <dt>Codes Used</dt>
+  <dd><%= "#{resource.codes_used} (#{number_to_percentage(resource.percentage_used, :precision => 1)})" %></dd>
+  <% if resource.retail %>
+  <dt>Product</dt>
+  <dd><%= content_tag(:span, 'retail', :class => 'badge badge-info') %> <%= render('product_column', :batch => resource) %></dd>
+  <% end %>
+  <dt>Notes</dt>
+  <dd><%= resource.notes %></dd>
+</dl>
+
+<%= simple_table_for resource.codes, :with => "BatchDetailTable", :present_with => CrushTablePresenter %>

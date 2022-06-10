@@ -1,0 +1,2 @@
+class PdfUploadHandler < GenericPdfUploadHandler
+end

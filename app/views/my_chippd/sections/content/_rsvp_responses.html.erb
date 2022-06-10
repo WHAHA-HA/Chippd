@@ -1,0 +1,47 @@
+<% if editing? %>
+  <div class="toggle-responses-container">
+    <a class="chippdCollapse toggle-responses" href="#" data-toggle="collapse" data-target="#<%= dom_id(section, 'responses_for') %>" data-icon="+" data-collapsed-icon="-"> View Responses (<%= section.responses.reject(&:new_record?).length %>)
+    </a>
+  </div>
+
+  <div id="<%= dom_id(section, 'responses_for') %>" class="collapse">
+    <p><%= link_to('Download Spreadsheet', rsvp_responses_path(section, :format => 'xlsx'), { :class=>"button small download width--auto" }) %></p>
+    <br>
+
+    <ul class="nav nav-tabs nav-tabs--alt chippdTab js-reactor">
+      <li class="yes active"><a href="#<%= dom_id(section, 'responses-yes') %>">Yes (<%= guest_count(section.responses.yes) %>)</a></li>
+      <li class="no"><a href="#<%= dom_id(section, 'responses-no') %>">No (<%= guest_count(section.responses.no) %>)</a></li>
+      <li class="not-responded"><a href="#<%= dom_id(section, 'responses-not-yet-responded') %>">Not Yet Responded (<%= @page.members_who_have_not_responded_to(section).count %>)</a></li>
+    </ul>
+
+    <div class="tab-content tab-content--alt js-reactor">
+      <div class="tab-pane active" id="<%= dom_id(section, 'responses-yes') %>">
+        <%= render '/my_chippd/sections/content/rsvp_response_table', :section => section, :collection => section.responses.yes.reject(&:new_record?), :display_meal_choice => true %>
+      </div>
+      <div class="tab-pane" id="<%= dom_id(section, 'responses-no') %>">
+        <%= render '/my_chippd/sections/content/rsvp_response_table', :section => section, :collection => section.responses.no.reject(&:new_record?), :display_meal_choice => false %>
+      </div>
+      <div class="tab-pane" id="<%= dom_id(section, 'responses-not-yet-responded') %>">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Last Viewed On</th>
+            </tr>
+          </thead>
+          <tbody>
+        <% @page.members_who_have_not_responded_to(section).each do |member| %>
+            <tr>
+              <td><%= member.name %></td>
+              <td>
+                <label>Last Viewed On:</label>
+                <span><%= member.last_viewed_at.stamp(configatron.date_formats.short) %></span>
+              </td>
+            </tr>
+        <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

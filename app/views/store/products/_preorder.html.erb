@@ -1,0 +1,9 @@
+      <div class="email-notify">
+        <p class="preorder">Leave your email address to be notified the second we release this beauty.</p>
+        <%= form_tag store_product_preorders_path(@product), :remote => true, :id => 'preorder-form', :class => 'form-inline', :'data-type' => 'json' do %>
+          <%= label_tag 'Email' %>
+          <%= text_field_tag 'preorder[email]', '', :placeholder => 'Email' %>
+          <input type="submit" value="Submit" class="btn" />
+        <% end %>
+      </div>
+

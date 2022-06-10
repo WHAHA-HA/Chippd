@@ -1,0 +1,60 @@
+/**
+
+  @asset-stats
+--------------------------------------------------------
+
+  Custom styles for asset-stats modules
+
+-----------------------------------------------------  */
+
+.asset-stats-info + article {
+  margin-top: 2em;
+}
+
+.wrapper[data-reactor-width*=gt400] {
+  .asset-stats-info {
+    position: absolute;
+    top: 1.5em;
+    right: 5%;
+    width: auto;
+    // Push down the next article
+    & + article {
+      margin-top: 4em !important;
+    }
+    // Push down header
+    & + header {
+      margin-top: 2em !important;
+    }
+  }
+}
+
+.asset-stats {
+  margin-top: .5em;
+  border-top: 1px solid $purple-lt2;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.asset-stats__toggle {
+  text-shadow: none !important;
+  display: block;
+  padding: 1em 0;
+  overflow: hidden;
+  font-size: .85em;
+  font-weight: bold;
+  -webkit-transform: scale3d(1, 1, 1); // webkit transition bug
+  &:after {
+    content: "+";
+    float: right;
+  }
+  &.collapsed:after {
+    content: "-";
+  }
+}
+
+.asset-stats__content {
+  background: white;
+  border-radius: 5px;
+  padding: 1em;
+  margin-bottom: 1em;
+}

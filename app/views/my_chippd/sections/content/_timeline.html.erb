@@ -1,0 +1,51 @@
+<% if section.available? %>
+
+  <h1 class="sectionHeading"><span>The story of</span></h1>
+  <h2 class="script">
+    <span><%= section.name_one %></span>
+    <span class="amp">&</span>
+    <span><%= section.name_two %></span>
+  </h2>
+  <hr>
+  <h3>How it all began</h3>
+  <ol class="group">
+  <% section.timeline_assets.each do |asset| %>
+    <li>
+      <div class="media">
+        <% if asset.photo? %>
+          <%= asset.image %>
+        <% elsif asset.video? %>
+          <%= asset.video_embed %>
+        <% elsif asset.audio? %>
+          <ul class="playlist">
+            <li class="track">
+            <h1><%= asset.track_name %></h1>
+              <%= asset.link_to_track %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+      <div class="text">
+        <h1><%= asset.timeframe %></h1>
+        <h2><%= asset.heading %></h2>
+        <p><%= asset.description %></p>
+      </div>
+    </li>
+  <% end %>
+  </ol>
+  <% if section.wedding_date? %>
+    <h3>Tying the knot</h3>
+    <h4><%= section.wedding_date %></h4>
+  <% end %>
+
+<% elsif section.processing? %>
+
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/video_pusher_javascript',
+             id: section.to_param, section: section %>
+
+<% elsif section.not_available? %>
+
+  <%= section.not_available_message %>
+
+<% end %>

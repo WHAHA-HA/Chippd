@@ -1,0 +1,19 @@
+development:
+  app_id: 69313
+  key: 2c869b8c547ad05f4928
+  secret: 4e64a6b640792722f7e8
+
+test:
+  app_id:
+  key:
+  secret:
+
+staging:
+  app_id:
+  key:
+  secret:
+
+production:
+  app_id:
+  key:
+  secret:

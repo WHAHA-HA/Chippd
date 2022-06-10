@@ -1,0 +1,51 @@
+<%= form.input :intro, :label => "Tagline", :input_html => { :maxlength => '24' }, :hint => hints("Get your guests excited with a fun tagline! This text will appear at the top of your invitation.", character_limit_message(:invitation, :intro)) %>
+
+<label class="file optional">Photo <em>(optional)</em></label>
+<!--
+<div id="uploader_target" data-required="false" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+</div>
+-->
+<!-- here we add widgetizied file input section iteslf -->
+<div id="file-input-section">
+  <p style="color: #ccc">Loading...</p>
+</div>
+<p class="help-block" style="margin-top: -19px; margin-bottom: 27px;">Bring your invitation to life with a photo of the couple or the venue.<br>Recommended size 420px x 280px</p>
+
+<%= form.input :bride_name, :input_html => { :maxlength => character_limit(:invitation, :bride_name) }, :hint => character_limit_message(:invitation, :bride_name) %>
+<%= form.input :groom_name, :input_html => { :maxlength => character_limit(:invitation, :groom_name) }, :hint => character_limit_message(:invitation, :groom_name) %>
+<%= form.input :location_name, :label => "Venue", :input_html => { :maxlength => '40' }, :hint => hints("The name of the venue, e.g. City Hall or Hudson Valley Farm.", character_limit_message(:invitation, :location_name), ) %>
+<%= form.input :location_address, :label => "Venue Location", :hint => hints("The address of the venue, e.g.", "340 Cresant Avenue", "Beacon, NY 12528"), :as => :text, :input_html => { :class => 'required', :rows => '3' } %>
+<%= form.input :happens_on, :label => "Date", :as => :datepicker, :wrapper => :append, :input_html => { :value => @section.formatted_happens_on, 'data-format' => 'yyyy-MM-dd' } %>
+<%= form.input :time, :label => "Time", :as => :timepicker, :wrapper => :append, :input_html => { :value => @section.formatted_time, 'data-format' => 'HH:mm PP' } %>
+<%= form.input :after, :label => "After the Ceremony <em>(optional)</em>", :input_html => { :maxlength => '96' }, :hint => hints("Share what comes after the ceremony, e.g. Join us for a cocktail reception after the ceremony.", character_limit_message(:invitation, :after)), :placeholder => "e.g. 'Dinner and reception to follow'" %>
+<%= form.input :note, :label => "Other Information <em>(optional)</em>", :hint => hints("Include a note for guests, e.g. the dress code or information about getting to the venue.", character_limit_message(:invitation, :note)), :as => :text, :input_html => { :rows => '3', :maxlength => '170' } %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existing = null;
+      <% if @section.image_uid.present? %>
+        existing = Chippd.FileUpload.fromJS({
+          id: "<%= @section.image_uid %>",
+          url: "<%= @section.image.remote_url %>"
+        }, Chippd.Image);
+      <% end %>
+
+      //$("#uploader_target").initSingleUpload(existing, Chippd.Image);
+
+        // Initialize the jQuery File Upload widget:
+       $('#uploader').fileupload({
+            // Uncomment the following to send cross-domain cookies:
+            //xhrFields: {withCredentials: true},
+            url: '/documents',
+            autoUpload: false,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 5000000,
+            existingFiles : files
+        });
+
+    });
+  </script>
+<% end %>
+

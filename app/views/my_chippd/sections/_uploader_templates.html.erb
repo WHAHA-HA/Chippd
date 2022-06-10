@@ -1,0 +1,1122 @@
+<% if @section.upload_enabled? %>
+<% content_for(:javascripts) do %>
+        <!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-jquery-tmpl">
+{{each(i, file) files }}
+     <!-- single file upload progress bar -->
+    <div class="uploading" >
+      <div class="progress">
+        <div class="bar" data-bind="style: { width: progress() + '%' }"></div>
+      </div>
+      <p class="message">Your content is uploading. Please don't leave or refresh the page.</p>
+      <input type="hidden" name="file_size" class="size"></input>
+     <!--
+     {{if !i && !options.autoUpload}}
+            <a class="start btn btn-small" disabled>Start</a>
+     {{/if}}
+      {{if (!i) }}
+      <a class="btn btn-small cancel" data-bind="click: function () { $root.cancelUpload ? $root.cancelUpload($data) : $data.cancel(); }">Cancel</a>
+      {{/if}}
+
+      -->
+    </div>
+    <!-- single file upload progress bar ends here -->
+{{/each}}
+</script>
+<!-- The template to display files available for download -->
+
+<!-- temlplate image rewritten using x-tmpl -->
+<script type="text/x-jquery-tmpl" id="representations-image">
+    {{each(i, file) files }}
+  <div class="current">
+    <div class="image-wrap">
+      <p>Current Image</p>
+      <img src="${file.url}"/>
+    </div>
+  </div>
+  {{/each}}
+</script>
+
+<script type="text/html" id="single-file-upload">
+  {{if file && file.url}}
+    {{if type}}
+          {{if type== 'photo'}}
+            ${( $data.acceptFileTypes = 'image/*' ),''}
+          <div class="current">
+            <div class="image-wrap">
+              <p>Current Image</p>
+              <img src="${file.url}"/>
+            </div>
+          </div>
+          {{else type=='audio'}}
+            ${( $data.acceptFileTypes = 'audio/*' ),''}
+          <div class="current-track">
+            <article class="playlist">
+              <ul class="playlist">
+                <li class="track">
+                  <p>Current Track</p>
+                  <a class="title" href="${file.url}">
+                    <h4>${file.name}</h4>
+                  </a>
+                </li>
+              </ul>
+            </article>
+          </div>
+          {{else type=='video'}}
+            ${( $data.acceptFileTypes = 'video/*' ),''}
+              <div class="current">
+                <div class="image-wrap">
+                  <p>Current Video</p>
+                  <a href="${file.url}" >current video</a>
+                </div>
+              </div>
+          {{else type=='pdf'}}
+            ${( $data.acceptFileTypes = 'application/pdf' ),''}
+
+          <div class="current-pdf">
+            <article class="pdf">
+              <ul class="pdf">
+                <li class="pdf">
+                  <p>Current File</p>
+                  <a class="title" href="${file.url}" data-icon="~">
+                  </a>
+                </li>
+              </ul>
+            </article>
+          </div>
+          {{/if}}
+            ${acceptFileTypes}
+    {{else}}
+        {{if typeof(singlevideo)=='undefined' ||  !singlevideo}}
+          <div class="current">
+            <div class="image-wrap">
+              <p>Current Image</p>
+              <img src="${file.url}"/>
+            </div>
+          </div>
+        {{/if}}
+
+    {{/if}}
+  {{else}} <!-- file is empty -->
+        {{if type}}
+            {{if type== 'photo'}}
+                ${( $data.acceptFileTypes = 'image/*' ),''}
+             {{else type=='audio'}}
+                ${( $data.acceptFileTypes = 'audio/*' ),''}
+            {{else type=='video'}}
+                ${( $data.acceptFileTypes = 'video/*' ),''}
+            {{else type=='pdf'}}
+                ${( $data.acceptFileTypes = 'application/pdf' ),''}
+            {{else}} <!--by default photo -->
+                ${( $data.acceptFileTypes = 'image/*' ),''}
+            {{/if}}
+        {{/if}}
+  {{/if}}
+  <!-- and yet again we haven't confirmed file type-->
+  {{if acceptFileTypes}}
+  {{else}}
+  ${( $data.acceptFileTypes = 'image/*' ),''}
+  {{/if}}
+
+  <div class="fileupload-buttonbar">
+  <div class="fileupload-buttons">
+    <!--The fileinput-button span is used to style the file input field as button-->
+        <!--<b>${index}</b>-->
+        <div class="fileinput-button current-file well inner">
+            {{if index}}
+                {{if fieldname}}
+                    <input type="file" name="files${index}[]" data-index="${index}" data-fieldname="${fieldname}" data-key="filesubmit"  accept="${acceptFileTypes}">
+                {{else}}
+                    <input type="file" name="files${index}[]" data-index="${index}" data-key="filesubmit" accept="${acceptFileTypes}">
+                {{/if}}
+            {{else}}
+                {{if fieldname}}
+                <input type="file" name="files[]" data-fieldname="${fieldname}" accept="${acceptFileTypes}" >
+                {{else}}
+                <input type="file" name="files[]" accept="${acceptFileTypes}">
+                {{/if}}
+            {{/if}}
+        </div>
+    <!--we are not showing start button any more, it's only useful when debugging-->
+    <!-- The global file processing state -->
+    <span class="fileupload-process"></span>
+  </div>
+
+  {{if global}}
+  <!-- The global progress state -->
+  <div class="fileupload-progress " style="display:none">
+    <!-- The global progress bar -->
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+    <!-- The extended global progress state -->
+    <div class="progress-extended">&nbsp;</div>
+  </div>
+   {{/if}}
+</div>
+<!-- The table listing the files available for upload/download -->
+{{if oldtemplate}}
+<table role="presentation"><tbody class="files"></tbody></table>
+{{/if}}
+  <!-- file upload progress will be dislayed here...-->
+<div class="files" data-index="${index}" style="padding-top:10px;"></div>
+<div id="file-error-id" data-index="${index}" style="padding-top:10px;">
+
+</div>
+  <!-- file upload progress ends here: !very important -->
+</script>
+
+<script type="text/html" id="file-error">
+      {{if error==0}}
+        <p class="error-message">You must add file before submit!</p>
+      {{else error==1}}
+      <p class="error-message">Unknown file error.</p>
+     {{else}}
+        <p class="error-message">NO Error</p>
+      {{/if}}
+</script>
+<script type="text/x-tmpl" id="playlist">
+  <!--
+    <h2 style="color: #333" data-bind="text: header"></h2>
+    -->
+  <!-- ko foreach: uploads -->
+  <!-- ko template: "multi_upload" --><!-- /ko -->
+  <!-- /ko -->
+  <div>
+    <!-- ko template: "uploads_footer" --><!-- /ko -->
+    <div class="links">
+      <a class="pointer" data-bind="click: addAnother" data-icon = "+">add another</a>
+    </div>
+  </div>
+</script>
+
+
+<!-- new jquery template min testing-->
+<script type="text/x-jquery-tmpl" id="testdata">
+    <p>fuck off</p>
+    {{tmpl() '#nestdata'}}
+</script>
+<script type="text/x-jquery-tmpl" id="nestdata">
+    <p>nest dataf</p>
+</script>
+<script type="text/x-jquery-tmpl" id="newtestdata">
+     <p>new <strong>test</strong> div...</p>
+     {{tmpl()'#testdata'}}
+</script>
+<!-- new jquery template min testing -->
+
+  <script type="text/html" id="multi_upload">
+    <div class="multi-upload well inner repeatable-field nested-fields">
+      <span class="collection-number badge" data-bind="text: $root.fileIndex($data)"></span>
+      <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+      </div>
+      <!-- ko if: templateName -->
+        <div data-bind="template: templateName"></div>
+      <!-- /ko -->
+      <!-- ko ifnot: templateName -->
+        <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+      <!-- /ko -->
+      <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+    </div>
+  </script>
+
+  <script type="text/html" id="uploads_footer">
+    <!-- ko if: !started() -->
+      <!-- ko if: hasTooMany() && showErrorMessage() -->
+        <p class="error-message">You have too many selected files! Please remove some before submitting.</p>
+      <!-- /ko -->
+      <!-- ko if: !hasEnough() && showErrorMessage() -->
+        <p class="error-message">You should select more files!</p>
+      <!-- /ko -->
+    <!-- /ko -->
+  </script>
+
+  <script type="text/html" id="uploads">
+    <div class="playlist-container">
+  <!--
+    <h2 style="color: #333" data-bind="text: header"></h2>
+    -->
+    <!-- ko foreach: uploads -->
+      <!-- ko template: "multi_upload" --><!-- /ko -->
+    <!-- /ko -->
+    <div>
+      <!-- ko template: "uploads_footer" --><!-- /ko -->
+    <div class="links">
+      <a class="add-instance" data-bind="click: addAnother" ><span class="icon">+</span><span class="text">add another</span>
+      </a>
+    </div>
+    </div>
+    </div>
+  </script>
+
+  <script type="text/html" id="playlist">
+  <!--
+    <h2 style="color: #333" data-bind="text: header"></h2>
+    -->
+    <!-- ko foreach: uploads -->
+      <!-- ko template: "multi_upload" --><!-- /ko -->
+    <!-- /ko -->
+    <div>
+
+      <!-- ko template: "uploads_footer" --><!-- /ko -->
+    <div class="links">
+      <a class="add-instance" data-bind="click: addAnother" ><span class="icon">+</span><span class="text">add another</span>
+      </a>
+    </div>
+    </div>
+  </script>
+
+  <script type="text/html" id="wedding_party_uploads">
+    <label class="section-label">The Bride's Party</label>
+    <!-- ko foreach: bridesmaids -->
+      <!-- ko template: "multi_upload" --><!-- /ko -->
+    <!-- /ko -->
+    <div class="links">
+      <a class="add-instance" data-bind="click: addBridesmaid" ><span class="icon">+</span><span class="text">add another</span>
+      </a>
+      </div>
+    <hr class="section-divider">
+    <label class="section-label">The Groom's Party</label>
+    <!-- ko foreach: groomsmen -->
+      <!-- ko template: "multi_upload" --><!-- /ko -->
+    <!-- /ko -->
+    <div class="links">
+      <a class="add-instance" data-bind="click: addGroomsman" ><span class="icon">+</span><span class="text">add another</span>
+      </a>
+    </div>
+    <div>
+      <!-- ko template: "uploads_footer" --><!-- /ko -->
+    </div>
+  </script>
+
+
+  <script type="text/html" id="singleUpload">
+    <!-- ko if: templateName -->
+      <div data-bind="template: templateName"></div>
+    <!-- /ko -->
+    <!-- ko ifnot: templateName -->
+      <div data-bind="template: 'file'"></div>
+    <!-- /ko -->
+    <!-- ko if: error -->
+    <p class="error-message">There was an error while uploading the file. Please try again or pick another file.</p>
+    <!-- /ko -->
+    <!-- ko if: required && !id() && !chosenFile() && showErrorMessage -->
+    <p class="error-message">You should select the file before submitting.</p>
+    <!-- /ko -->
+  </script>
+
+  <script type="text/html" id="file_inner">
+    <!-- ko if: started -->
+      <div class="uploading">
+        <div class="progress">
+          <div class="bar" data-bind="style: { width: progress() + '%' }"></div>
+        </div>
+        <p class="message">Your content is uploading. Please don't leave or refresh the page.</p>
+        <a class="btn btn-small cancel" data-bind="click: function () { $root.cancelUpload ? $root.cancelUpload($data) : $data.cancel(); }">Cancel</a>
+      </div>
+    <!-- /ko -->
+    <!-- ko if: !started() && !$root.started() -->
+      <input type="file", label="Upload file"
+        data-bind="event: {change: function () { chosenFile($element.files[0]); }},
+                   attr: { accept: accept }"/>
+      <!-- ko if: helpText -->
+        <p class="help-block" data-bind="text: helpText"></p>
+      <!-- /ko -->
+    <!-- /ko -->
+  </script>
+
+  <script type="text/html" id="file">
+    <div class="current-file well inner">
+      <!-- ko template: "file_inner" --><!-- /ko -->
+    </div>
+  </script>
+
+  <script type="text/html" id="representations/image">
+    <!-- ko if: id() && !started() -->
+    <div class="current">
+      <div class="image-wrap">
+        <p>Current Image</p>
+        <img data-bind="{attr: { src: url }}" />
+      </div>
+    </div>
+  </div>
+  <!-- /ko -->
+  <div data-bind="template: 'file'"></div>
+</script>
+
+
+    <div data-bind="template: 'file'"></div>
+  </script>
+
+  <script type="text/html" id="representations/image_with_caption">
+    <!-- ko ifnot: started -->
+    <label class="string required" for="image_caption">Caption</label>
+    <input class="string required" type="text" data-bind="value: caption, valueUpdate: 'afterkeydown'">
+    <!-- /ko -->
+    <!-- ko if: id() && !started() -->
+    <div class="current">
+      <div class="image-wrap">
+        <p>Current Image</p>
+        <img data-bind="{attr: { src: url }}" />
+      </div>
+    </div>
+    <!-- /ko -->
+
+    <div data-bind="template: 'file'"></div>
+  </script>
+
+  <script type="text/html" id="representations/before_baby">
+    <!-- ko if: id() && !started() -->
+    <div class="current">
+      <div class="image-wrap">
+        <p>Current Image</p>
+        <img data-bind="{attr: { src: url }}" />
+      </div>
+    </div>
+    <!-- /ko -->
+    <div data-bind="template: 'file'"></div>
+
+    <!-- ko ifnot: started -->
+    <div class="control-group">
+      <label class="string required" for="image_caption">Caption</label>
+      <input class="string required" type="text" data-bind="value: caption, valueUpdate: 'afterkeydown'">
+      <br><p class="help-block">e.g. Mama in Month 3 or Sonogram in Month 3</p>
+    </div>
+    <!-- /ko -->
+  </script>
+
+  <script type="text/html" id="representations/wedding_party_image">
+    <!-- ko ifnot: started -->
+    <label class="string required" for="image_name">Name</label>
+    <input class="string required" type="text" data-bind="value: name, valueUpdate: 'afterkeydown'">
+    <label class="string required" for="image_title">Title</label>
+    <input class="string required" type="text" data-bind="value: title, valueUpdate: 'afterkeydown'">
+    <br><p class="help-block">e.g. father, mother, best man, bridesmaid, groomsman, ring bearer, etc.</p>
+    <!-- /ko -->
+    <label>Photo</label>
+    <!-- ko if: id() && !started() -->
+    <div class="current">
+      <div class="image-wrap">
+        <p>Current Image</p>
+        <img data-bind="{attr: { src: url }}" />
+      </div>
+    </div>
+    <!-- /ko -->
+
+    <div data-bind="template: 'file'"></div>
+  </script>
+
+  <script type="text/html" id="representations/baby_asset">
+    <!-- ko ifnot: started -->
+    <label class="string required" for="image_caption">Baby's First</label>
+    <input class="string required" type="text" data-bind="value: caption, valueUpdate: 'afterkeydown'">
+    <br><p class="help-block">e.g. Step, Smile, Tooth</p>
+    <div class="custom-radios-container">
+      <div class="custom-radio">
+        <div class="image photo"></div>
+        <input type="radio" value="photo" data-bind="attr: { name: radio_name }, checked: media_type" />
+        <label>Photo</label>
+      </div>
+      <div class="custom-radio">
+        <div class="image video"></div>
+        <input type="radio" value="video" data-bind="attr: { name: radio_name }, checked: media_type" />
+        <label>Video</label>
+      </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: id() && !started() -->
+      <!-- ko if: media_type() == 'photo' -->
+      <div class="current">
+        <div class="image-wrap">
+          <p>Current Image</p>
+          <img data-bind="{attr: { src: url }}" />
+        </div>
+      </div>
+      <!-- /ko -->
+      <!-- ko if: media_type() == 'video' -->
+      <div class="current">
+        <div class="image-wrap">
+          <p>Current Video</p>
+          <a data-bind="{attr: { src: url }}" >current video</a>
+        </div>
+      </div>
+      <!-- /ko -->
+    <!-- /ko -->
+
+    <div data-bind="template: 'file'"></div>
+  </script>
+
+  <script type="text/html" id="representations/timeline_asset">
+    <!-- ko ifnot: started -->
+    <label class="string required" for="timeframe">Title</label>
+    <input class="string required" type="text" data-bind="value: timeframe, valueUpdate: 'afterkeydown'">
+    <br><p class="help-block">Give this moment a title, e.g. The Beginning or Our First Kiss.</p>
+    <label class="string required" for="heading">Subtitle</label>
+    <input class="string required" type="text" data-bind="value: heading, valueUpdate: 'afterkeydown'">
+    <br><p class="help-block">Summarize this moment in a few words, e.g. “He had me at hello."</p>
+    <label class="string required" for="description">Details</label>
+    <input class="string required" type="text" data-bind="value: description, valueUpdate: 'afterkeydown'">
+    <br><p class="help-block">Describe this moment in more detail and help your readers follow your story!</p>
+    <div class="custom-radios-container">
+      <label>Memorable Media</label>
+      <div class="custom-radio">
+        <div class="image photo"></div>
+        <input type="radio" value="photo" data-bind="attr: { name: radio_name }, checked: media_type" />
+        <label>Photo</label>
+      </div>
+      <div class="custom-radio">
+        <div class="image video"></div>
+        <input type="radio" value="video" data-bind="attr: { name: radio_name }, checked: media_type" />
+        <label>Video</label>
+      </div>
+      <div class="custom-radio">
+        <div class="image audio"></div>
+        <input type="radio" value="audio" data-bind="attr: { name: radio_name }, checked: media_type" />
+        <label>Audio</label>
+      </div>
+    </div>
+    <label class="string" for="track_name">Track Name</label>
+    <input style="margin-bottom: 15px;" class="string" type="text" data-bind="value: track_name, valueUpdate: 'afterkeydown'">
+    <!-- /ko -->
+    <!-- ko if: id() && !started() -->
+      <!-- ko if: media_type() == 'photo' -->
+      <div class="current">
+        <div class="image-wrap">
+          <p>Current Image</p>
+          <img data-bind="{attr: { src: url }}" />
+        </div>
+      </div>
+      <!-- /ko -->
+      <!-- ko if: media_type() == 'video' -->
+      <div class="current">
+        <div class="image-wrap">
+          <p>Current Video</p>
+          <a data-bind="{attr: { src: url }}" >current video</a>
+        </div>
+      </div>
+      <!-- /ko -->
+      <!-- ko if: media_type() == 'audio' -->
+      <div class="current-track">
+        <article class="playlist">
+          <ul class="playlist">
+            <li class="track">
+              <p>Current File</p>
+              <a class="title" data-bind="attr: { href: url }">
+                <h4 data-bind="text: track.name"></h4>
+              </a>
+            </li>
+          </ul>
+        </article>
+      </div>
+      <!-- /ko -->
+    <!-- /ko -->
+
+    <div data-bind="template: 'file'"></div>
+  </script>
+
+  <script type="text/html" id="representations/pdf">
+    <!-- ko if: id() && !started() -->
+    <div class="current-pdf">
+      <article class="pdf">
+        <ul class="pdf">
+          <li class="pdf">
+            <p>Current File</p>
+            <a class="title" data-bind="attr: { href: url }" data-icon="~">
+            </a>
+          </li>
+        </ul>
+      </article>
+    </div>
+    <!-- /ko -->
+
+    <div data-bind="template: 'file'"></div>
+
+    <!-- ko if: chosenFile() && chosenFile().size > 20971520 && chosenFile('') -->
+    <p class="error-message">Max file size is 20MB.</p>
+    <!-- /ko -->
+  </script>
+
+  <script type="text/html" id="representations/video">
+    <div data-bind="template: 'file'"></div>
+  </script>
+
+  <script type="text/html" id="representations/video_with_caption">
+    <!-- ko ifnot: started -->
+    <label class="string required" for="video_caption">Caption</label>
+    <input class="string required" type="text" data-bind="value: caption, valueUpdate: 'afterkeydown'">
+    <!-- /ko -->
+    <div data-bind="template: 'file'"></div>
+  </script>
+
+  <script type="text/html" id="representations/track">
+    <!-- ko ifnot: started -->
+    <label class="string required" for="track_name">Name</label>
+    <input class="string required" type="text" data-bind="value: name, valueUpdate: 'afterkeydown'">
+    <!-- /ko -->
+
+    <!-- ko if: id() && !started() -->
+    <div class="current-track">
+      <article class="playlist">
+        <ul class="playlist">
+          <li class="track">
+            <p>Current Track</p>
+            <a class="title" data-bind="attr: { href: url }">
+              <h4 data-bind="text: name"></h4>
+            </a>
+          </li>
+        </ul>
+      </article>
+    </div>
+    <!-- /ko -->
+    <div data-bind="template: 'file'"></div>
+  </script>
+
+  <script type="text/html" id="representations/wedding_event">
+      <label class="first">Upload Image</label>
+      <!-- ko if: id() && !started() -->
+      <div class="current">
+        <div class="image-wrap">
+          <p>Current Image</p>
+          <img data-bind="{attr: { src: url }}" />
+        </div>
+      </div>
+      <!-- /ko -->
+
+      <div class="control-group">
+      <!-- ko template: "file_inner" --><!-- /ko -->
+      </div>
+
+      <div class="control-group">
+        <label class="string required">Name of Event</label>
+        <input type="text" data-bind="value: what" required>
+        <p class="help-block">
+          The name of the event, e.g. Rehearsal Dinner or Ceremony.
+          <br>
+          Should be 70 characters or less.
+        </p>
+      </div>
+
+      <!-- ko if: when -->
+        <label class="string required">Date (deprecated)</label>
+        <input type="text" placeholder="e.g. Saturday, May 18th, 2014 / 4:00pm" data-bind="value: when">
+      <!-- /ko -->
+
+      <div class="datepicker control-group">
+        <label class="string required">Date</label>
+
+        <div class="controls">
+          <div class="input-append" data-bind="datepicker: happens_on, datepickerOptions: { language: 'en', pickTime: false }">
+            <input class="datepicker valid" data-format="yyyy-MM-dd" type="text" required>
+            <span class="add-on"><i data-date-icon="icon-calendar" data-time-icon="icon-time" class="icon-calendar"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timepicker control-group">
+        <label class="string required">Time</label>
+        <div class="controls">
+          <div class="input-append" data-bind="datepicker: starts_at, datepickerOptions: { language: 'en', pickDate: false, pick12HourFormat: true, pickSeconds: false }">
+            <input class="timepicker valid" data-format="HH:mm PP" type="text" required>
+            <span class="add-on"><i data-date-icon="icon-calendar" data-time-icon="icon-time" class="icon-time"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <label class="string required">Event Location</label>
+      <textarea type="text" cols="40" rows="3" data-bind="value: where" required></textarea>
+      <p class="help-block">
+        The address of the venue, e.g.
+        <br>
+        340 Crescent Avenue
+        <br>
+        Beacon, NY 12528
+      </p>
+
+      <label class="string">URL <em>(Optional)</em></label>
+      <input type="text" data-bind="value: website">
+              <p class="help-block">
+          The website of the venue, e.g. http://examplevenue.com.
+          <br>
+          Should be 40 characters or less.
+        </p>
+
+      <div class="control-group" style="margin-top: 28px;">
+        <label class="string">Note (Optional)</label>
+        <textarea type="text" cols="40" rows="3"  data-bind="value: note">
+        <p class="help-block">
++          Include a note for guests, e.g. the dress code or information about getting to the venue.
++          <br>
++          Should be 170 characters or less.
+        </p>
+      </div>
+
+  </script>
+<script type="text/html" id="jquery_multi_upload">
+  <div class="multi-upload well inner repeatable-field nested-fields">
+    <span class="collection-number badge" data-bind="text: $root.fileIndex($data)"></span>
+    <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+    </div>
+    <!-- ko if: templateName -->
+    <div data-bind="template: templateName"></div>
+    <!-- /ko -->
+    <!-- ko ifnot: templateName -->
+    <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+    <!-- /ko -->
+    <a class="pointer" data-bind="click: $root.removeUpload">Remove</a>
+  </div>
+</script>
+
+
+<script type="text/html" id="wedding_multi_upload">
+  <div class="multi-upload well inner repeatable-field nested-fields">
+    <span class="collection-number badge" data-bind="text: $root.fileIndex($data)">${index}</span>
+    <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+    </div>
+    <!-- ko if: templateName -->
+    {{tmpl() "#entry_wedding_event"}}
+    <!-- /ko -->
+    <!-- ko ifnot: templateName -->
+    <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+    <!-- /ko -->
+    <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+  </div>
+</script>
+
+
+   <script type="text/html" id="entry_wedding_event">
+        <label class="first">Upload Image</label>
+          <div class="control-group">
+            {{tmpl({index: index, file:file}) "#single-file-upload"}}
+          </div>
+          <div class="control-group">
+            <label class="string required">Name of Event</label>
+            <input type="text" data-bind="value: what" data-key="what" value="${file.what}" required />
+            <p class="help-block">
+              The name of the event, e.g. Rehearsal Dinner or Ceremony.
+              <br>
+              Should be 70 characters or less.
+            </p>
+          </div>
+
+          <div class="datepicker control-group">
+            <label class="string required">Date</label>
+            <div class="controls">
+             <!-- <div class="input-append" data-bind="datepicker: happens_on, datepickerOptions: { language: 'en', pickTime: false }">-->
+              <div class="input-append">
+                <input class="datepicker valid" data-key="happens_on" data-format="yyyy-MM-dd" type="text" id="happens_on" name="happens_on" required value="${file.happens_on}" aria-invalid="false" />
+                <span class="add-on"><i data-date-icon="icon-calendar" data-time-icon="icon-time" class="icon-calendar"></i></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timepicker control-group">
+            <label class="string required">Time</label>
+            <div class="controls">
+              <div class="input-append" data-bind="datepicker: starts_at, datepickerOptions: { language: 'en', pickDate: false, pick12HourFormat: true, pickSeconds: false }">
+                <input class="timepicker valid"  data-key="starts_at" value="${file.starts_at}" data-format="HH:mm PP" type="text" required />
+                <span class="add-on"><i data-date-icon="icon-calendar" data-time-icon="icon-time" class="icon-time"></i></span>
+              </div>
+            </div>
+          </div>
+
+          <label class="string required">Event Location</label>
+          <textarea type="text" cols="40" rows="3"  required data-key="where">${file.where}</textarea>
+          <p class="help-block">
+            The address of the venue, e.g.
+            <br>
+            340 Crescent Avenue
+            <br>
+            Beacon, NY 12528
+          </p>
+
+          <label class="string">URL <em>(Optional)</em></label>
+          <input type="text"  value="${file.website}" data-key="website">
+          <p class="help-block">
+            The website of the venue, e.g. http://examplevenue.com.
+            <br>
+            Should be 40 characters or less.
+          </p>
+
+          <div class="control-group" style="margin-top: 28px;">
+            <label class="string">Note (Optional)</label>
+            <textarea type="text" cols="40" rows="3" data-key="note" >${file.note}</textarea>
+              <p class="help-block">
+                +          Include a note for guests, e.g. the dress code or information about getting to the venue.
+                +          <br>
+                +          Should be 170 characters or less.
+              </p>
+          </div>
+   </script>
+
+    <script type="text/html" id="timeline_multi_upload">
+      <div class="multi-upload well inner repeatable-field nested-fields">
+        <span class="collection-number badge" data-bind="text: $root.fileIndex($data)">${index}</span>
+        <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+        </div>
+
+        <!-- ko if: templateName -->
+        {{tmpl() "#entry_timeline_asset"}}
+        <!-- /ko -->
+        <!-- ko ifnot: templateName -->
+        <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+        <!-- /ko -->
+        <!--<a class="pointer btnRemoveWidget"  data-bind="click: $root.removeUpload">Remove</a>-->
+        <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+      </div>
+    </script>
+
+
+     <script type="text/html" id="entry_timeline_asset">
+      <!-- ko ifnot: started -->
+      <label class="string required" for="timeframe">Title</label>
+      <input class="string required" type="text" data-key="timeframe" value="${file.timeframe}" data-bind="value: timeframe, valueUpdate: 'afterkeydown'">
+      <br><p class="help-block">Give this moment a title, e.g. The Beginning or Our First Kiss.</p>
+      <label class="string required" for="heading">Subtitle</label>
+      <input class="string required" type="text" data-key="heading" value="${file.heading}"data-bind="value: heading, valueUpdate: 'afterkeydown'">
+      <br><p class="help-block">Summarize this moment in a few words, e.g. “He had me at hello."</p>
+      <label class="string required" for="description">Details</label>
+      <input class="string required" type="text" data-key="description" value="${file.description}" data-bind="value: description, valueUpdate: 'afterkeydown'">
+      <br><p class="help-block">Describe this moment in more detail and help your readers follow your story!</p>
+
+      <div class="custom-radios-container">
+
+
+        <label>Memorable Media</label>
+        <div class="custom-radio">
+          <div class="image photo"></div>
+          <input type="radio" value="photo" data-key="media_type" name="media_type_${index}" data-bind="attr: { name: radio_name }, checked: media_type" />
+          <label>Photo</label>
+        </div>
+        <div class="custom-radio">
+          <div class="image video"></div>
+          <input type="radio" value="video" data-key="media_type"  name="media_type_${index}" data-bind="attr: { name: radio_name }, checked: media_type" />
+          <label>Video</label>
+        </div>
+        <div class="custom-radio">
+          <div class="image audio"></div>
+          <input type="radio" value="audio" data-key="media_type" name="media_type_${index}" data-bind="attr: { name: radio_name }, checked: media_type" />
+          <label>Audio</label>
+        </div>
+      </div>
+
+      <label class="string" for="track_name">Track Name</label>
+      <input style="margin-bottom: 15px;" class="string" type="text" data-bind="value: track_name, valueUpdate: 'afterkeydown'" value="${file.track_name}">
+      <!-- /ko -->
+      {{if existingfiles }}
+      <!-- ko if: id() && !started() -->
+      <!-- ko if: media_type() == 'photo' -->
+      <div class="current">
+        <div class="image-wrap">
+          <p>Current Image</p>
+          <img data-bind="{attr: { src: url }}" />
+        </div>
+      </div>
+      <!-- /ko -->
+      <!-- ko if: media_type() == 'video' -->
+      <div class="current">
+        <div class="image-wrap">
+          <p>Current Video</p>
+          <a data-bind="{attr: { src: url }}" >current video</a>
+        </div>
+      </div>
+      <!-- /ko -->
+      <!-- ko if: media_type() == 'audio' -->
+      <div class="current-track">
+        <article class="playlist">
+          <ul class="playlist">
+            <li class="track">
+              <p>Current File</p>
+              <a class="title" data-bind="attr: { href: url }">
+                <h4 data-bind="text: track.name"></h4>
+              </a>
+            </li>
+          </ul>
+        </article>
+      </div>
+      <!-- /ko -->
+      <!-- /ko -->
+      {{/if}}
+
+      <div class="control-group">
+        <!-- ko template: "file_inner" --><!-- /ko -->
+        {{tmpl({index: index, file: file, type:file.media_type}) "#single-file-upload"}}
+      </div>
+
+    </script>
+    <!--playlist template -->
+
+    <script type="text/html" id="playlist_multi_upload">
+      <div class="multi-upload well inner repeatable-field nested-fields">
+        <span class="collection-number badge" data-bind="text: $root.fileIndex($data)">${index}</span>
+        <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+        </div>
+
+        <!-- ko if: templateName -->
+        {{tmpl() "#entry_playlist"}}
+        <!-- /ko -->
+        <!-- ko ifnot: templateName -->
+        <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+        <!-- /ko -->
+        <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+      </div>
+    </script>
+
+
+    <script type="text/html" id="entry_playlist">
+      <label class="string required" for="track_name">Name</label>
+      <input class="string required" data-key="name" type="text" value="${file.name}"data-bind="value: name, valueUpdate: 'afterkeydown'">
+      <br/>
+      <div class="control-group">
+        <!-- ko template: "file_inner" --><!-- /ko -->
+        {{tmpl({index: index, file: file, type: 'audio'}) "#single-file-upload"}}
+      </div>
+
+    </script>
+    <!-- simple multi upload template-->
+    <script type="text/html" id="simple_multi_upload">
+      <div class="multi-upload well inner repeatable-field nested-fields">
+        <span class="collection-number badge" data-bind="text: $root.fileIndex($data)">${index}</span>
+        <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+        </div>
+        <!-- ko if: templateName -->
+        {{tmpl() "#entry_simple_upload"}}
+        <!-- /ko -->
+        <!-- ko ifnot: templateName -->
+        <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+        <!-- /ko -->
+        <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+      </div>
+    </script>
+
+        <script type="text/html" id="entry_simple_pdf">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, file: file,type:'pdf'}) "#single-file-upload"}}
+        </script>
+        <script type="text/html" id="entry_simple_video">
+          <!-- ko template: "file_inner" --><!-- /ko -->
+          {{tmpl({index: index, file: file,simpleVideo:1, acceptFileTypes:'video/*'}) "#single-file-upload"}}
+        </script>
+        <script type="text/html" id="entry_simple_upload">
+          <label class="first">Upload Image</label>
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, file: file}) "#single-file-upload"}}
+          </div>
+        </script>
+
+        <!-- before baby jquery templates-->
+        <script type="text/html" id="beforebaby_multi_upload">
+          <div class="multi-upload well inner repeatable-field nested-fields">
+            <span class="collection-number badge" data-bind="text: $root.fileIndex($data)">${index}</span>
+            <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+            </div>
+            <!-- ko if: templateName -->
+            {{tmpl() "#entry_beforebaby_upload"}}
+            <!-- /ko -->
+            <!-- ko ifnot: templateName -->
+            <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+            <!-- /ko -->
+            <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+          </div>
+        </script>
+
+        <script type="text/html" id="entry_beforebaby_upload">
+
+          <label class="first">Upload Image</label>
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, file: file}) "#single-file-upload"}}
+          </div>
+
+          <!-- ko ifnot: started -->
+          <div class="control-group">
+            <label class="string required" for="image_caption">Caption</label>
+            <input class="string required" type="text" data-key="caption" value="${file.caption}">
+            <br><p class="help-block">e.g. Mama in Month 3 or Sonogram in Month 3</p>
+          </div>
+          <!-- /ko -->
+        </script>
+        <!-- copule templates -->
+        <script type="text/html" id="couple_bride_upload">
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, fieldname: 'upload_bride', file:file}) "#single-file-upload"}}
+          </div>
+        </script>
+        <script type="text/html" id="couple_groom_upload">
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, fieldname:'upload_groom',file:file}) "#single-file-upload"}}
+          </div>
+        </script>
+        <!-- copule templates  ends -->
+        <!-- baby's family -->
+        <script type="text/html" id="father_parent_upload">
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, fieldname: 'upload_father', file: file}) "#single-file-upload"}}
+          </div>
+        </script>
+
+        <script type="text/html" id="mother_parent_upload">
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, fieldname:'upload_mother', file: file}) "#single-file-upload"}}
+          </div>
+        </script>
+        <!-- baby's family ends-->
+
+        <!-- baby's first templates -->
+        <script type="text/html" id="babyfirst_photo_upload">
+
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            ${file}
+            {{tmpl({index: index, fieldname: 'upload_photo', file: file}) "#single-file-upload"}}
+          </div>
+        </script>
+        <script type="text/html" id="babyfirst_video_upload">
+
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, fieldname:'upload_video'}) "#single-file-upload"}}
+          </div>
+        </script>
+        <!-- baby's first templates  ends -->
+        <script type="text/html" id="multi_wedding_party_upload">
+
+          <div class="multi-upload well inner repeatable-field nested-fields">
+            <span class="collection-number badge">${index}</span>
+            <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+            </div>
+
+            <!-- ko ifnot: started -->
+            <label class="string required" for="image_name">Name</label>
+
+            <input class="string required" data-key="name" type="text" value="${file.name}">
+            <label class="string required" for="image_title">Title</label>
+            <input class="string required" data-key="title" type="text" value="${file.title}">
+            <br><p class="help-block">e.g. father, mother, best man, bridesmaid, groomsman, ring bearer, etc.</p>
+            <!-- /ko -->
+            <label>Photo</label>
+            <!-- ko if: id() && !started() -->
+
+            <!-- ko if: templateName -->
+            {{tmpl() "#entry_wedding_party_bride"}}
+            <!-- /ko -->
+            <!-- ko ifnot: templateName -->
+            <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+            <!-- /ko -->
+            <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+          </div>
+
+        </script>
+
+        <script type="text/html" id="multi_wedding_party_upload_2">
+
+          <div class="multi-upload well inner repeatable-field nested-fields">
+            <span class="collection-number badge" data-bind="text: $root.fileIndex($data)">${index}</span>
+            <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+            </div>
+
+            <!-- ko ifnot: started -->
+            <label class="string required" for="image_name">Name</label>
+            <input class="string required" type="text" data-key="name" value="${file.name}">
+            <label class="string required" for="image_title">Title</label>
+            <input class="string required" type="text" data-key="title" value="${file.title}">
+            <br><p class="help-block">e.g. father, mother, best man, bridesmaid, groomsman, ring bearer, etc.</p>
+            <!-- /ko -->
+            <label>Photo</label>
+            <!-- ko if: id() && !started() -->
+
+            <!-- ko if: templateName -->
+            {{tmpl() "#entry_wedding_party_groom"}}
+            <!-- /ko -->
+            <!-- ko ifnot: templateName -->
+            <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+            <!-- /ko -->
+            <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+          </div>
+
+
+        </script>
+        <script type="text/html" id="entry_wedding_party_bride">
+            {{if production}}
+            <div class="current">
+              <div class="image-wrap">
+                <p>Current Image</p>
+                <img data-bind="{attr: { src: url }}" />
+              </div>
+            </div>
+            <!-- /ko -->
+            {{/if}}
+
+            <input type="hidden" name="image_type" data-key="image_type" value="bridesmaid">
+            <div class="control-group">
+              <!-- ko template: "file_inner" --><!-- /ko -->
+              {{tmpl({index: index, file: file}) "#single-file-upload"}}
+            </div>
+        </script>
+
+        <script type="text/html" id="entry_wedding_party_groom">
+          {{if production}}
+          <div class="current">
+            <div class="image-wrap">
+              <p>Current Image</p>
+              <img data-bind="{attr: { src: url }}" />
+            </div>
+          </div>
+          <!-- /ko -->
+          {{/if}}
+
+          <input type="hidden" name="image_type" data-key="image_type" value="groomsman">
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, file: file}) "#single-file-upload"}}
+          </div>
+        </script>
+
+        <!-- locket templates -->
+        <script type="text/html" id="locket_left_upload">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, fieldname: 'upload_one', file:file}) "#single-file-upload"}}
+        </script>
+
+        <script type="text/html" id="locket_right_upload">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, fieldname:'upload_two', file:file}) "#single-file-upload"}}
+        </script>
+        <!-- locket templates  ends -->
+
+        <!-- new multiupload gallery-->
+        <script type="text/html" id="gallery_multi_upload">
+          <div class="multi-upload well inner repeatable-field nested-fields">
+            <span class="collection-number badge" data-bind="text: $root.fileIndex($data)">${index}</span>
+            <div data-bind="visible: !$root.started() && $root.canDelete($data)" class="controls">
+            </div>
+            <!-- ko if: templateName -->
+            {{tmpl() "#entry_gallery_photo"}}
+            <!-- /ko -->
+            <!-- ko ifnot: templateName -->
+            <div style="margin-top: 15px;" data-bind="template: 'file'"></div>
+            <!-- /ko -->
+            <a class="remove-instance" data-bind="click: $root.removeUpload"><span class="icon">&times;</span><span class="text">remove</span></a>
+          </div>
+        </script>
+
+        <script type="text/html" id="entry_gallery_photo">
+          {{if production}}
+          <div class="current">
+            <div class="image-wrap">
+              <p>Current Image</p>
+              <img data-bind="{attr: { src: url }}" />
+            </div>
+          </div>
+          <!-- /ko -->
+          {{/if}}
+          <div class="control-group">
+            <!-- ko template: "file_inner" --><!-- /ko -->
+            {{tmpl({index: index, file:file}) "#single-file-upload"}}
+          </div>
+        </script>
+        <!-- new multiupload gallery ends here -->
+<% end %>
+<% end %>

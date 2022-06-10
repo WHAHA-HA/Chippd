@@ -1,0 +1,167 @@
+
+// Title:      Chipp'd Styles (Widgets)
+// Author:     Jay Contonio (@jcontonio)
+// Updated:    October 9, 2013
+
+@import "includes/_mixins.scss";
+@import "includes/_variables.scss";
+
+@font-face {
+    font-family: 'cylburn_regularregular';
+    src: font-url("widget_kit/cylburn-webfont.eot");
+    src: font-url("widget_kit/cylburn-webfont.eot?#iefix") format('embedded-opentype'),
+         font-url("widget_kit/cylburn-webfont.woff") format('woff'),
+         font-url("widget_kit/cylburn-webfont.ttf") format('truetype'),
+         font-url("widget_kit/cylburn-webfont.svg#cylburn_regularregular") format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'wisdom_scriptregular';
+    src: font-url("widget_kit/wisdom_script_aj-webfont.eot");
+    src: font-url("widget_kit/wisdom_script_aj-webfont.eot?#iefix") format('embedded-opentype'),
+         font-url("widget_kit/wisdom_script_aj-webfont.woff") format('woff'),
+         font-url("widget_kit/wisdom_script_aj-webfont.ttf") format('truetype'),
+         font-url("widget_kit/wisdom_script_aj-webfont.svg#wisdom_scriptregular") format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/*
+ Variable overrides
+============================================================================= */
+$purple-lt:#baa6c1;
+$serif:Georgia, serif;
+$condensed:"alternate-gothic-no-1-d", sans-serif;
+
+body {
+  background:#6c4b78 asset-url("bg-purple.png", image);
+  color:#6d4e79;
+  font-family:$sans-stack;
+}
+* { box-sizing:border-box; -moz-box-sizing: border-box; }
+
+
+/*
+ Type
+============================================================================= */
+.smallBanner {
+  background:$purple-lt;
+  background:asset-url("widgets/smallBanner.png", image) no-repeat 50% 0;
+  color:$purple-med;
+  font-size:1em;
+  margin:2.5em 0 0;
+  padding:1.5em 0 1.5em;
+}
+  .amp { color:$purple-lt; }
+
+
+/*
+ Structure
+============================================================================= */
+/* 650/922 */
+* { box-sizing:border-box; -moz-box-sizing: border-box; }
+.container {
+  background:rgba(255,255,255,.8);
+  border-radius:4px 4px;
+  max-width:650px;
+  margin:5em auto;
+  padding:1px 0;
+  width:70.4989154%;
+}
+.widget {
+  background:#ffffff;
+  border-radius:4px 4px;
+  box-shadow:1px 1px 5px rgba(0,0,0,.1);
+  margin:1.75em auto;
+  padding:1em 02.6030369% 3em;
+  text-align:center;
+  width:92.6153846%;
+}
+
+.grid li {
+  border-bottom:1px solid #d6d6d6;
+  font-family:$condensed;
+  font-size:2.25em;
+  font-weight:normal;
+  padding:5px .75em 0;
+  text-transform:uppercase;
+}
+  .grid abbr, .grid em { color:$purple-lt; font-size:75%;}
+
+  .full { clear:both; text-align:center; width:100%;}
+  .half {
+    border-right:1px solid #d6d6d6;
+    float:left;
+    width:50%;
+    text-align:right;
+  }
+    .half.right { border-right:none; text-align:left; }
+    .half:last-child { border-right:none; text-align:left; }
+  .third { width:33%; }
+
+#pageFooter {
+  background:asset-url("widgets/chippd-logo.png", image) 50% 50% no-repeat;
+  padding:2em 0;
+}
+
+
+
+/*
+ Image treatments
+ First image in this div is masked by the second
+============================================================================= */
+img, video, audio, object, iframe { display:block; max-width:100%; width:100%; }
+img { height:auto; }
+img.centered { margin:auto; width:69.269103%; }
+img.no { margin:auto; width:auto; }
+.framedPhoto { margin:0 0 1.5em 0; overflow:hidden; position:relative; }
+  .framedPhoto img {
+    display:block;
+    margin:auto;
+    position:relative;
+    width:100%;
+  }
+  .framedPhoto img:first-child { z-index:0; }
+  .framedPhoto img:nth-child(2) { position:absolute; top:0; z-index:1; }
+
+/* Rounds a square avatar */
+.avatar { border-radius:50% 50%; display:inline-block; overflow:hidden; }
+  .avatar img { height:auto; max-width:100%; }
+
+figcaption {
+  background:#f2f2f2;
+  border:1px solid #e5e5e5;
+  border-radius:3px 3px;
+  font-size:.8em;
+  font-style:italic;
+  margin:.75em 0 1.75em;
+  padding:.5em .75em;
+}
+
+.flex-control-nav li { display:inline-block; }
+.flex-control-nav a {
+  background:url('widgets/radio-off.png') no-repeat 0 0;
+  background-size:12px 12px;
+  cursor:pointer;
+  display:block;
+  height:12px;
+  margin:10px 1px 0 1px;
+  overflow:hidden;
+  text-indent:-9000px;
+  width:12px;
+}
+  .flex-control-nav a.flex-active {
+    background:url('widgets/radio-on.png') no-repeat 0 0;
+    background-size:12px 12px;
+  }
+
+/*
+ Utilities
+============================================================================= */
+.group:before, .group:after { content: " "; display: table; }
+.group:after { clear: both; }
+.group { *zoom: 1; }

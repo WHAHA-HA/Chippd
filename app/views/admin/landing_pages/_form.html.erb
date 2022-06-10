@@ -1,0 +1,20 @@
+<%= form.input :title, :input_html => { :class => 'span4' } %>
+<%= form.input :permalink, :input_html => { :class => 'span4' } %>
+<%= form.input :use_case_url, :input_html => { :class => 'span4' } %>
+<%= form.input :tagline, :as => :text %>
+<%= form.input :call_to_action, :as => :text %>
+
+<fieldset>
+  <legend>Next Step</legend>
+  <%= form.input :next_step_text, :label => "Text'", :input_html => { :class => 'span4' } %>
+  <%= form.input :next_step_url, :label => "URL", :input_html => { :class => 'span4' } %>
+</fieldset>
+
+<fieldset>
+  <legend>Meta</legend>
+  <%= form.input :meta_title, :label => "Title", :input_html => { :class => 'span8' } %>
+  <%= form.input :meta_description, :label => "Description", :input_html => { :class => 'span8' } %>
+  <%= form.input :meta_keywords, :label => "Keywords", :hint => "A comma-separated list", :input_html => { :class => 'span8' } %>
+</fieldset>
+
+<%= form.input :is_visible, :as => :radio_buttons, :label => "Visible?", :hint => 'A landing page cannot be made visible until image and step requirements are met. If this is a new landing page, you\'ll be able to add images and steps after you save this form.', :collection => [["Yes", true], ["No", false]] %>

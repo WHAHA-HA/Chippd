@@ -1,0 +1,30 @@
+<%= ariane.render %>
+
+<h3><%= resource.name %></h3>
+<dl>
+  <dt>Template</dt>
+  <dd><%= resource.page_template %></dd>
+  <dt>Collection</dt>
+  <dd><%= resource.product_collection %></dd>
+  <dt>Privacy</dt>
+  <dd><%= resource.chippd_product_type %></dd>
+  <dt>Created</dt>
+  <dd><%= resource.created_at.stamp(configatron.datetime_formats.default) %></dd>
+  <dt>Updated</dt>
+  <dd><%= resource.updated_at.stamp(configatron.datetime_formats.default) %></dd>
+</dl>
+
+<hr />
+
+<h4>Line Items</h4>
+<%= simple_table_for resource.line_items, :with => CustomerLineItemTable, :present_with => CrushTablePresenter %>
+
+<hr />
+
+<h4>Members</h4>
+<%= simple_table_for resource.memberships, :with => "MembershipTable", :present_with => CrushTablePresenter %>
+
+<hr />
+
+<h4>Page Sections</h4>
+<%= simple_table_for resource.sections, :with => "PageSectionTable", :present_with => CrushTablePresenter %>

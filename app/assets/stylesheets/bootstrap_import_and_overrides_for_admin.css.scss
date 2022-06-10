@@ -1,0 +1,70 @@
+@import "bootstrap";
+
+.logged-in-as {
+  text-align: right;
+}
+
+tbody tr td {
+  vertical-align: middle;
+}
+
+tbody tr.odd td, tbody tr.odd th {
+  background-color: #f9f9f9;
+}
+
+tbody tr.visibility-hidden {
+  opacity: 0.5;
+}
+
+.logged-in-as {
+  color: #ccc;
+}
+
+iframe {
+  padding:10px 15px;
+  width:90%;
+  height:320px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+.push {
+  margin-bottom: 1em;
+}
+
+footer {
+  margin-top: 1em;
+  border-top: 1px solid #ccc;
+  padding-top: 1em;
+}
+
+.modal {
+  display: none;
+  padding: 5px 5px 0 5px;
+}
+
+#cmt-docs .modal-body,
+#markdown-docs .modal-body {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+a:hover span.badge {
+  text-decoration: none;
+}
+
+.order-status {
+  text-align: right;
+  font-size: 1.25em;
+  line-height: 1.5em;
+}
+
+.order-status .badge {
+  font-size: 1em;
+}
+
+textarea.skip-markdown {
+  width: 75%;
+}
+
+@import "bootstrap-responsive";

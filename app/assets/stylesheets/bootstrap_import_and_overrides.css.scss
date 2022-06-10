@@ -1,0 +1,386 @@
+$linkColor:             #411750 !default;
+
+
+// Core variables and mixins
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+// Base: Forms
+@import "bootstrap/forms";
+
+// Components: Buttons & Alerts
+@import "bootstrap/buttons";
+@import "bootstrap/button-groups";
+@import "bootstrap/alerts";
+
+// Components: common
+@import "bootstrap/dropdowns";
+@import "bootstrap/wells";
+@import "bootstrap/component-animations";
+@import "bootstrap/close";
+
+// Components: Buttons & Alerts
+@import "bootstrap/buttons";
+@import "bootstrap/button-groups";
+@import "bootstrap/alerts";
+
+// Components: Nav
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
+@import "bootstrap/pagination";
+@import "bootstrap/pager";
+
+// Components: Popovers
+@import "bootstrap/modals";
+@import "bootstrap/tooltip";
+@import "bootstrap/popovers";
+
+// Components: Misc
+@import "bootstrap/thumbnails";
+@import "bootstrap/labels-badges";
+@import "bootstrap/progress-bars";
+@import "bootstrap/accordion";
+@import "bootstrap/carousel";
+@import "bootstrap/hero-unit";
+
+// Utility classes
+@import "bootstrap/utilities";
+
+
+// ==========================================
+// ==========================================
+// OVERRIDES
+// ==========================================
+// ==========================================
+
+@import "includes/variables";
+
+
+
+// ==========================================
+// Nav Tab styles
+// ==========================================
+
+// Alt modifier for simple theme
+.nav-tabs--simple {
+    margin: 0 0 1em -.5em !important;
+    list-style: none !important;
+    line-height: 1 !important;
+    border: none;
+  > li {
+    border: none;
+    float: none;
+    padding: .25em 0;
+    display: block;
+    [data-reactor-width*=gt400] & {
+      float: left;
+      border-right: 1px solid #ccc;
+      padding: 0;
+    }
+    &:last-child {
+      border-right: none;
+    }
+    > a {
+      margin-right: 0 !important;
+      padding: 0 .5em 0 !important;
+      background: none;
+      color: $purple-lt4;
+      font-weight: bold !important;
+      opacity: .75 !important;
+      font-size: .75em !important;
+      line-height: 1 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+      @include transition(none);
+    }
+    &.active > a,
+    & > a:hover,
+    & > a:focus,
+    & > a:active {
+      margin-right: 0 !important;
+      padding: 0 .5em 0 !important;
+      line-height: 1 !important;
+      font-size: .75em !important;
+      opacity: 1 !important;
+      border-color: transparent !important;
+      color: $purple-lt4 !important;
+      background: none !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    & > a:active {
+      opacity: .75 !important;
+    }
+    &.active > a:hover,
+    &.active > a:focus,
+    &.active > a:active {
+      cursor: default;
+    }
+  }
+}
+
+.tab-content--simple {
+  border: none !important;
+  margin-bottom: .5em !important;
+}
+
+// Alt modifier uses purple theme
+// Using !important all over the place due to silly specificities
+.nav-tabs--alt {
+  border: none !important;
+  > li {
+    > a {
+      background: $purple-lt3 !important;
+      color: #6c4b78 !important;
+      font-weight: bold !important;
+      border: none !important;
+      text-transform: uppercase;
+    }
+    &.active > a,
+    &.active > a:hover,
+    &.active > a:focus,
+    &.active > a:active,
+    &:active {
+      cursor: default;
+      color: white !important;
+      background: #6d4c79 !important;
+      opacity: 1 !important;
+    }
+  }
+  &[data-reactor-width*="lt400"] {
+    > li > a {
+      font-size: .85em;
+    }
+  }
+}
+
+.tab-content--alt {
+  padding: 1em;
+  background: #6d4c79 !important;
+  border-radius: 0 5px 5px 5px;
+  color: white !important;
+
+  table {
+    width: 100%;
+    th {
+      vertical-align: middle;
+      font-weight: bold;
+      white-space: nowrap;
+      font-size: .85em;
+    }
+    td, th {
+      padding: .5em 0;
+      text-align: left;
+      a {
+        color: white !important;
+        font-weight: normal;
+        font-size: .8em;
+        display: block;
+        text-align: right;
+        &:before {
+          padding-right: .25em;
+        }
+      }
+    }
+    td:first-child {
+      text-transform: uppercase;
+      text-align: left;
+    }
+    td:nth-child(2) {
+      white-space: nowrap;
+    }
+    td label {
+      display: none;
+    }
+    tbody {
+      border-top: 1px solid #9b83a4;
+    }
+  }
+
+  &[data-reactor-width*="lt400"] {
+    table {
+      tbody {
+        border: none;
+      }
+      th {
+        display: none;
+      }
+      td {
+        text-align: left;
+        padding: 0 .5em;
+        display: block;
+        &:first-child {
+          font-weight: bold !important;
+          padding-top: .5em;
+        }
+        &:last-child {
+          padding-bottom: .5em;
+        }
+        a {
+          text-align: left;
+        }
+        label {
+          margin: 0;
+          padding:  0 .25em 0 0 !important;
+          font-size: 1em;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+
+
+// ==========================================
+// Form Overrides
+// ==========================================
+
+// id
+#section_maximum_number_of_guests_allowed {
+  height: 35px;
+  width: 50px !important;
+  margin-bottom: 0;
+}
+
+
+// char-counts (from validations.js.coffee)
+// make some space available for the char count
+.controls.with-char-count {
+  position: relative;
+  input,
+  textarea {
+    padding-right: 3em !important; // overrides crazy specificity nonsense
+  }
+}
+// the char count
+.control__char-count {
+  position: absolute;
+  top: 1.2em;
+  right: 1em;
+  font-size: .85em;
+  color: #ccc;
+  opacity: 0;
+  &.is-visible {
+    opacity: 1;
+  }
+}
+
+// appends
+.input-append,
+.input-prepend {
+  position: relative;
+  margin-bottom: 21px;
+  font-size: 1em;
+}
+.input-append input,
+.input-append select,
+.input-append .uneditable-input,
+.input-prepend input,
+.input-prepend select,
+.input-prepend .uneditable-input {
+  position: relative;
+  margin-bottom: 0;
+  *margin-left: 0;
+  font-size: 14px;
+  vertical-align: top;
+}
+.input-append input:focus,
+.input-append select:focus,
+.input-append .uneditable-input:focus,
+.input-prepend input:focus,
+.input-prepend select:focus,
+.input-prepend .uneditable-input:focus {
+  z-index: 2;
+}
+.input-append .add-on,
+.input-prepend .add-on {
+  display: block;
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  min-width: 37px;
+  height: 37px;
+  line-height: 37px;
+  padding: 4px 5px;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+}
+.input-append .add-on,
+.input-append .btn,
+.input-prepend .add-on,
+.input-prepend .btn {
+  margin-left: -1px;
+  vertical-align: top;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.input-append .active,
+.input-prepend .active {
+  background-color: #a9dba9;
+  border-color: #46a546;
+}
+
+.input-prepend .add-on,
+.input-prepend .btn {
+  margin-right: -1px;
+}
+.input-prepend .add-on:first-child,
+.input-prepend .btn:first-child {
+  -webkit-border-radius: 1px 0 0 1px;
+  -moz-border-radius: 1px 0 0 1px;
+  border-radius: 1px 0 0 1px;
+}
+
+.add-on i {
+  height: 25px;
+  width: 25px;
+  display: block;
+  margin: 6px;
+  background-size: 100% auto;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+.input-append input,
+.input-append select,
+.input-append .uneditable-input {
+  -webkit-border-radius: 1px 0 0 1px;
+  -moz-border-radius: 1px 0 0 1px;
+  border-radius: 1px 0 0 1px;
+}
+.input-append .add-on:last-child,
+.input-append .btn:last-child {
+  -webkit-border-radius: 0 1px 1px 0;
+  -moz-border-radius: 0 1px 1px 0;
+  border-radius: 0 1px 1px 0;
+}
+
+.input-prepend.input-append input,
+.input-prepend.input-append select,
+.input-prepend.input-append .uneditable-input {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.input-prepend.input-append .add-on:first-child,
+.input-prepend.input-append .btn:first-child {
+  margin-right: -1px;
+  -webkit-border-radius: 1px 0 0 1px;
+  -moz-border-radius: 1px 0 0 1px;
+  border-radius: 1px 0 0 1px;
+}
+.input-prepend.input-append .add-on:last-child,
+.input-prepend.input-append .btn:last-child {
+  margin-left: -1px;
+  -webkit-border-radius: 0 1px 1px 0;
+  -moz-border-radius: 0 1px 1px 0;
+  border-radius: 0 1px 1px 0;
+}

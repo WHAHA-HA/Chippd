@@ -1,0 +1,23 @@
+<section id="content" class="store container">
+  <div id="infobar" class="block">
+    <div class="col12">
+      <%= current_order.link_to_with_quantity if current_order? %>
+    </div>
+  </div>
+  <div class="block">
+    <header class="col12">
+      <h1>Our Collections</h1>
+    </header>
+  </div>
+  <div class="block">
+<% @product_collections.each do |product_collection| %>
+    <div class="type col4">
+      <a href="<%= store_products_by_product_collection_path(product_collection) %>" class="group">
+        <%= product_collection.image %>
+        <h3><%= product_collection.name %></h3>
+        <%= product_collection.long_description %>
+      </a>
+    </div>
+<% end %>
+  </div><!-- /.block -->
+</section><!-- /#content -->

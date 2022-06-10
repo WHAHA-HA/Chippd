@@ -1,0 +1,57 @@
+//= require babys_favorites/favorite
+
+/* globals ko, Chippd */
+(function() {
+  "use strict";
+  Chippd.BabysFavorites = Chippd.Object.extend({
+    limitMin: 1,
+    limitMax: 10,
+
+    constructor: function () {
+      var self = this;
+      self.id = ko.observable();
+      self.favorites = ko.observableArray();
+      self.remove = function () {
+        if (self.favorites().length <= self.limitMin) { return; }
+        self.favorites.remove(this);
+      };
+      self.canRemove = function (favorite) {
+        return _.indexOf(self.favorites(), favorite) >= self.limitMin;
+      };
+    },
+
+    addAnother: function () {
+      if (this.favorites().length >= this.limitMax) { return; }
+      this.favorites.push(new Chippd.Favorite());
+    },
+
+    toJS: function () {
+      var js = Chippd.BabysFavorites.__super__.toJS.apply(this);
+      return {
+        favorites: js.favorites,
+        id: js.id
+      };
+    }
+  }, /* static properties */ {
+    bindSectionToForm: function (section, form) {
+      $(form).submit(function (e) {
+        var json = JSON.stringify(section.toJS()),
+          encodedJson = encodeURIComponent(json),
+          requiredFields = $(form).find("[required]");
+        if (requiredFields.length > 0 && !requiredFields.valid()) {
+          return false;
+        }
+
+        $(form).append('<input name="section_js" type="hidden" value="' + encodedJson + '">');
+        return true;
+      });
+    },
+
+    fromJS: function (obj) {
+      var model = new Chippd.BabysFavorites();
+      model.id(obj.id);
+      model.favorites(Chippd.Object.fromJS(obj.favorites, Chippd.Favorite));
+      return model;
+    }
+  });
+})();

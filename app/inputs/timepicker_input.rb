@@ -1,0 +1,2 @@
+class TimepickerInput < PickerInput
+end

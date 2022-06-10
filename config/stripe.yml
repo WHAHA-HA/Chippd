@@ -1,0 +1,14 @@
+development: &global_settings
+  secret_key: OguuSxuJjiWBQF2yOARUhieJri8Gbvgh
+  publishable_key: pk_vF4Yzrf7dVQPpGPW3kGlEa66Hw4fn
+
+test: &test
+  <<: *global_settings
+
+staging:
+  secret_key: <%= ENV['STRIPE_SECRET_KEY'] %>
+  publishable_key: <%= ENV['STRIPE_PUBLISHABLE_KEY'] %>
+
+production:
+  secret_key: <%= ENV['STRIPE_SECRET_KEY'] %>
+  publishable_key: <%= ENV['STRIPE_PUBLISHABLE_KEY'] %>

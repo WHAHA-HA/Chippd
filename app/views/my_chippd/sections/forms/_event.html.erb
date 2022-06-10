@@ -1,0 +1,35 @@
+<%= form.input :title, :input_html => { :maxlength => character_limit(:event, :title) } %>
+<%= form.input :description, :as => :text, :input_html => { :cols => "20", :rows => "8", :maxlength => character_limit(:event, :description) } %>
+<%= form.input :location, :label => "Where <em>(optional)</em>" %>
+<%= form.input :url, :label => "Website <em>(optional)</em>", :input_html => { :maxlength => character_limit(:event, :url) } %>
+
+<div class="bind-start-end">
+  <div class="bind-start">
+    <%= form.input :happens_on, :label => "Date", :as => :datepicker, :wrapper => :append, :input_html => { :value => @section.formatted_happens_on, 'data-format' => 'yyyy-MM-dd' } %>
+  </div>
+  <div class="bind-end">
+    <%= form.input :ends_on, :label => "End date <em>(optional)</em>", :as => :datepicker, :wrapper => :append, :input_html => { :value => @section.formatted_ends_on, 'data-format' => 'yyyy-MM-dd' } %>
+  </div>
+</div>
+<div class="bind-start-end">
+  <div class="bind-start">
+    <%= form.input :starts_at, :label => "Start time <em>(optional)</em>", :as => :timepicker, :wrapper => :append, :input_html => { :value => @section.formatted_starts_at, 'data-format' => 'HH:mm PP' } %>
+  </div>
+  <div class="bind-end">
+    <%= form.input :ends_at, :label => "End time <em>(optional)</em>", :as => :timepicker, :wrapper => :append, :input_html => { :value => @section.formatted_ends_at, 'data-format' => 'HH:mm PP' } %>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var startsAt = $("#section_starts_at");
+      startsAt.click(_.once(function () {
+        var picker = $(".timepicker .input-append").data("datetimepicker");
+        if (!startsAt.val()) {
+          picker.setValue("12:00 PM");
+        }
+      }));
+    });
+  </script>
+<% end %>

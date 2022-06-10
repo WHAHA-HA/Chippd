@@ -1,0 +1,60 @@
+<div class="playlist-container">
+<%= form.input :title %>
+
+<!--<div id="uploader_target" data-bind="template: 'playlist'">
+  <p style="color: #ccc">Loading...</p>
+</div>-->
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existing = Chippd.FileUpload.fromJS(
+        <%= raw @section.tracks_json %>,
+        Chippd.Track
+      );
+
+        //existing files
+       var  files = JSON.parse('<%= raw @section.tracks_json %>');
+    /*
+     $("#uploader_target").initMultiUpload(existing, {
+        type: Chippd.Track,
+        max: <%= Playlist::MAXIMUM_NUMBER_OF_TRACKS %>,
+        min: <%= Playlist::MINIMUM_NUMBER_OF_TRACKS %>
+      });
+<<<<<<< HEAD
+      */
+        /*jquery upload part*/
+        // Initialize the jQuery File Upload widget:
+       $('#uploader').fileupload({
+            // Uncomment the following to send cross-domain cookies:
+            //xhrFields: {withCredentials: true},
+            url: '/documents',
+            autoUpload: false,
+            multiUpload: true,
+            acceptFileTypes: /(\.|\/)(mp3|mp4)$/i,
+            maxFileSize: 5000000,
+            existingFiles : files,
+            fileInputTemplateId : 'playlist_multi_upload'
+        });
+
+        /*jquery upload part ends */
+    });
+  </script>
+<% end %>
+
+<!-- here we add widgetizied file input section iteslf -->
+<div class="playlist-container">
+  <!-- file input tempalte -->
+  <div id="file-input-section">
+    <!-- wedding_multi_upload will be repeated...-->
+    <p style="color: #ccc">Loading...</p>
+  </div>
+  <div>
+    <!-- ko template: "uploads_footer" --><!-- /ko -->
+    <div class="links">
+      <a class="add-instance" data-bind="click: addGroomsman" ><span class="icon">+</span><span class="text">add another</span>
+      </a>
+    </div>
+
+  </div>
+</div>

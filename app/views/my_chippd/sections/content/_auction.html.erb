@@ -1,0 +1,100 @@
+<% if section.available? %>
+
+  <% section.update_num_views %>
+
+  <div class="left-container">
+    <h1><%= section.title %></h1>
+        <% if section.open_for_bidding? %>
+
+      <div class="views-and-bids">
+        <div class="views">
+          <span class="label"><i class="fa fa-eye"></i>Views:</span>
+          <span id="number-views" class"number"><%= section.num_views %></span>
+        </div>
+        <div class="total-bids">
+          <span class="label"><i class="fa fa-gavel"></i>Bids:</span>
+          <span id="total_bids" class="number"><%= section.total_bids %></span>
+        </div>
+      </div>
+      <% end %>
+    <div class="media-container">
+    <% if section.photo? %>
+      <%= section.image %>
+    <% elsif section.video? %>
+      <%= section.video_embed %>
+    <% end %>
+    </div>
+    <div class="description"><%= section.description %></div>
+  </div>
+
+  <% if section.open_for_bidding? %>
+
+  <div class="right-container">
+    <div class="details">
+
+      <div class="time-remaining">
+        <span class="label">Time Remaining:</span>
+        <span id="<%= "countdown_#{section.to_param}" %>"><%= section.num_views %></span>
+      </div>
+
+    <% content_for :javascripts do %>
+      <script type="text/javascript">
+        var auctionEnd = new Date(<%= section.auction_end_for_js %>);
+        var id = '<%= "#countdown_#{section.to_param}" %>';
+        $(id).countdown({until: auctionEnd, expiryUrl: "<%= close_my_chippd_page_auction_url(@page, section.to_param) %>"});
+      </script>
+    <% end %>
+
+    <div class="high-bid">
+      <span class="label">Current Highest Bid:</span>
+      <span id="high_bid" class="number">
+        <span class="icon">$</span><span><%= number_with_delimiter(section.highest_bid, :delimiter => ',') %></span>
+      </span>
+    </div>
+
+    <%= simple_form_for section.bids.build, :url => bid_my_chippd_page_auction_path(@page, section.to_param), :remote => true do |form| %>
+      <div class="form-actions">
+        <%= form.input :amount %>
+        <button type="submit" class="btn btn-large btn-primary" data-loading-text="placing bid...">Place Bid</button>
+        <%= form.input :notify_out_bid, label: 'Notify me when I have been out-bid.',      :as => :boolean, :wrapper => :checkbox %>
+        <%= form.input :notify_ending , label: 'Notify me 5 minutes before auction ends.', :as => :boolean, :wrapper => :checkbox %>
+      </div>
+    <% end %>
+
+    </div>
+
+  </div>
+  <% elsif section.awaiting_start? %>
+
+    <div class="right-container inactive">
+      <h2>Auction not available yet. Please check back later.</h2>
+    </div>
+
+  <% elsif section.closed? %>
+
+    <div class="right-container inactive">
+      <div class="auction-ended">
+        <h2>This auction has ended.</h2>
+        <% if section.winner == current_customer %>
+          <h3>You're the winner!</h3>
+          <div class="contact-info"><span class="please-contact">To claim your item, please contact:</span><span class="info"><%= section.contact_info %></span></div>
+          <p><%= section.claim_info %></p>
+        <% else %>
+          <h3>Unfortunately, you didn't win the bidding for this item.  Better luck next time!</h3>
+        <% end %>
+      </div>
+    </div>
+
+  <% end %>
+
+
+<% elsif section.processing? %>
+
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/video_pusher_javascript', id: section.to_param, section: section %>
+
+<% elsif section.not_available? %>
+
+  <%= section.not_available_message %>
+
+<% end %>

@@ -1,0 +1,5 @@
+<ul>
+<% Social::NETWORKS.each do |network| %>
+  <%= section.send(:"#{network}_list_item") %>
+<% end %>
+</ul>

@@ -1,0 +1,19 @@
+<% content_for(:javascripts) do %>
+  <script type="text/javascript">
+    $(function() {
+      var pusher = new Pusher('<%= configatron.pusher.key %>');
+      var channel = pusher.subscribe('<%= "private-#{current_customer.id}" %>');
+      channel.bind('<%= "image_#{id}_saved" %>', function(data) {
+        $.ajax('<%= content_my_chippd_page_section_path(@page, section) %>', {dataType: 'html'})
+          .done(function (html) {
+            $("article[data-section=" + data.id + "]").replaceWith(html);
+            sublime.load();
+          });
+      });
+      channel.bind('<%= "image_#{id}_failed" %>', function(data) {
+        var $article = $("article[data-section=" + data.id + "]")
+              .html("<div class='alert alert-danger'>There was an error while processing the video file.<div>")
+      });
+    });
+  </script>
+<% end %>

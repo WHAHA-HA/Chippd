@@ -1,0 +1,54 @@
+<section id="content" class="checkout container">
+  <div id="cart" class="block">
+    <header class="col3">
+      <h1>Shopping Cart</h1>
+      <a class="continue" href="<%= store_root_path %>">Continue Shopping</a>
+    </header>
+    <div class="col9 end">
+    <%= simple_form_for @order, :url => save_cart_for_store_order_path do |form| %>
+    <table>
+      <thead>
+        <tr>
+          <th class="item-name">Item</th>
+          <th class="price">Price</th>
+          <th class="quantity"><abbr title="Quantity">Qty.</abbr></th>
+          <th class="total">Total</th>
+          <th class="icons">&nbsp;</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= form.simple_fields_for :line_items do |line_item_form| %>
+          <%= render :partial => 'line_item', :locals => { :form => line_item_form, :line_item => LineItemPresenter.new(line_item_form.object, self) } %>
+        <% end %>
+        <tr>
+          <td id="discount" colspan="5">
+            <div class="cart-discount">
+              <label>Discount code (optional): <input type="text" id="cart-discount-code" name="order[discount_code]"></label>
+              <%= current_order.discount %>
+            </div>
+            <div class="cart-update icons">
+              <input id="update" class="btn" name="update" type="submit" value="Update Cart" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            <div id="cart-total">
+              <p class="subtotal">Subtotal: <%= current_order.formatted_subtotal %></p>
+              <%= current_order.discount_with_link_to_remove %>
+              <p class="total">Total: <%= current_order.formatted_total %></p>
+              <p class="plus"><em>+ shipping and sales tax (calculated during checkout)</em></p>
+            </div>
+            <a href="<%= customer_information_for_store_order_path %>" class="t-checkout btn btn-primary btn-large">Checkout</a>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <% end %>
+    </div><!-- /.col9 -->
+  </div><!-- /.block -->
+</section><!-- /#content -->

@@ -1,0 +1,54 @@
+<%= form.input :title %>
+
+<!--<div id="uploader_target" data-bind="template: 'uploads'">
+  <p style="color: #ccc">Loading...</p>
+</div>-->
+<!-- here we add widgetizied file input section iteslf -->
+<div class="playlist-container">
+  <!-- file input tempalte -->
+  <div id="file-input-section">
+    <!-- wedding_multi_upload will be repeated...-->
+    <p style="color: #ccc">Loading...</p>
+  </div>
+  <div>
+    <!-- ko template: "uploads_footer" --><!-- /ko -->
+    <div class="links">
+      <a class="add-instance" ><span class="icon">+</span><span class="text">add another</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+        $(function () {
+            var existing = Chippd.FileUpload.fromJS(
+                    <%= raw @section.engagement_images_json %>,
+                    Chippd.Image
+            );
+            //load existing files for template
+            var files = JSON.parse('<%= raw @section.engagement_images_json %>');
+
+            //KO PART
+            /* $("#uploader_target").initMultiUpload(existing, {
+             type: Chippd.Image,
+             max: <%= Engagement::MAXIMUM_NUMBER_OF_IMAGES %>,
+             min: <%= Engagement::MINIMUM_NUMBER_OF_IMAGES %>
+             });
+             */
+            //jquery uploader
+
+            $('#uploader').fileupload({
+                url                 : '/documents',
+                multiUpload         : true,
+                fileInputTemplateId  : 'simple_multi_upload',
+                autoUpload          : false,
+                acceptFileTypes     : /(\.|\/)(gif|jpe?g|png)$/i,
+                maxFileSize         : 5000000,
+                existingFiles       : files
+            });
+
+        });
+    </script>
+<% end %>

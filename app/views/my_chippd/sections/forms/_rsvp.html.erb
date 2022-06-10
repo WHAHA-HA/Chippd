@@ -1,0 +1,14 @@
+<%= form.input :heading, :input_html => { :maxlength => character_limit(:rsvp, :heading) }, :hint => hints("Personalize your RSVP with a fun message, like &ldquo;Please say you're coming!&rdquo;", character_limit_message(:rsvp, :heading)), :placeholder => "RSVP" %>
+<%= form.input :yes_text, :label => 'Yes', :hint => hints("This is the text that's displayed if the invitee will be attending.", character_limit_message(:rsvp, :yes_text)), :placeholder => "Will attend", :input_html => { :maxlength => character_limit(:rsvp, :yes_text) } %>
+<%= form.input :no_text, :label => 'No', :hint => hints("This is the text that's displayed if the invitee won't be attending.", character_limit_message(:rsvp, :no_text)), :placeholder => "Will not attend", :input_html => { :maxlength => character_limit(:rsvp, :no_text) } %>
+<%= form.input :respond_by, :label => "Deadline for Responding", :as => :datepicker, :wrapper => :append, :input_html => { :value => @section.formatted_respond_by, 'data-format' => 'yyyy-MM-dd' } %>
+<%= form.input :meal_choices, :label => "Meal Choices <em>(optional)</em>", :hint => "Comma-separated list of choices, e.g. Beef, Chicken, Veggie" %>
+
+<fieldset id="rsvp-invitee-guests">
+  <div class="options">
+    <%= form.input :guests_allowed, :label => "Allow invitees to bring additional guests with them", :as => :boolean, :wrapper => :checkbox %>
+  </div>
+  <%= form.input :maximum_number_of_guests_allowed, :label => "Additional Guests", :hint => hints("The maximum number of guests an invitee can bring with them."), :input_html => { :type => 'number', :min => 0 } %>
+</fieldset>
+<%= form.input :thank_you_message, :label => "Confirmation Message", :as => :text, :input_html => { :rows => "3", :placeholder => I18n.t("page.sections.rsvp.defaults.thank_you_message") }, :hint => hints("This is the text that's displayed after someone responds.", character_limit_message(:rsvp, :thank_you_message)) %>
+<%= form.input :date_past_message, :label => "Consolation Message", :as => :text, :input_html => { :rows => "3", :placeholder => I18n.t("page.sections.rsvp.defaults.date_past_message") }, :hint => hints("This is the text that's displayed after the deadline to RSVP has passed.", character_limit_message(:rsvp, :date_past_message)) %>

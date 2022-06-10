@@ -1,0 +1,10 @@
+<%= ariane.render %>
+
+<%= simple_form_for resource, :url => admin_dollar_amount_discounts_path, :validate => true, :html => { :multipart => true } do |form| %>
+  <%= render :partial => 'form', :locals => { :form => form } %>
+  <%= form.error :base %>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary" data-loading-text="saving...">Save</button>
+    <%= link_to("Cancel", collection_path, :class => 'btn') %>
+  </div>
+<% end %>

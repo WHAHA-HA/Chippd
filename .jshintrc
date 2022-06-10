@@ -1,0 +1,32 @@
+{
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "freeze": true,
+  "immed": true,
+  "indent": 2,
+  "noarg": true,
+  "noempty": true,
+  "nomen": true,
+  "onevar": true,
+  "quotmark": "double",
+  "strict": true,
+  "undef": true,
+  "unused": true,
+  "trailing": true,
+  "white": true,
+  "es3": true,
+  "predef": [
+    "define",
+    "require",
+    "confirm",
+    "window",
+    "setTimeout",
+    "_",
+    "jsRoutes",
+    "Constants",
+    "Chippd",
+    "ko"
+  ]
+}

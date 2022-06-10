@@ -1,0 +1,16 @@
+<% if section.available? %>
+  <div class="lovers">
+    <%= section.image_one %>
+    <div class="amp">&amp;</div>
+    <%= section.image_two %>
+  </div>
+
+  <h3 class="lovenote"><%= section.title %></h3>
+  <div class="lovenote-body"><%= section.body %></div>
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+             id: section.to_param,
+             section: section,
+             error_message: 'There was an error while processing the images.' %>
+<% end %>

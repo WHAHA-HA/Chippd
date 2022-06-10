@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs chippdTab">
+  <li class="active"><a href="#<%= dom_id(page, 'products') %>">Products</a></li>
+  <li><a href="#<%= dom_id(page, 'viewers') %>">People</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active products" id="<%= dom_id(page, 'products') %>">
+    <h4>Products</h4>
+    <%= page.line_items %>
+  </div>
+  <div class="tab-pane people" id="<%= dom_id(page, 'viewers') %>">
+    <h4>People</h4>
+    <%= render 'memberships_table', :page => page %>
+  </div>
+</div><!-- /.tab-content -->

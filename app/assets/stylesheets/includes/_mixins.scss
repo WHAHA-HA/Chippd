@@ -1,0 +1,30 @@
+@mixin clear-fix {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+@mixin column {
+	margin-right: $margin;
+  float: left;
+  min-height: 1px;
+  overflow: hidden;
+}
+
+@mixin image-border {
+  border: 5px solid #F5F5F5;
+  background: #F5F5F5;
+  @include box-shadow(1px 3px 10px rgba(0,0,0,.35));
+}
+
+@mixin wedding-heart-bg {
+  background:#fff asset-url("widgets/wedding-heart-titles.png", image) no-repeat bottom 1.5em center;
+  background-size: 90% auto;
+}
+
+@mixin wedding-heart-bg-dark {
+  background:asset-url("widgets/heart-dark.png", image) no-repeat bottom 1.5em center;
+  background-size: 90% auto;
+}

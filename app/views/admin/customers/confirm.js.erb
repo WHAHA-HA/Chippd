@@ -1,0 +1,11 @@
+<% if resource.confirmed? %>
+
+  alert("User Confirmed.");
+  var id = "#confirm_<%=resource.id%>";
+  $(id).replaceWith("yes");
+
+<% else %>
+
+  alert("Confirmation failed.  Please try again.");
+
+<% end %>

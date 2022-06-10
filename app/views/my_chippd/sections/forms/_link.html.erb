@@ -1,0 +1,7 @@
+<% if @page.page_template.name == 'Story' %>
+  <%= form.input :kind, :collection => configatron.select_data.iconable_kinds.collect { |d| [d.to_s.titleize, d] }, :include_blank => false, :label => "Content Type" %>
+<% else %>
+  <%= form.input :kind, as: :hidden, input_html: { value: :other } %>
+<% end %>
+<%= form.input :title, :input_html => { :maxlength => character_limit(:link, :title) } %>
+<%= form.input :url, :label => "URL" %>

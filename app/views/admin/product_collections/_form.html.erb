@@ -1,0 +1,47 @@
+<%= form.input :name %>
+<%= form.input :long_description, :label => "Description", :as => :text, :input_html => {:class => "xxlarge" } %>
+<%= form.input :filter_text, :hint => "The text used in the filter menu on the homepage.  e.g. <em>What do you want to share? Something _______</em>".html_safe, :input_html => {:class => "span4" } %>
+<%= form.input :sample_url, :input_html => {:class => "span6" }, :hint => 'Used on the How It Works page.  Can be any path or URL.' %>
+<%= form.input :collection_url, :input_html => {:class => "span6" }, :hint => 'Used on the How It Works page.  Can be any path or URL.' %>
+<div class="current-file well">
+  <%= form.input :image, :as => :file %>
+
+  <% if resource.image_uid.present? %>
+  <p class="push">Current Image</p>
+  <a data-toggle="modal" href="#<%= dom_id(resource, 'current-image') %>" >
+    <%= image_tag resource.image.thumb('100x80#').url, :class => "thumbnail", :width => "100", :height => "80" %>
+  </a>
+  <div class="modal" id="<%= dom_id(resource, 'current-image') %>" style="display:none;padding:5px 5px 0 5px;">
+    <%= image_tag resource.image.remote_url %>
+  </div>
+  <% end %>
+</div>
+
+<div class="current-file well">
+  <%= form.input :inverse_image, :as => :file, :hint => "White icon w/ transparent background. Used on the How It Works page." %>
+
+  <% if resource.inverse_image_uid.present? %>
+  <p class="push">Current Image</p>
+  <a data-toggle="modal" href="#<%= dom_id(resource, 'current-image') %>" >
+    <%= image_tag resource.inverse_image.remote_url, :class => "thumbnail", :width => "70", :style => 'background-color: #411750' %>
+  </a>
+  <div class="modal" id="<%= dom_id(resource, 'current-image') %>" style="display:none;padding:5px 5px 0 5px;">
+    <%= image_tag resource.inverse_image.remote_url %>
+  </div>
+  <% end %>
+</div>
+
+<div class="current-file well">
+  <%= form.input :how_it_works_image, :as => :file, :hint => 'Background image used on the How It Works page.' %>
+
+  <% if resource.how_it_works_image_uid.present? %>
+  <p class="push">Current Image</p>
+  <a data-toggle="modal" href="#<%= dom_id(resource, 'current-image') %>" >
+    <%= image_tag resource.how_it_works_image.remote_url, :class => "thumbnail", :width => "400" %>
+  </a>
+  <div class="modal" id="<%= dom_id(resource, 'current-image') %>" style="display:none;padding:5px 5px 0 5px;">
+    <%= image_tag resource.how_it_works_image.remote_url %>
+  </div>
+  <% end %>
+</div>
+<%= is_visible_radio_buttons(form) %>

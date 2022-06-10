@@ -1,0 +1,34 @@
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+<% if display_meal_choice %>
+        <th>Meal Choice</th>
+<% end %>
+        <th>Responded On</th>
+        <th></th>
+      </tr>
+    </thead>
+  <% collection.each do |response| %>
+    <tbody>
+      <% response.guests.each do |guest| %>
+      <tr>
+        <td class="guest-name"><%= guest.name %></td>
+<% if display_meal_choice %>
+        <td>
+          <label>Meal Preference is:</label>
+          <span><%= guest.meal || 'No preference' %></span>
+        </td>
+<% end %>
+        <td class="responded-on">
+          <label>Responded on: </label>
+          <span><%= response.created_at.stamp(configatron.date_formats.short) if first_guest?(response.guests, guest) %></span>
+        </td>
+        <td class="remove">
+          <%= link_to('remove', rsvp_response_path(section, response), 'aria-hidden' => 'true', 'data-icon' => 'D', :method => :delete, :confirm => "Are you sure you want to delete this RSVP?") if first_guest?(response.guests, guest) %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+  </table>

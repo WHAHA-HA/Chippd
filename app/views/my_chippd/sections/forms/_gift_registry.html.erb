@@ -1,0 +1,17 @@
+<div class="gift-registry">
+  <label class="section-label">Mailing Address</label>
+
+  <%= form.input :mail_to_address, :as => :text, :input_html => { :cols => "20", :rows => "3" }, :hint => "Where you’d like physical gifts to be sent, <br />e.g. John Doe <br/> 123 Main Street, Apt 4A <br/> New York, NY 12345 <br/>USA".html_safe %>
+
+  <hr class="section-divider">
+
+  <label class="section-label">Online Registries</label>
+
+  <%= form.simple_fields_for :sources do |event_form| %>
+    <%= render '/my_chippd/sections/forms/gift_registry_source_fields', :f => event_form %>
+  <% end %>
+
+  <div class="links" data-behavior="collection-add" data-min="<%= GiftRegistry::MINIMUM_NUMBER_OF_SOURCES %>">
+    <%= link_to_add_association('<span class="icon">+</span><span class="text">add another</span>' .html_safe, form, :sources, :class => 'add-instance', 'aria-hidden' => 'true', :partial => '/my_chippd/sections/forms/gift_registry_source_fields') %>
+  </div>
+</div>

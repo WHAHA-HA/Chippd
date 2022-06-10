@@ -1,0 +1,39 @@
+<% if section.available? %>
+  <h1 class="sectionHeading"><span>You're Invited<br>to celebrate the wedding of</span></h1>
+  <%# are we not using section.intro anymore? %>
+  <h2 class="script">
+    <span><%= section.groom_name %></span>
+    <span class="amp">&</span>
+    <span><%= section.bride_name %></span>
+  </h2>
+
+  <hr class="first">
+
+  <div class="time">
+    <span class="day"><%= section.formatted_happens_on %></span>
+    <span class="time-of-day"><%= section.formatted_time %></span>
+  </div>
+  <div class="image">
+    <%= section.image %>
+  </div>
+  <div class="location">
+    <h1 class="location-name"><%= section.location_name %></h1>
+    <div class="address">
+      <%= section.location_address %>
+    </div>
+  </div>
+  <!-- /address -->
+  <hr>
+  <span class="after"><span><%= section.after %></span></span>
+  <hr>
+  <div class="note">
+    <span class="note-heading">A Small Note</span>
+    <p><%= section.note %></p>
+  </div>
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+              id: section.to_param,
+              section: section,
+              error_message: 'There was an error while processing the avenue image.' %>
+<% end %>

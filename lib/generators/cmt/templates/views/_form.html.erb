@@ -1,0 +1,4 @@
+<%- @model_attributes.each do |attribute| -%>
+<%%= form.input :<%= attribute.name %> %>
+<%- end -%>
+<%%= is_visible_radio_buttons(form) %>

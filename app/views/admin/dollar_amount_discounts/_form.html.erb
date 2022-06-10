@@ -1,0 +1,3 @@
+<%= render :partial => '/admin/discounts/form', :locals => { :form => form } %>
+<%= form.input :amount, :as => :currency, :label => "Dollar Amount" %>
+<%= is_visible_radio_buttons(form) %>

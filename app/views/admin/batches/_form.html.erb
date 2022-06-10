@@ -1,0 +1,4 @@
+<%= form.input :code_count, :label => "How many codes do you want to generate?", :input_html => { :type => "number" } %>
+<%= form.input :retail, :as => :radio_buttons, :label => "Is this batch for retail?", :collection => [["No", false], ["Yes", true]], :hint => "If yes, a redeem code will be generated for each code value as well." %>
+<%= form.input :product_id, :collection => ProductCollection.all, :as => :grouped_select, :group_label_method => :name, :group_method => :products, :key_method => :name, :value_method => :id, :hint => "Codes in this batch will be paired with this product. This will affect the product type(s) that can be chosen by customer redeeming these codes, as well as determine the image that displays in the customers page chooser within My Chipp'd.", :wrapper_html => { :id => 'product_id_wrapper'} %>
+<%= form.input :notes %>

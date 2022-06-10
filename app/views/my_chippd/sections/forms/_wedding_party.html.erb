@@ -1,0 +1,74 @@
+<!--<div id="uploader_target" data-bind="template: 'wedding_party_uploads'">
+  <p style="color: #ccc">Loading...</p>
+</div>-->
+
+<!-- container for bride section -->
+<!-- here we add widgetizied file input section iteslf -->
+<div id="bride-container">
+  <label class="section-label">The Bride's Party</label>
+  <!-- file input tempalte -->
+  <div id="bride_section">
+    <!-- wedding_multi_upload will be repeated...-->
+    <p style="color: #ccc">Loading...</p>
+  </div>
+  <div>
+    <!-- ko template: "uploads_footer" --><!-- /ko -->
+    <div class="links">
+      <a class="add-instance" data-inputtemplate="multi_wedding_party_upload" data-templatecontainer="bride_section" ><span class="icon">+</span><span class="text">add another</span>
+      </a>
+    </div>
+  </div>
+</div>
+<div id="groom-container">
+  <hr class="section-divider">
+  <label class="section-label">The Groom's Party</label>
+  <!-- file input tempalte -->
+  <div id="groom_section">
+    <!-- wedding_multi_upload will be repeated...-->
+    <p style="color: #ccc">Loading...</p>
+  </div>
+  <div>
+    <!-- ko template: "uploads_footer" --><!-- /ko -->
+     <div class="links">
+      <a class="add-instance" data-inputtemplate="multi_wedding_party_upload_2" data-templatecontainer="groom_section"><span class="icon">+</span><span class="text">add another</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existing = Chippd.FileUpload.fromJS(
+        <%= raw @section.wedding_party_images_json %>,
+        Chippd.WeddingPartyImage
+      );
+
+
+ /*  $("#uploader_target").initMultiUpload(existing, {
+
+        type: Chippd.WeddingPartyImage,
+        model: Chippd.WeddingPartyUploads,
+        max: <%= WeddingParty::MAXIMUM_NUMBER_OF_IMAGES %>,
+        min: <%= WeddingParty::MINIMUM_NUMBER_OF_IMAGES %>
+      });
+*/
+        //load existing files for template
+       var files = JSON.parse('<%= raw @section.wedding_party_images_json %>');
+       //jQuery Version
+       $('#uploader').fileupload({
+                // Uncomment the following to send cross-domain cookies:
+                //xhrFields: {withCredentials: true},
+                url                     : '/documents',
+                multiUpload             : true,
+                fileTemplateKey         : 'image_type',
+                fileInputTemplateId     :  {'bridesmaid':'multi_wedding_party_upload','groomsman':'multi_wedding_party_upload_2'},
+                fileTemplateContainerId :  {'bridesmaid':'bride_section','groomsman':'groom_section'},
+                autoUpload              : false,
+                acceptFileTypes         : /(\.|\/)(gif|jpe?g|png)$/i,
+                maxFileSize             : 5000000,
+                existingFiles           : files
+        });
+    });
+  </script>
+<% end %>

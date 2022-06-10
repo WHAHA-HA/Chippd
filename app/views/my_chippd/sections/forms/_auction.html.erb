@@ -1,0 +1,139 @@
+<div class="auction_widget">
+
+  <%
+    if @section.photo? || @section.media_type.blank?
+      video_style = 'style="display: none;"'
+      photo_style = ''
+    elsif @section.video?
+      video_style = ''
+      photo_style = 'style="display: none;"'
+    end
+  %>
+
+  <div id="auction_video" <%= video_style.html_safe %>>
+
+    <% if @section.persisted? && @section.video? %>
+      <% if @presented_section.available? %>
+        <div class="image-wrap">
+          <%= @presented_section.video_embed %>
+          <p>Current Video</p>
+        </div>
+      <% else %>
+        <p style="color: #333">Current video file is still being processed.</p>
+      <% end %>
+    <% end %>
+
+    <label>Video</label>
+    <div id="video_uploader" data-bind="template: 'singleUpload'" data-required="false">
+      <p style="color: #ccc">Loading...</p>
+    </div>
+
+  </div>
+
+  <div id="auction_photo" <%= photo_style.html_safe %>>
+
+    <label>Photo</label>
+    <div id="photo_uploader" data-bind="template: 'singleUpload'" data-required="false">
+      <p style="color: #ccc">Loading...</p>
+    </div>
+
+  </div>
+
+  <div class="custom-radios-container">
+    <label>Select media type</label>
+    <div class="custom-radio">
+      <div class="image photo"></div>
+      <%= form.radio_button :media_type, 'photo' %>
+      <label>Photo</label>
+    </div>
+    <div class="custom-radio">
+      <div class="image video"></div>
+      <%= form.radio_button :media_type, 'video' %>
+      <label>Video</label>
+    </div>
+  </div>
+
+<%= form.input :live, as: :boolean, wrapper: :checkbox %>
+<%= form.input :title, label: "Auction Title" %>
+<%= form.input :description, label: "Description" %>
+<%= form.input :end_date, label: "End Date (EST)", as: :datepicker, wrapper: :append, input_html: { value: @section.end_date, 'data-format' => 'yyyy-MM-dd' } %>
+<%= form.input :end_time, label: "End Time (EST)", as: :timepicker, wrapper: :append, input_html: { value: @section.formatted_end_time, 'data-format' => 'HH:mm PP' } %>
+<%= form.input :minimum_bid, label: "Opening bid" %>
+<%= form.input :must_submit_addr,  label: "Winner must submit address",      as: :boolean, wrapper: :checkbox %>
+<%= form.input :must_submit_phone, label: "Winner must submit phone number", as: :boolean, wrapper: :checkbox %>
+<%= form.input :contact_name %>
+<%= form.input :contact_email %>
+<%= form.input :contact_phone %>
+
+
+  <% content_for :javascripts do %>
+    <script type="text/javascript">
+      $(function () {
+        var existingPhoto = existingVideo = null;
+        var files = [];
+        <% if @section.photo? %>
+          existingPhoto = Chippd.FileUpload.fromJS(
+            <%= raw @section.asset_json %>,
+            Chippd.Image
+          );
+
+          file_photo = JSON.parse('<%= raw @section.asset_json %>');
+          files.push(null);
+          files.push(file_photo);
+
+        <% end %>
+
+        <% if @section.video? %>
+          existingVideo = Chippd.FileUpload.fromJS(
+            <%= raw @section.asset_json %>,
+            Chippd.Video
+          );
+
+          file_video = JSON.parse('<%= raw @section.asset_json %>');
+          files.push(file_video);
+          files.push(null);
+        <% end %>
+
+        /*$("#photo_uploader").initSingleUpload(existingPhoto, Chippd.Image, "upload_photo");
+        $("#video_uploader").initSingleUpload(existingVideo, Chippd.Video, "upload_video");*/
+
+          //jQuery version...
+          $('#uploader').fileupload({
+              // Uncomment the following to send cross-domain cookies:
+              //xhrFields: {withCredentials: true},
+              url: '/documents',
+              autoUpload: false,
+              acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+              fileTemplateContainerId : ['video_uploader', 'photo_uploader'],
+              fileInputTemplateId:['babyfirst_video_upload','babyfirst_photo_upload'],
+              existingFiles:files,
+              maxFileSize: 5000000,
+          });
+
+          /*jquery upload part ends*/
+          //we have to deal with radio select outside in jQuery version...
+          $('#section_media_type_photo').click(function(){
+              if($(this).is(':checked'))
+              {
+                  $('#auction_photo').show();
+                  $('#auction_video').hide();
+                  //photo...
+                  console.log('PHOTO');
+              };
+          });
+
+          $('#section_media_type_video').click(function(){
+              if($(this).is(':checked'))
+              {
+                  console.log('VIDEO');
+                  $('#auction_photo').hide();
+                  $('#auction_video').show();
+
+              };
+          });
+          //jQuery version ends...
+      });
+    </script>
+  <% end %>
+
+</div>

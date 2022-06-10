@@ -1,0 +1,25 @@
+<section id="content" class="container admin">
+  <div class="block">
+    <header class="intro">
+      <h1>My Chipp&#8217;d Pages</h1>
+<% if @pages.present? %>
+      <p>Here are all the pages you control. From here, you can customize your page and you can see who currently has access to it. You can also pause someone&#8217;s access to one of your pages anytime you like.</p>
+<% end %>
+    </header>
+    <div class="main">
+
+
+      <% if @pages.present? %>
+        <%= render :partial => 'page', :collection => @pages %>
+      <% else %>
+      <div class="alert">
+        <h4>Welcome, friend!  To get started:</h4>
+        <ul>
+          <li><strong><a href="<%= go_path %>">Download our app</a></strong>. You’ll need it to view any page created on Chipp’d.</li>
+          <li><strong><a href="<%= store_root_path %>">Buy a product</a></strong>. You’ll need one to get your own personal, customizable page.</li>
+        </ul>
+      </div>
+      <% end %>
+    </div><!-- /.col6 -->
+  </div><!-- /.block -->
+</section><!-- /#content -->

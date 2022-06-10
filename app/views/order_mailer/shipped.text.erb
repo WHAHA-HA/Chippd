@@ -1,0 +1,30 @@
+Hello <%= @order.billing_address.first_name %>,
+
+Joy is just around the corner.
+
+Your box of handcrafted goodies left the building today via <%= @order.shipping_option %><% if @order.estimated_delivery_date? %> and should get to you by <%= @order.estimated_delivery_date %><% end %>.
+
+<%- if @order.tracking_number? -%>You can monitor your package’s whereabouts anytime you like using this tracking number: <%= @order.tracking_number %>.
+<%- end -%>
+Here’s a reminder of what you’re getting:
+
+Order number #<%= @order.number %>, placed on <%= @order.purchased_at.stamp(configatron.date_formats.invoice) %>:
+
+<% @order.line_items.each do |line_item| %>
+<%= line_item.name.html_safe %> - <%= line_item.quantity %> x <%= line_item.price_each %> = <%= line_item.price %>
+<% end %>
+
+We're shipping to:
+<%= @order.shipping_address.first_name %> <%= @order.shipping_address.last_name %>
+<%= @order.shipping_address.address_1 %> <%= @order.shipping_address.address_2 %>
+<%= @order.shipping_address.city %>, <%= @order.shipping_address.state %> <%= @order.shipping_address.postal_code %>
+
+We hope you’ve been busy building your page, but if you haven’t, well…what are you waiting for? Visit <%= base_url %> from your computer and get started right now.
+
+If you need to check on the status of your order or have any questions at all, please contact us at orders@chippd.com. We’re always here for you.
+
+Until next time,
+Chipp'd
+
+Learn about our return policy at <%= faq_url(:anchor => 'faq_50089ea6de57e9000200001a') %>
+For anything else, check out our FAQs at <%= faq_url %>

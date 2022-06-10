@@ -1,0 +1,18 @@
+<%= form.full_error :chippd_product_types %>
+<%= form.input :name, :input_html => {:class => "span6" } %>
+<%= form.input :description, :as => :text, :input_html => {:class => "xxlarge" } %>
+<%= form.input :price, :as => :currency %>
+<div class="well">
+  <h4 class="push">Settings</h4>
+  <p>Configure which settings are offered for this product.</p>
+  <%= form.input :chippd_product_type_ids, :label => "", :as => :check_boxes, :collection => ChippdProductType.all.collect { |c| [c.to_option, c.id] } %>
+</div>
+
+<%= form.input :page_template_id, :collection => PageTemplate.all.collect { |ds| [ds.name, ds.id] }, :include_blank => false %>
+
+<%= form.input :preorder, :as => :boolean, :wrapper => :checkbox, :label => "Pre-order?", :hint => 'Checking this will mark the product as "Coming Soon" and disallow customers from adding it to their shopping carts.' %>
+<%= form.input :sold_out, :as => :boolean, :wrapper => :checkbox, :label => "Sold-out?", :hint => 'Checking this will mark the product as "Sold Out" and disallow customers from adding it to their shopping carts.' %>
+<%= form.input :contact_for_purchase, :as => :boolean, :wrapper => :checkbox, :label => "Contact for purchase?", :hint => 'Checking this will hide the price of the product, display a message about contacting Chipp\'d for purchase and disallow customers from adding it to their shopping carts.' %>
+<%= form.input :greeting_card, :as => :boolean, :wrapper => :checkbox, :label => "Is this product a greeting card?", :hint => 'Checking this will toggle shipping copy and pricing for this product' %>
+
+<%= is_visible_radio_buttons(form) %>

@@ -1,0 +1,20 @@
+local: &local
+  application_key: jNdNF2ldRaud8hHaWWUKkw
+  application_secret: qQjTZAjZTm6iS3eF0K4nsA
+  master_secret: BDfcCag_R5qjsjSahnd-RQ
+
+development:
+  <<: *local
+
+test:
+  <<: *local
+
+staging:
+  application_key: <%= ENV['URBANAIRSHIP_APP_KEY'] %>
+  application_secret: <%= ENV['URBANAIRSHIP_APP_SECRET'] %>
+  master_secret: <%= ENV['URBANAIRSHIP_APP_MASTER_SECRET'] %>
+
+production:
+  application_key: <%= ENV['URBANAIRSHIP_APP_KEY'] %>
+  application_secret: <%= ENV['URBANAIRSHIP_APP_SECRET'] %>
+  master_secret: <%= ENV['URBANAIRSHIP_APP_MASTER_SECRET'] %>

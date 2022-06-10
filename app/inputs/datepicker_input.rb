@@ -1,0 +1,2 @@
+class DatepickerInput < PickerInput
+end

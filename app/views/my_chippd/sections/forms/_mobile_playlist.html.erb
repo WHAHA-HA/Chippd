@@ -1,0 +1,31 @@
+<div class="playlist-container">
+<%= form.input :title %>
+<%= form.input :byline %>
+<%= form.input :desc, :label => 'Description' %>
+<%= form.input :purchaseable, :label => "Allow users to purchase?", :as => :boolean, :wrapper => :checkbox %>
+<%= form.input :downloadable, :label => "Allow users to download?", :as => :boolean, :wrapper => :checkbox %>
+<%= form.input :price_in_cents, :as => :currency %>
+<%= form.input :itunes_url, :label => 'iTunes URL' %>
+<%= form.input :amazon_url, :label => 'Amazon URL' %>
+
+<div id="uploader_target" data-bind="template: 'playlist'">
+  <p style="color: #ccc">Loading...</p>
+</div>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existing = Chippd.FileUpload.fromJS(
+        <%= raw @section.mobile_tracks_json %>,
+        Chippd.Track
+      );
+
+      $("#uploader_target").initMultiUpload(existing, {
+        type: Chippd.Track,
+        max: <%= MobilePlaylist::MAXIMUM_NUMBER_OF_TRACKS %>,
+        min: <%= MobilePlaylist::MINIMUM_NUMBER_OF_TRACKS %>
+      });
+    });
+  </script>
+<% end %>
+</div>

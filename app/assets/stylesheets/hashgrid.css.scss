@@ -1,0 +1,26 @@
+/* GRID STYLES */
+
+#grid {
+	z-index: 5;
+  width: 1300px;
+  position: absolute;
+	top: 0;
+  left: 50%;
+  margin-left: -650px;
+}
+#grid div.vert {
+  width: 64px;
+  border: solid darkturquoise;
+  border-width: 0 1px;
+  margin-right: 39px;
+}
+#grid div.vert.first-line {
+  margin-left: 40px;
+}
+#grid div.horiz {
+  /* 20px line height */
+  height: 9px;
+  border-bottom: 1px dotted darkgray;
+  margin: 0;
+  padding: 0;
+}

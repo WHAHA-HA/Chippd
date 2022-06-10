@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js ie6 ie"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js ie7 ie"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js ie8 ie"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js ie9 ie"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+<head>
+  <%= render '/layouts/meta' %>
+  <%= stylesheet_link_tag("application") %>
+  <%= stylesheet_link_tag("my_chippd") if my_chippd? %>
+  <%= yield :stylesheets %>
+
+    <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <%= csrf_meta_tags %>
+  <%= render '/layouts/modernizr_selectivizr' %>
+
+  <!-- TYPEKIT -->
+  <script type="text/javascript" src="https://use.typekit.com/ndz0lmt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <% if my_chippd? %>
+
+    <!-- TYPEKIT: MY CHIPP'D -->
+    <script type="text/javascript" src="https://use.typekit.com/twd3fhe.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <% end %>
+
+  <%= sublime_video_javascript_include_tag %>
+</head>
+<body>
+  <header role="masthead">
+    <div class="block">
+      <a href="<%= root_path %>"><%= content_tag(:h1, "Chipp&#8217;d".html_safe) %></a>
+      <%= logo %>
+
+<% if content_for?(:nav) %>
+      <%= yield(:nav) %>
+<% else %>
+      <a id="toggle" href="#">Toggle Nav</a>
+      <nav>
+        <ul>
+          <li><a href="<%= store_root_path %>">Store</a></li>
+          <li><a href="<%= about_us_path %>">About Us</a></li>
+          <li><a href="<%= how_it_works_path %>">How it Works</a></li>
+          <li class="account">
+            <% if customer_signed_in? %>
+            <div class="btn-group">
+              <a href="#" id="navAdmin" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+              <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="navAdmin">
+                <li><%= link_to(raw("My Chipp&#8217;d Pages"), my_chippd_pages_path) %></li>
+                <li><%= link_to("Edit Profile", edit_my_chippd_profile_path)%></li>
+                <li class="divider"></li>
+                <li><%= link_to(destroy_customer_session_path, :method => :delete) do %>Sign Out<% end %></li>
+              </ul>
+            </div><!-- /btn-group -->
+            <% else %>
+            <a class="sign-in" href="<%= new_customer_session_path %>">Sign In</a>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+<% end %>
+    </div><!-- /.block -->
+  </header>
+
+  <%= notifications %>
+  <%= yield %>
+
+  <footer role="site-info">
+    <div class="block">
+      <ul class="nav-sub">
+        <li><a href="http://chippd.tumblr.com">Blog</a></li>
+        <li><a href="<%= press_releases_path %>">Press</a></li>
+        <li><a href="<%= faq_path %>">FAQ</a></li>
+        <li><a href="<%= contact_us_path %>">Contact Us</a></li>
+        <li><a href="<%= terms_of_service_path %>">Terms of Service</a></li>
+        <li><a href="<%= privacy_policy_path %>">Privacy</a></li>
+        <li><a href="<%= go_path %>">Downloads</a></li>
+        <li><a href="<%= newsletter_path %>">Email Newsletter</a></li>
+        <li><a href="https://chippd.desk.com/">Help</a></li>
+      </ul>
+      <ul class="social">
+        <li class="twitter"><a href="http://twitter.com/chippdnyc">Twitter</a></li>
+        <li class="facebook"><a href="http://facebook.com/chippd">Facebook</a></li>
+      </ul>
+      <p id="copyright">&copy; 2013-14 Chipp&#8217;d Ltd. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <%= render '/layouts/keen' %>
+  <%= javascript_include_tag("base") %>
+  <%= javascript_include_tag("application") %>
+  <% if home? %>
+    <%= javascript_include_tag("vimeo_api") %>
+  <% end %>
+  <% if my_chippd? %>
+    <%= javascript_include_tag("my_chippd") %>
+    <script type="text/javascript">
+      window.S3Upload.signUrl = "<%= v2_aws_signatures_url(:host => "api.#{HOST}", :protocol => ((Rails.env.development? || Rails.env.test?) ? 'http' : 'https')) %>";
+    </script>
+    <%= javascript_include_tag("chippd_page") %>
+  <% end %>
+
+  <script type="text/javascript" src="https://d3dy5gmtp8yhk7.cloudfront.net/2.2/pusher.min.js"></script>
+
+  <%= yield :javascripts %>
+
+  <%= google_analytics_tracking_code %>
+</body>
+</html>

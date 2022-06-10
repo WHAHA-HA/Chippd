@@ -1,0 +1,2 @@
+class PastdatepickerInput < PickerInput
+end

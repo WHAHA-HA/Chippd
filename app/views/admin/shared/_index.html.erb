@@ -1,0 +1,8 @@
+<%= render :partial => "/admin/shared/create_and_paginate" %>
+
+<%= simple_table_for collection, :with => "#{resource_class}Table", :present_with => CrushTablePresenter %>
+
+<%= paginate collection %>
+
+<%= make_sortable("#{resource_class.to_s.downcase}-rows", sort_collection_path) %>
+

@@ -1,0 +1,57 @@
+(function() {
+  "use strict";
+  Chippd.WeddingPartyUploads = Chippd.FileUploads.extend({
+    constructor: function () {
+      Chippd.WeddingPartyUploads.__super__.constructor.apply(this, arguments);
+      var self = this;
+      var min = arguments[1].min;
+      var max = arguments[1].max;
+
+      self.bridesmaids = ko.computed(function () {
+        return this.uploads().filter(function (upload) {
+          return upload.image_type() === "bridesmaid";
+        });
+      }, self);
+
+      self.groomsmen = ko.computed(function () {
+        return this.uploads().filter(function (upload) {
+          return upload.image_type() === "groomsman";
+        });
+      }, self);
+
+      self.addBridesmaid = function () {
+        var bridesmaid = new Chippd.WeddingPartyImage();
+        bridesmaid.image_type("bridesmaid");
+        self.addUpload(bridesmaid);
+      };
+
+      self.addGroomsman = function () {
+        var groomsman = new Chippd.WeddingPartyImage();
+        groomsman.image_type("groomsman");
+        self.addUpload(groomsman);
+      };
+
+      self.canDelete = function (upload) {
+        var bridesmaids = self.bridesmaids(),
+          groomsmen = self.groomsmen();
+
+        if (upload.image_type() === "groomsman") {
+          return _.indexOf(groomsmen, upload) >= min;
+        } else {
+          return _.indexOf(bridesmaids, upload) >= min;
+        }
+      };
+
+      self.hasEnough = ko.computed(function () {
+        return this.bridesmaids().length >= min &&
+          this.groomsmen().length >= min;
+      }, self);
+
+      if (_.isEmpty(self.existing)) {
+        self.uploads([]);
+        self.addBridesmaid();
+        self.addGroomsman();
+      }
+    }
+  });
+})();

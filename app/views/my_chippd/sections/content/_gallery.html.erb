@@ -1,0 +1,13 @@
+<%= section.title %>
+
+<% if section.available? %>
+<ul class="gallery-images">
+  <% section.images.each do |image| %>
+  <li data-impressions-behavior="click"><%= image.link_to_image %></li>
+  <% end %>
+</ul>
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/gallery_pusher_javascript',
+    id: section.to_param, section: section %>
+<% end %>

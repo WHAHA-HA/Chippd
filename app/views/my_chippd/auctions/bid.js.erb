@@ -1,0 +1,14 @@
+<% if @bid.errors.empty? %>
+
+  alert("<%= @notice %>");
+
+  <% if @high_bid && @total_bids %>
+    $("#high_bid").html('<span class="icon">$</span><span><%= number_with_delimiter(@high_bid, :delimiter => ",") %></span>');
+    $("#total_bids").html(<%= @total_bids %>);
+  <% end %>
+
+<% else %>
+
+  alert("<%= @bid.errors.full_messages.join(', ').html_safe %>");
+
+<% end %>

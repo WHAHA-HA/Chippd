@@ -1,0 +1,58 @@
+<label class="file required">Left Image</label>
+<div id="left_uploader" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+</div>
+
+<label class="file required">Right Image</label>
+<div id="right_uploader" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+</div>
+
+<div id="file-input-section"></div>
+<%= form.input :title %>
+<%= form.input :body, :as => :text, :input_html => { :cols => "20", :rows => "10" } %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existingOne = existingTwo = null;
+
+      <% if @section.image_one_uid.present? %>
+        existingOne = Chippd.FileUpload.fromJS({
+          id: "<%= @section.image_one_uid %>",
+          url: "<%= @section.image_one.url %>"
+        }, Chippd.Image);
+      <% end %>
+
+      <% if @section.image_two_uid.present? %>
+        existingTwo = Chippd.FileUpload.fromJS({
+          id: "<%= @section.image_two_uid %>",
+          url: "<%= @section.image_two.url %>"
+        }, Chippd.Image);
+      <% end %>
+
+     /* $("#left_uploader").initSingleUpload(existingOne, Chippd.Image, "upload_one");
+      $("#right_uploader").initSingleUpload(existingTwo, Chippd.Image, "upload_two");*/
+        var files = [];
+        if(existingOne)
+            files.push(existingOne);
+
+        if(existingTwo)
+            files.push(existingTwo);
+        //jQuery Version...
+        $('#uploader').fileupload({
+            // Uncomment the following to send cross-domain cookies:
+            //xhrFields: {withCredentials: true},
+            url: '/documents',
+            autoUpload: false,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            fileTemplateContainerId : ['left_uploader', 'right_uploader'],
+            fileInputTemplateId:['locket_left_upload','locket_right_upload'],
+            existingFiles: files,
+            maxFileSize: 5000000,
+        });
+
+    });
+  </script>
+<% end %>
+

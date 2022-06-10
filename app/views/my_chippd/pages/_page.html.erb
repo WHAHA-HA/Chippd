@@ -1,0 +1,29 @@
+<div class="overview js-reactor">
+  <div class="group">
+    <h3 class="page-name-wrapper" id="<%= dom_id(page, 'name_of') %>">
+      <span class="page-name"><%= page.name %></span>
+      <%= link_to('', edit_my_chippd_page_path(page), :class => 'edit', :title => "Edit Title", :data => { :form => "##{dom_id(page, 'form_for')}"}, 'aria-hidden' => 'true', 'data-icon' => 'p') %>
+    </h3>
+
+    <%= form_for :page, :url => my_chippd_page_path(page), :remote => true, :method => :put, :html => { :class => 'page-name-form form-inline', :id => dom_id(page, 'form_for'), :data => { :name => "##{dom_id(page, 'name_of')}" } } do |form| %>
+    <%= form.text_field :name, :value => page.name %>
+    <button type="submit" class="btn " data-loading-text="saving...">Save</button>
+    <% end %>
+
+    <div class="chippd-product-type <%= page.chippd_product_type.html_class %>">
+      <%= image_tag(page.product_collection.image_url, :alt => "Chipp'd #{page.product_collection.name}", :class => "icon") %>
+      <span class="txt">
+        <%= page.product_collection %><br>
+        <small><span class="icon" data-icon=""></span><%= page.chippd_product_type.name %></small>
+      </span>
+    </div>
+
+    <% if page.b2b_enabled? %>
+      <%= render 'b2b_page', :page => page %>
+    <% else %>
+      <%= render 'standard_page', :page => page %>
+    <% end %>
+
+    <p class="customize"><%= link_to('Customize Page', edit_my_chippd_page_path(page), :class => 'btn') %></p>
+  </div><!-- /.group -->
+</div><!-- /.overview -->

@@ -1,0 +1,380 @@
+<!doctype html>
+<!--[if IE 7]> <html class="no-js ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js ie8 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>About Wedding | By Chipp&#x27;d</title>
+
+  <%= stylesheet_link_tag "wedding" %>
+
+  <script type="text/javascript" src="//use.typekit.net/sxk1gie.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body>
+  <div class="container">
+    <section id="saveTheDate" class="widget hearts">
+      <h1 class="sectionHeading">Save the Date</h1>
+      <h2 class="script">Jonathan Strayhorn <em class="amp">&amp;</em> Annie Weir</h2>
+      <div class="centeredLabel"><span>are</span></div>
+      <h3>Getting Married</h3>
+
+      <div class="detailList">
+        <ul class="grid group">
+          <li class="date half">January 23 / 2014</li>
+          <li class="place half">Beacon, New York</li>
+        </ul>
+      </div>
+    </section>
+    <!-- /saveTheDate -->
+    <section id="gallery" class="widget">
+      <ul class="slides group">
+        <li>
+          <%= image_tag("temp/delete-temp-wedding1.jpg", :width => 522, :height => 348, :alt => "Gallery Photo") %>
+        </li>
+        <li>
+          <%= image_tag("temp/delete-temp-wedding1.jpg", :width => 522, :height => 348, :alt => "Gallery Photo") %>
+        </li>
+        <li>
+          <%= image_tag("temp/delete-temp-wedding1.jpg", :width => 522, :height => 348, :alt => "Gallery Photo") %>
+        </li>
+      </ul>
+    </section>
+    <!-- /gallery -->
+    <section id="invite" class="widget">
+      <h1 class="sectionHeading"><span>You're Invited</span></h1>
+      <h2>Celebrate with us</h2>
+      <span class="centeredLabel"><span>at</span></span>
+      <%= image_tag("temp/delete-temp-wedding2.jpg", :class => "centered", :width => 417, :height => 278, :alt => "Scenery") %>
+      <div class="address">
+        <h1 class="script">Hudson Valley Farm</h1>
+        <p class="group">
+          <span class="time">5pm</span>
+          <span class="addy">
+            340 Cresant Avenue<br>
+            Beacon, NY 12528
+          </span>
+        </p>
+        <h2>Dinner &amp; reception to follow</h2>
+      </div>
+      <!-- /address -->
+      <%= image_tag("widgets/heart.png", :class => "no", :width => 18, :height => 15) %>
+      <span class="centeredLabel"><span>A small note</span></span>
+      <p class="note">The ceremony and reception will be held outside admist the colorful autumn foliage.
+      Please dress appropriately for temperatures between 50-70 degrees.</p>
+    </section>
+    <!-- /invite -->
+    <form id="rsvpForm" class="widget hearts dark">
+      <h1>Please say you're coming</h1>
+      <fieldset class="group">
+        <label id="yes" class="button active">Yes, I am! <input name="rsvp" type="radio" value="yes"></label>
+        <label id="no" class="button inactive">Sorry, I can't <input name="rsvp" type="radio" value="no"></label>
+        <h2>Meal choice</h2>
+        <div class="mealChoice">
+          <label class="radio"><input type="radio" name="meal" value="veggie"> Veggie</label>
+          <label class="radio"><input type="radio" name="meal" value="fish"> Fish</label>
+          <label class="radio"><input type="radio" name="meal" value="chicken"> Chicken</label>
+        </div>
+        <div id="guests"></div>
+        <button id="save" class="button small">Save</button>
+        <button id="addGuest" class="button small">Add a Guest</button>
+      </fieldset>
+      <p>Please respond by <strong>May 30, 2014</strong></p>
+    </form>
+    <!-- /rsvp form -->
+    <section id="thankyou" class="widget hearts dark"></section>
+    <section id="couple" class="widget">
+      <h1 class="sectionHeading"><span>The Couple</span></h1>
+      <span class="amp">&amp;</span>
+      <ul class="grid couple group">
+        <li class="half">
+          <span class="avatar">
+            <%= image_tag("temp/delete-temp-avatar.jpg", :width => 206, :height => 206, :alt => "John Smith / Father") %>
+          </span>
+          <hgroup>
+            <h1 class="smallBanner">Bride</h1>
+            <h2>Annie Weir</h2>
+            <h3>Daughter of Mark &amp; Barbara Weir</h3>
+          </hgroup>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </li>
+        <li class="half">
+          <span class="avatar">
+            <%= image_tag("temp/delete-temp-avatar.jpg", :width => 206, :height => 206, :alt => "John Smith / Father") %>
+          </span>
+          <hgroup>
+            <h1 class="smallBanner">Bride</h1>
+            <h2>Annie Weir</h2>
+            <h3>Daughter of Mark &amp; Barbara Weir</h3>
+          </hgroup>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </li>
+      </ul>
+      <h2 class="sectionHeading"><span>The Wedding Party</span></h2>
+      <ul class="grid group">
+        <li class="half">
+          <h1 class="script">Bridesmaids</h1>
+          <span class="avatar">
+            <%= image_tag("temp/delete-temp-avatar.jpg", :width => 206, :height => 206, :alt => "John Smith / Father") %>
+          </span>
+          <hgroup>
+            <h2>Emma Garret</h2>
+            <h3>Made of Honor</h3>
+          </hgroup>
+        </li>
+        <li class="half">
+          <h1 class="script">Groomsmen</h1>
+          <span class="avatar">
+            <%= image_tag("temp/delete-temp-avatar.jpg", :width => 206, :height => 206, :alt => "John Smith / Father") %>
+          </span>
+          <hgroup>
+            <h2>Emma Garret</h2>
+            <h3>Made of Honor</h3>
+          </hgroup>
+        </li>
+        <li class="half">
+          <span class="avatar">
+            <%= image_tag("temp/delete-temp-avatar.jpg", :width => 206, :height => 206, :alt => "John Smith / Father") %>
+          </span>
+          <hgroup>
+            <h2>Emma Garret</h2>
+          </hgroup>
+        </li>
+        <li class="half">
+          <span class="avatar">
+            <%= image_tag("temp/delete-temp-avatar.jpg", :width => 206, :height => 206, :alt => "John Smith / Father") %>
+          </span>
+          <hgroup>
+            <h2>Emma Garret</h2>
+          </hgroup>
+        </li>
+      </ul>
+    </section>
+    <!-- /theCouple -->
+    <section id="timeline" class="widget">
+      <h1 class="sectionHeading"><span>The story of</span></h1>
+      <h2 class="script">Jonathan <span class="amp">&amp;</span> Annie</h2>
+      <hr />
+      <h3>How it all began</h3>
+      <ol class="group">
+        <li>
+          <%= image_tag("temp/delete-temp-wedding3.jpg", :width => 151, :height => 201, :alt => "Skiing") %>
+        </li>
+        <li>
+          <h1>January 2009</h1>
+          <h2>IN BOULDER, COLORADO</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam egestas nulla. Maecenas.</p>
+        </li>
+        <li>
+          <h1>May 2010</h1>
+          <h2>Jonathan moved to New York for an internship</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam egestas nulla. Maecenas eu mollis sapien, vitae ultricies elit.</p>
+        </li>
+        <li>
+          <ul class="playlist">
+            <li class="track">
+              <h1>Empire State of Mind</h1>
+              <h2>Jay Z feat. Alicia Keys</h2>
+              <a href="https://d27tl16ulrqk5c.cloudfront.net/2012/10/10/22/27/38/103/Shimmering_Shining.mp3">Song</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <%= image_tag("temp/delete-temp-wedding4.jpg", :width => 210, :height => 210, :alt => "Plane") %>
+        </li>
+        <li>
+          <h1>All summer and fall</h1>
+          <h2>Annie and Jonathan visited each other</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam</p>
+        </li>
+      </ol>
+      <h3>The proposal</h3>
+      <ol class="group">
+        <li>
+          <%= image_tag("temp/delete-temp-wedding3.jpg", :width => 151, :height => 201, :alt => "Skiing") %>
+        </li>
+        <li>
+          <h1>January 2009</h1>
+          <h2>IN BOULDER, COLORADO</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam egestas nulla. Maecenas.</p>
+        </li>
+        <li>
+          <h1>May 2010</h1>
+          <h2>Jonathan moved to New York for an internship</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam egestas nulla. Maecenas eu mollis sapien, vitae ultricies elit.</p>
+        </li>
+        <li>
+          <ul class="playlist">
+            <li class="track">
+              <h1>Empire State of Mind</h1>
+              <h2>Jay Z feat. Alicia Keys</h2>
+              <a href="https://d27tl16ulrqk5c.cloudfront.net/2012/10/10/22/27/38/103/Shimmering_Shining.mp3">Song</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <%= image_tag("temp/delete-temp-wedding4.jpg", :width => 210, :height => 210, :alt => "Plane") %>
+        </li>
+        <li>
+          <h1>All summer and fall</h1>
+          <h2>Annie and Jonathan visited each other</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam</p>
+        </li>
+      </ol>
+      <h3>Tying the knot</h3>
+      <h4>September 23, 2014</h4>
+    </section>
+    <!-- /timeline -->
+    <section id="events" class="widget">
+      <h1 class="sectionHeading"><span>Events</span></h1>
+      <ol>
+        <li>
+          <h1>Rehersal dinner</h1>
+          <h2>Thursday / 6PM</h2>
+          <p>
+            The Farm House<br>
+            Hudson Valley Farm<br>
+            <a href="http://hudsonvalleyfarm.com">hudsonvalleyfarm.com</a><br><br>
+            Casual attire recommended
+          </p>
+          <%= image_tag("temp/delete-temp-wedding5.jpg", :width => 139, :height => 104) %>
+        </li>
+        <li>
+          <h1>Welcome drinks</h1>
+          <h2>Friday / 8PM</h2>
+          <p>
+            The Farm House<br>
+            Hudson Valley Farm<br>
+            <a href="http://hudsonvalleyfarm.com">hudsonvalleyfarm.com</a><br><br>
+            Casual attire recommended
+          </p>
+          <%= image_tag("temp/delete-temp-wedding5.jpg", :width => 139, :height => 104) %>
+        </li>
+      </ol>
+    </section>
+    <!-- /events -->
+    <section id="places" class="widget">
+      <h1 class="sectionHeading"><span>Places to stay</span></h1>
+      <%= image_tag("temp/delete-temp-wedding6.jpg", :width => 262, :height => 190) %>
+      <h2 class="script">Mt. Beacon Bed &amp; Breakfast</h2>
+      <p>
+        <span class="addy">
+            340 Hudson Valley Road<br>
+            Beacon, NY 12528<br>
+            (328) 238-2847<br>
+        </span>
+        <a href="http://mtbeaconbandb.com">mtbeaconbandb.com</a><br>
+        <span class="on">$</span>
+        <span class="on">$</span>
+        <span class="on">$</span>
+        <span class="off">$</span>
+      </p>
+      <div class="grid group">
+        <div class="half">
+          <h1>Holiday Inn</h1>
+          <span class="addy">340 Hudson Valley Road<br>
+                    Beacon, NY 12528<br>
+                    (328) 238-2847<br></span>
+          <a href="http://mtbeaconbandb.com">mtbeaconbandb.com</a><br>
+          <span class="on">$</span>
+          <span class="on">$</span>
+          <span class="on">$</span>
+          <span class="off">$</span>
+        </div>
+        <div class="half right">
+          <h1>Chrystie House</h1>
+          <span class="addy">340 Hudson Valley Road<br>
+                    Beacon, NY 12528<br>
+                    (328) 238-2847<br></span>
+          <a href="http://mtbeaconbandb.com">mtbeaconbandb.com</a><br>
+          <span class="on">$</span>
+          <span class="on">$</span>
+          <span class="off">$</span>
+          <span class="off">$</span>
+        </div>
+        <div class="full">
+          <h1>Marriott</h1>
+          <span class="addy">340 Hudson Valley Road<br>
+                    Beacon, NY 12528<br>
+                    (328) 238-2847<br></span>
+          <a href="http://mtbeaconbandb.com">mtbeaconbandb.com</a><br>
+          <span class="on">$</span>
+          <span class="on">$</span>
+          <span class="off">$</span>
+          <span class="off">$</span>
+        </div>
+      </div>
+      <span class="centeredLabel"><span>When booking</span></span>
+      <p class="note">Notify the receptionist you&rsquo;re with the &ldquo;Strayhorn Wedding&rdquo; for a discount on your room at Mt. Beacon, Holiday Inn, and Marriott.</p>
+    </section>
+    <!-- /places -->
+    <section id="registry" class="widget">
+      <h1 class="sectionHeading"><span>Gift Registry</span></h1>
+      <a href="#" class="button">
+        West Elm<br>
+        <span>westelm.com</span>
+      </a>
+      <a href="#" class="button">
+        Bed Bath &amp; Beyond<br>
+        <span>bedbathandbeyond.com</span>
+      </a>
+      <a href="#" class="button">
+        Pottery Barn<br>
+        <span>potterybarn.com</span>
+      </a>
+      <a href="#" class="button">
+        Donate to Charity<br>
+        <span>charitywater.com</span>
+      </a>
+      <h2 class="sectionHeading"><span>To mail a gift, please address to</span></h2>
+      <p>
+        Barbara Weir<br>
+        274 Sunset Circle<br>
+        Tempe, AZ 88736
+      </p>
+    </section>
+    <!-- /registry -->
+  </div>
+  <!-- /container -->
+  <footer id="pageFooter">
+    &nbsp;
+  </footer>
+  <script id="cantWait" type="text/template">
+    <h1>Can't wait to see you!</h1>
+    <%% if (num > 0) { %>
+    <span class="amp">&ndash; &amp; &ndash;</span>
+    <h2>
+      <%% _.each(data, function(person, index) { %>
+        <%% console.log(index); %>
+        <%% if (index > 0) { %>
+        <%%= person.name %> <%% if (index < num) { %>&<%% } %>
+        <%% } %>
+      <%% }); %>
+    </h2>
+    <%% } %>
+    <button id="edit" class="button">Edit</button>
+  </script>
+  <script id="sorry" type="text/template">
+    <h1>We'll miss having you!</h1>
+    <button id="edit" class="button">Edit</button>
+  </script>
+  <script id="guestTemplate" type="text/template">
+    <div class="guest">
+      <span class="amp">&ndash; &amp; &ndash;</span>
+      <label>Guest<br><input type="text" name="guest<%%= num %>" placeholder="Name"></label>
+      <h2>Meal choice</h2>
+      <div class="mealChoice">
+        <label class="radio"><input type="radio" name="meal" value="veggie"> Veggie</label>
+        <label class="radio"><input type="radio" name="meal" value="fish"> Fish</label>
+        <label class="radio"><input type="radio" name="meal" value="chicken"> Chicken</label>
+      </div>
+    </div>
+  </script>
+  <%= javascript_include_tag("widget_page") %>
+</body>
+</html>

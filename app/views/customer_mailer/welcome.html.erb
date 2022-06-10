@@ -1,0 +1,36 @@
+<p>Hello <%= @customer.full_name %>,</p>
+
+<p>Welcome to Chipp’d! Your username is <%= @customer.email %>.</p>
+
+<p>You’re about to enter a world in which: </p>
+
+<ul>
+  <li>Handcrafted jewelry unlocks secret mobile pages</li>
+  <li>Greeting cards unlock private video messages</li>
+  <li>You can build a content-rich page without a degree in computer science</li>
+  <li>You’re in total control of the privacy of your content</li>
+  <li><i>You can share what you want with exactly who you want.</i></li>
+</ul>
+
+<p>No, we’re not kidding – it will hurt if you pinch yourself right now.</p>
+
+<p>Chipp’d smart gifts and greeting cards let you connect with people you care about in ways you never thought possible.</p>
+
+<p>Build awesome pages filled with all sorts of exclusive content and choose exactly who gets to see all the juicy details.</p>
+
+<p>To get started:</p>
+
+<ul>
+  <li><%= link_to('Download our app', go_url) %>. You’ll need it to view any page created on Chipp’d.</li>
+  <li><%= link_to('Buy a product', store_root_url) %>. You’ll need one to get your own personal, customizable page.</li>
+  <li>Read up on <%= link_to("how Chipp'd works", how_it_works_url) %> and check out <%= link_to('our FAQs', faq_url) %> for more information.</li>
+</ul>
+
+<p>Don't forget to <i>share Chipp'd with your friends</i>. You know you’d want them to do the same for you.</p>
+
+<p>Please <%= link_to('contact us', contact_us_url) %> with any questions or suggestions. We’d love to hear from you.</p>
+
+<p>
+Enjoy every minute,<br>
+Chipp'd
+</p>

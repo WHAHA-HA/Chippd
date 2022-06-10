@@ -1,0 +1,19 @@
+<%= form.input :title %>
+<%= form.input :published_on, :input_html => { :class => "date" } %>
+<%= form.input :abstract, :as => :text, :input_html => {:class => "xxlarge" } %>
+<%= form.input :body, :as => :text, :input_html => {:class => "xxlarge" } %>
+<div class="current-file well">
+  <%= form.input :original, :as => :file, :hint => "PNG or JPG format, at least 800px wide" %>
+
+  <% if resource.original_uid.present? %>
+  <p class="push">Current Image</p>
+  <a data-toggle="modal" href="#<%= dom_id(resource, 'current-image') %>" >
+    <%= image_tag resource.thumb.remote_url, :class => "thumbnail", :width => "200" %>
+  </a>
+  <div class="modal" id="<%= dom_id(resource, 'current-image') %>" style="display:none;padding:5px;">
+    <%= image_tag resource.image.remote_url %>
+  </div>
+  <% end %>
+</div>
+
+<%= is_visible_radio_buttons(form) %>

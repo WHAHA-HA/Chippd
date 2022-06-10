@@ -1,0 +1,34 @@
+<%= content_for(:heading, "Thank you for your order!") %>
+<div>
+<% if current_order.billing_same_as_shipping %>
+  <% if current_order.love? %>
+    <p>They are lucky to be loved by someone as thoughtful as you. We’ll send you an email as soon as your order has shipped. Until then, start crafting your love story using our awesome page builder.</p>
+    <p><a href="<%= my_chippd_pages_path %>" class="btn btn-large">Make love. &rarr;</a></p>
+  <% elsif current_order.story? %>
+    <%= unless_for_existing_page do %>
+      <p>We have to admit, you’ve got us intrigued. We’ll send you an email as soon as your order has shipped. Until then, start telling your story using our awesome page builder.</p>
+      <p><a href="<%= my_chippd_pages_path %>" class="btn btn-large">Create your story. &rarr;</a></p>
+    <% end %>
+  <% else # current_order.flock? is true %>
+    <%= unless_for_existing_page do %>
+      <p>We salute you, because sharing truly is caring. - We'll send you an email as soon as your order has shipped. Until then, start adding content to your pages.</p>
+      <p><a href="<%= my_chippd_pages_path %>" class="btn btn-large">Go to your page. &rarr;</a></p>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if current_order.love? %>
+    <p>They are lucky to be loved by someone as thoughtful as you. We'll send you an email as soon as your order has shipped. Until then, start crafting your love story using our awesome page builder.</p>
+    <p><a href="<%= my_chippd_pages_path %>" class="btn btn-large">Make love. &rarr;</a></p>
+  <% elsif current_order.story? %>
+    <%= unless_for_existing_page do %>
+      <p>You've got great taste and it shows. We'll send you an email as soon as your order has shipped. Until then, if you haven't already, get your own page and start building!</p>
+      <p><a href="<%= my_chippd_pages_path %>" class="btn btn-large">Go to your pages. &rarr;</a></p>
+    <% end %>
+  <% else # current_order.flock? is true %>
+    <%= unless_for_existing_page do %>
+      <p>We salute you, because sharing truly is caring. - We'll send you an email as soon as your order has shipped. Until then, start adding content to your pages.</p>
+      <p><a href="<%= my_chippd_pages_path %>" class="btn btn-large">Go to your pages. &rarr;</a></p>
+    <% end %>
+  <% end %>
+<% end %>
+</div>

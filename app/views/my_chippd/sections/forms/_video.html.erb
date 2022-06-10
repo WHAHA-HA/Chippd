@@ -1,0 +1,60 @@
+<% if @section.persisted? %>
+  <% if @presented_section.available? %>
+    <div class="image-wrap">
+      <%= @presented_section.video_embed %>
+      <p>Current Video</p>
+    </div>
+  <% else %>
+    <p style="color: #333">Current video file is still being processed.</p>
+  <% end %>
+<% end %>
+
+<!--<div id="uploader_target" data-bind="template: 'singleUpload'">
+  <p style="color: #ccc">Loading...</p>
+</div>-->
+<!-- here we add widgetizied file input section iteslf -->
+<div id="file-input-section">
+  <p style="color: #ccc">Loading...</p>
+</div>
+<%= form.input :caption %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    $(function () {
+      var existing = null;
+      <% if @section.versions.present? %>
+        existing = Chippd.FileUpload.fromJS({
+          id: "<%= @section.versions.last.id %>",
+          url: "<%= @section.versions.last.id %>"
+        }, Chippd.Video);
+
+        var result = {};
+        result.name='samplevideo';
+        result.id='<%= @section.versions.last.id %>';
+        result.url='<%= @section.versions.last.id %>';
+
+        var files = [];
+        files.push(result);
+
+      <% else %>
+        files = null;
+      <% end %>
+
+      // $("#uploader_target").initSingleUpload(existing, Chippd.Video);
+
+        /*jquery upload part*/
+        // Initialize the jQuery File Upload widget:
+      $('#uploader').fileupload({
+            // Uncomment the following to send cross-domain cookies:
+            //xhrFields: {withCredentials: true},
+            url: '/documents',
+            autoUpload: false,
+            acceptFileTypes: /(\.|\/)(avi|mpg|mov)$/i,
+            maxFileSize: 500000000,
+            fileInputTemplateId:"entry_simple_video",
+            existingFiles : files
+        });
+        /*jquery upload part ends*/
+    });
+  </script>
+<% end %>

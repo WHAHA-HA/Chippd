@@ -1,0 +1,17 @@
+test:
+  override:
+    - CODECLIMATE_REPO_TOKEN=112989bc80de0fe5a1fca4156df8154e27d99973f90bca465b38807f2acb841c bundle exec rspec spec
+    - CODECLIMATE_REPO_TOKEN=112989bc80de0fe5a1fca4156df8154e27d99973f90bca465b38807f2acb841c bundle exec cucumber
+deployment:
+  staging:
+    branch: staging
+    commands:
+      - '[[ ! -s "$(git rev-parse --git-dir)/shallow" ]] || git fetch --unshallow'
+      - git push git@heroku.com:chippd-staging.git $CIRCLE_SHA1:master -f
+      - curl -sSfLk --retry 5 https://qa.chippd.com > /dev/null
+  production:
+    branch: master
+    commands:
+      - '[[ ! -s "$(git rev-parse --git-dir)/shallow" ]] || git fetch --unshallow'
+      - git push git@heroku.com:chippd-production.git $CIRCLE_SHA1:master
+      - curl -sSfL --retry 5 https://chippd.com > /dev/null

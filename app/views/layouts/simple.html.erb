@@ -1,0 +1,33 @@
+<!doctype html>
+<!--[if IE 7]> <html class="no-js ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js ie8 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <%= render '/layouts/meta' %>
+  <%= stylesheet_link_tag "simple" %>
+  <%= csrf_meta_tags %>
+  <%= render '/layouts/modernizr_selectivizr' %>
+
+  <!-- TYPEKIT -->
+  <script type="text/javascript" src="https://use.typekit.com/ndz0lmt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="<%= root_path %>"><%= image_tag('logomark-alt.png', :alt => "Chipp'd", :class => "logo") %></a>
+    </header>
+    <section id="content">
+      <% if content_for?(:heading) %>
+      <h1><%= yield :heading %></h1>
+      <% end %>
+      <%= notifications(:no_wrap) %>
+      <%= yield %>
+    </section>
+  </div><!-- /.container -->
+
+  <%= javascript_include_tag "simple" %>
+  <%= google_analytics_tracking_code %>
+</body>
+</html>

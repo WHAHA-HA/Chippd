@@ -1,0 +1,2 @@
+class BabysFirstUploadHandler < PhotoVideoUploadHandler
+end

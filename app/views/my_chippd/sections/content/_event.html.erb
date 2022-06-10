@@ -1,0 +1,19 @@
+<%= image_tag('my_chippd/icon-event.png', :alt => "Calendar Icon") %>
+<%= section.title %>
+<%= section.description %>
+
+<div class="details" data-impressions-behavior="click">
+  <%= section.datetime %>
+  <%= section.location %>
+</div>
+
+<a href="#event" title="Add to Calendar" class="addthisevent" data-impressions-behavior="click">
+  Add to Calendar
+  <span class="_start"><%= section.machine_datetime(section.start_time, :start) %></span>
+  <% if section.ends? %><span class="_end"><%= section.machine_datetime(section.end_time, :end) %></span><% end %>
+  <span class="_zonecode">15</span>
+  <span class="_summary"><%= section.simple_title %></span>
+  <span class="_description"><%= section.simple_description %></span>
+  <% if !section.start_time? && !section.end_time? %><span class="_all_day_event">true</span><% end %>
+  <span class="_date_format">MM/DD/YYYY</span>
+</a>

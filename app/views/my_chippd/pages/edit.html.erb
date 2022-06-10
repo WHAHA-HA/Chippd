@@ -1,0 +1,205 @@
+<section id="content" class="container admin editor">
+  <div id="editor-controls">
+    <%= link_to(raw('Back to My Pages'), my_chippd_pages_path, :class => 'back', 'aria-hidden' => 'true', 'data-icon' => '[') %>
+    <%= link_to('Preview My Page', my_chippd_page_path(@page), :class => 'preview', 'aria-hidden' => 'true', 'data-icon' => 'E') %>
+  </div>
+  <div class="block">
+    <div class="col6">
+      <h1><%= @page.name %></h1>
+      <div id="actions">
+        <h3>Add Content</h3>
+        <p class="instruction">Click/tap on the content types to add them to your Chipp&#8217;d page.</p>
+
+        <ul id="buttons" data-behavior="section-type-buttons">
+          <% presented_page_section_types.each do |section_type| %>
+          <%= section_type.to_button %>
+          <% end %>
+        </ul>
+        <div id="page-heading">
+          <a class="btn" data-toggle="modal" href="#pageHeading">Page Heading Options</a>
+        </div>
+        <div class="modal hide fade" id="pageHeading">
+          <%= simple_form_for @page, :url => my_chippd_page_path(@page), :method => :put do |form| %>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Page Heading</h3>
+            <p>Give your page a title and description. These items will be displayed at the very top of your page.</p>
+          </div>
+          <div class="modal-body">
+            <%= form.input :heading, :label => "Title", :required => false %>
+            <%= form.input :subheading, :label => "Description", :as => :text, :input_html => { :cols => "20", :rows => "5" }, :required => false  %>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <button type="submit" class="btn btn-primary" data-loading-text="saving...">Save</button>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <div id="page-admin">
+        <h3>Push Notifications</h3>
+        <p>Make yourself heard. Alert your audience when you&#8217;ve made a really important update to your page. You only get to send one push notification per day, so use it wisely!</p>
+<% if @page.eligible_for_notification? %>
+        <%= simple_form_for @page, :url => notify_my_chippd_page_path(@page), :method => :post do |form| %>
+          <button type="submit" class="btn" data-confirm="" data-loading-text="">Send notification</button>
+        <% end %>
+<% else %>
+        <p>You can send your next notification in <%= @page.eligible_to_notify_next_at %>.</p>
+<% end %>
+        <h3>Page Reset</h3>
+        <%= simple_form_for @page, :url => reset_my_chippd_page_sections_path(@page), :method => :delete do |form| %>
+          <p>Want a fresh start? Clear your page content by clicking on the reset button below. <strong>There is no undo button</strong> – so please make sure you really want to do this!</p>
+          <button type="submit" class="btn" data-confirm="Are you sure you want to reset this page?" data-loading-text="resetting...">I understand the consequences. Reset this page.</button>
+        <% end %>
+      </div>
+
+      <div id='get-help'>
+        <h3>Need help?</h3>
+        <div id="page-heading">
+          <%= link_to('Contact us', contact_us_path, class: 'btn') %>
+        </div>
+      </div>
+    </div><!-- /.col6 -->
+
+    <div class="col6 end layout-preview" data-behavior="page-sections-preview">
+      <h1>Layout Preview</h1>
+
+      <div class="wrapper <%= @page.page_variation %> js-reactor">
+        <% if @page.has_sections? %>
+          <%= @page.link_to_reorder %>
+        <% end %>
+
+        <% if @page.b2b_enabled? %>
+        <div class="asset-stats-info">
+          <ul class="statlist statlist--callout">
+            <li>Data Used <b><%= @page.storage_used %></b></li>
+          </ul>
+        </div>
+        <% end %>
+
+        <%= @page.header %>
+
+        <% if @page.has_sections? %>
+          <% @page.sections.each do |section| %>
+            <%= render "section", :section => section %>
+            <div class="edit-destroy" id="<%= dom_id(section, 'controls_for') %>">
+              <%= link_to('edit', edit_my_chippd_page_section_path(@page, section), :class => 'edit', 'aria-hidden' => 'true', 'data-icon' => 'W') %>
+              <%= link_to('delete', my_chippd_page_section_path(@page, section), :method => :delete, :class => 'destroy', :confirm => 'Are you sure you want to delete this?', 'aria-hidden' => 'true', 'data-icon' => '#') %>
+            </div>
+
+            <% if @page.b2b_enabled? %>
+            <div class="asset-stats">
+              <a class="asset-stats__toggle chippdCollapse" href="#" data-toggle="collapse" data-target="#asset-stats_content_<%= dom_id(section, 'controls_for') %>">View Asset Performance</a>
+
+              <div id="asset-stats_content_<%= dom_id(section, 'controls_for') %>" class="collapse">
+                <div class="asset-stats__content">
+
+                  <!-- Dev Note: Date Added Statgroup-->
+                  <div class="statgroup">
+                    <ul class="statlist">
+                      <li>Date Added: <b><%= section.created_at %></b></li>
+                    </ul>
+                  </div>
+                  <!-- Dev Note: End Date Added Statgroup-->
+
+                  <!-- Dev Note: Unique Impressions Statgroup-->
+                  <div class="statgroup">
+                    <div class="tab-content tab-content--simple">
+                      <div class="tab-pane active" id="asset_stats_unique_impressions_<%= dom_id(section, 'controls_for_total') %>">
+                        <ul class="statlist">
+                          <li>Unique Impressions: <b></b></li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane" id="asset_stats_unique_impressions_<%= dom_id(section, 'controls_for_day') %>">
+                        <ul class="statlist">
+                          <li>Unique Impressions: <b></b></li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane" id="asset_stats_unique_impressions_<%= dom_id(section, 'controls_for_week') %>">
+                        <ul class="statlist">
+                          <li>Unique Impressions: <b></b></li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane" id="asset_stats_unique_impressions_<%= dom_id(section, 'controls_for_month') %>">
+                        <ul class="statlist">
+                          <li>Unique Impressions: <b></b></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <ul class="nav nav-tabs nav-tabs--simple chippdTab">
+                      <li class="active"><a href="#asset_stats_unique_impressions_<%= dom_id(section, 'controls_for_total') %>">Total</a></li>
+                      <li><a href="#asset_stats_unique_impressions_<%= dom_id(section, 'controls_for_day') %>">Last Day</a></li>
+                      <li><a href="#asset_stats_unique_impressions_<%= dom_id(section, 'controls_for_week') %>">Last Week</a></li>
+                      <li><a href="#asset_stats_unique_impressions_<%= dom_id(section, 'controls_for_month') %>">Last Month</a></li>
+                    </ul>
+                  </div>
+                  
+                  <!-- Dev Note: Growth In Impressions Statgroup-->
+                  <div class="statgroup">
+                    <div class="tab-content tab-content--simple">
+                      <div class="tab-pane active" id="asset_stats_growth_in_impressions_<%= dom_id(section, 'controls_for_day') %>">
+                        <ul class="statlist">
+                          <li>Growth In Impressions: <b></b></li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane" id="asset_stats_growth_in_impressions_<%= dom_id(section, 'controls_for_week') %>">
+                        <ul class="statlist">
+                          <li>Growth In Impressions: <b></b></li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane" id="asset_stats_growth_in_impressions_<%= dom_id(section, 'controls_for_month') %>">
+                        <ul class="statlist">
+                          <li>Growth In Impressions: <b></b></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <ul class="nav nav-tabs nav-tabs--simple chippdTab">
+                      <li class="active"><a href="#asset_stats_growth_in_impressions_<%= dom_id(section, 'controls_for_day') %>">Last Day</a></li>
+                      <li><a href="#asset_stats_growth_in_impressions_<%= dom_id(section, 'controls_for_week') %>">Last Week</a></li>
+                      <li><a href="#asset_stats_growth_in_impressions_<%= dom_id(section, 'controls_for_month') %>">Last Month</a></li>
+                    </ul>
+                  </div>
+                  <!-- Dev Note: End Unique Impressions Statgroup -->
+
+                  <% if section.uses_storage? %>
+                  <!-- Dev Note: Data Used Statgroup-->
+                  <div class="statgroup">
+                    <ul class="statlist">
+                      <li>Data Used: <b><%= section.storage_used %></b></li>
+                    </ul>
+                  </div>
+                  <!-- Dev Note: End Data Used Statgroup-->
+                  <% end %>
+
+                </div>
+              </div>
+            </div>
+            <% end %>
+
+
+            <hr />
+          <% end %>
+          <%= @page.link_to_reorder %>
+        <% else %>
+          <%= @page.no_sections_yet_message %>
+        <% end %>
+      </div><!-- /.wrapper -->
+    </div><!-- /.col6 -->
+
+    <% @page.when_sections_can_be_reordered do %>
+    <div class="col6 end layout-preview section-sorting" data-behavior="sortable-page-sections">
+      <h1>Reorder Your Page</h1>
+
+      <div class="wrapper">
+        <p class="finished"><%= link_to("I'm done reordering my page", edit_my_chippd_page_path(@page), 'aria-hidden' => 'true', 'data-icon' => '2') %>.</p>
+        <ul data-behavior="sortable-section-list" data-update-url="<%= sort_my_chippd_page_sections_path(@page) %>">
+          <% @page.sections.each do |section| %>
+            <%= section.to_sortable_list_item %>
+          <% end %>
+        </ul>
+        <p class="finished"><%= link_to("I'm done reordering my page", edit_my_chippd_page_path(@page), 'aria-hidden' => 'true', 'data-icon' => '2') %>.</p>
+      </div><!-- /.wrapper -->
+    </div><!-- /.col6 -->
+    <% end %>
+  </div><!-- /.block -->
+</section><!-- /#content -->

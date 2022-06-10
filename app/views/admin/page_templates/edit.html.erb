@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="span12">
+    <%= ariane.render %>
+  </div>
+</div>
+
+<div class="btn-group push">
+  <%= link_to(admin_page_template_page_template_widgets_path(resource), :class => "btn") do %>
+    Manage Widgets
+    <span class="badge"><%= resource.widgets.length %></span>
+  <% end %>
+</div>
+
+<br>
+
+<%= simple_form_for resource, :url => resource_path(resource), :html => { :multipart => true } do |form| %>
+  <%= render :partial => 'form', :locals => { :form => form } %>
+  <%= form.error :base %>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary" data-loading-text="saving...">Save changes</button>
+    <%= link_to("Cancel", collection_path, :class => 'btn') %>
+  </div>
+<% end %>

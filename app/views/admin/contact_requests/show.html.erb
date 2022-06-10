@@ -1,0 +1,5 @@
+<%= ariane.render %>
+
+<%= simple_form_for resource, :url => resource_path(resource), :html => { :multipart => true } do |form| %>
+  <%= render :partial => 'form', :locals => { :form => form } %>
+<% end %>

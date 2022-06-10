@@ -1,0 +1,51 @@
+<section id="content" class="container admin">
+  <div class="block">
+    <header class="intro">
+      <h1>Sync Your Product</h1>
+      <p>Connect this <%= 'product'.pluralize(@page_decisions.length) %> to a page – it can be brand new or existing. Choose from one of these options.</p>
+    </header>
+    <div class="main">
+      <div class="alert">
+        <h4>Where do you want to point this <%= 'product'.pluralize(@page_decisions.length) %>?</h4>
+      </div>
+
+      <% @page_decisions.each do |page_decision| %>
+      <div class="overview">
+      <div class="decision">
+        <h3>
+          <div class="chippd-product-type <%= page_decision.chippd_product_type_html_class %>">
+            <%= image_tag(page_decision.product_collection.image_url, :alt => "Chipp'd #{page_decision.product_collection.name}", :class => "icon") %>
+            <span class="txt">
+              <%= page_decision.product_collection.name %><br>
+              <small><span class="icon" data-icon=""></span><%= page_decision.chippd_product_type_name %></small>
+            </span>
+          </div>
+          <span class="details"><%= page_decision.line_item %></span>
+        </h3>
+
+        <%= form_tag add_to_or_create_my_chippd_pages_path, :method => :put do %>
+        <fieldset>
+          <div class="control-group">
+            <div class="controls">
+              <div class="control-group radio_buttons optional">
+                <div class="controls">
+                  <label class="radio">
+                    <input checked="checked" class="radio_buttons optional" id="page_decision_choice_new_page" name="choice" type="radio" value="new_page">
+                    A New Page
+                  </label>
+                  <%= render :partial => 'page_choice', :collection => PagePresenter.from_collection(current_customer.pages_matching(page_decision.product_collection_id, page_decision.chippd_product_type_id, page_decision.page_template_id), self) %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <%= hidden_field_tag 'page_decision_id', page_decision.to_param %>
+        <input type="submit" value="Save and continue &rarr;" id="add" class="btn btn-large" />
+        <% end %>
+      </div>
+      </div><!-- /.overview -->
+      <% end %>
+
+    </div><!-- /.main -->
+  </div><!-- /.block -->
+</section><!-- /#content -->

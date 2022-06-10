@@ -1,0 +1,33 @@
+<% if section.available? %>
+  <h1 class="sectionHeading"><span>The Couple</span></h1>
+  <ul class="grid couple group">
+    <li class="half">
+      <span class="avatar">
+        <%= section.bride_image %>
+      </span>
+      <hgroup>
+        <h1 class="smallBanner bride">Bride</h1>
+        <h2><%= section.bride_name %></h2>
+        <h3><%= section.bride_parents %></h3>
+      </hgroup>
+      <%= section.bride_bio %>
+    </li>
+    <li class="half">
+      <span class="avatar">
+        <%= section.groom_image %>
+      </span>
+      <hgroup>
+        <h1 class="smallBanner">Groom</h1>
+        <h2><%= section.groom_name %></h2>
+        <h3><%= section.groom_parents %></h3>
+      </hgroup>
+      <%= section.groom_bio %>
+    </li>
+  </ul>
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+             id: section.to_param,
+             section: section,
+             error_message: 'There was an error while processing the images.' %>
+<% end %>

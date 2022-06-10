@@ -1,0 +1,58 @@
+// TYPE
+$sans-stack: ff-dagny-web-pro, Helvetica, Arial, sans-serif;
+$script-stack: 'cylburn_regularregular', cursive;
+$condensed-stack:"alternate-gothic-no-1-d", sans-serif;
+$script: 'wisdom_scriptregular', cursive;
+
+// FONT FACE
+@font-face {
+    font-family: 'cylburn_regularregular';
+    src: font-url("widget_kit/cylburn-webfont.eot");
+    src: font-url("widget_kit/cylburn-webfont.eot?#iefix") format('embedded-opentype'),
+         font-url("widget_kit/cylburn-webfont.woff") format('woff'),
+         font-url("widget_kit/cylburn-webfont.ttf") format('truetype'),
+         font-url("widget_kit/cylburn-webfont.svg#cylburn_regularregular") format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'wisdom_scriptregular';
+    src: font-url("widget_kit/wisdom_script_aj-webfont.eot");
+    src: font-url("widget_kit/wisdom_script_aj-webfont.eot?#iefix") format('embedded-opentype'),
+         font-url("widget_kit/wisdom_script_aj-webfont.woff") format('woff'),
+         font-url("widget_kit/wisdom_script_aj-webfont.ttf") format('truetype'),
+         font-url("widget_kit/wisdom_script_aj-webfont.svg#wisdom_scriptregular") format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+// COLOR
+$purple: rgba(65,23,80,1);
+$purple-med-dark: lighten( $purple, 1.5%);
+$purple-med: rgba(108,75,120,1);
+$purple-lt: rgba(145,121,154,1);
+$purple-lt2: rgba(186,166,193,1);
+$purple-lt3: #cabad0;
+$purple-lt4: #6c4b78;
+$yellow: rgba(250,231,69,1);
+$white: #FFFFFF;
+$white-dk: #F5F5F5;
+
+// STRUCTURE
+$col1: 5.3278689%;
+$col2: 13.9344262%;
+$col3: 22.5409836%;
+$col4: 31.147541%;
+$col5: 39.7540984%;
+$col6: 48.3606557%;
+$col7: 56.9672131%;
+$col8: 65.5737705%;
+$col9: 74.1803279%;
+$col10: 82.7868852%;
+$col11: 91.3934426%;
+$col12: 100%;
+$margin: 3.2786885%;
+$mar3-left: 25.8196721%;

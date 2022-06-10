@@ -1,0 +1,55 @@
+  <h1 class="sectionHeading"><span>RSVP</span></h1>
+
+<%
+  rsvp_response = section.responses.find_or_initialize_by(:customer_id => current_customer.to_param)
+  rsvp_response.build_guests(current_customer.full_name)
+
+%>
+
+<%= simple_form_for rsvp_response, :url => rsvp_response_form_path(section, rsvp_response), :html => { :remote => true, :class => "rsvp-form widget dark #{(rsvp_response.new_record? ? 'new-rsvp' : 'edit-rsvp')}" } do |form| %>
+   <%if !(rsvp_response.created_at || rsvp_response.updated_at) %>
+  <div class="rsvp-form-interior" >
+    <% if section.deadline_passed? %>
+    <%= section.date_past_message %>
+    <% else %>
+    <h2><%= section.heading %></h2>
+
+    <fieldset class="group">
+      <div class="label_buttons callout">
+        <div class="control-group radio_buttons optional rsvp"><label class="radio_buttons optional"> </label><div class="controls"><label class="radio<%= ' selected' if rsvp_response.attending %>"><%= radio_button_tag 'rsvp_response[attending]', true, (rsvp_response.attending ? true : false), :class => "radio_buttons optional", :id => dom_id(section, 'rsvp_response_yes') %><%= section.yes_text %></label><label class="radio<%= ' selected' unless rsvp_response.attending %>"><%= radio_button_tag 'rsvp_response[attending]', false, (rsvp_response.attending ? false : true), :class => "radio_buttons optional", :id => dom_id(section, 'rsvp_response_no') %><%= section.no_text %></label></div></div>
+      </div>
+
+      <%= form.simple_fields_for :guests do |guest_form| %>
+      <%= render '/my_chippd/sections/content/rsvp_guest_fields', :f => guest_form, :section => section, :rsvp_response => rsvp_response %>
+      <% end %>
+
+      <div class="links-container">
+
+      <% if section.guests_allowed? %>
+        <div class="links" data-behavior="collection-add" data-min="<%= RsvpResponse::MINIMUM_NUMBER_OF_GUESTS %>" data-max="<%= section.maximum_number_of_guests_allowed_including_invitee %>">
+          <%= link_to_add_association(' add a guest', form, :guests, :class => 'button', 'aria-hidden' => '+', :partial => '/my_chippd/sections/content/rsvp_guest_fields', :render_options => { :locals => { :section => section, :rsvp_response => rsvp_response } }) %>
+        </div>
+        <% end %>
+        <%= hidden_field_tag 'customer_id', current_customer.to_param %>
+        <button type="submit" class="button small" data-loading-text="saving...">Save</button>
+      </div>
+
+      <% if rsvp_response.new_record? %>
+      <p class="rsvp-respond-title">Please respond by <strong><%= section.respond_by %></strong>.</p>
+    <% else %>
+
+    <% end %>
+    </fieldset>
+    <% end %>
+  </div>
+  <div class="rsvp-form-thank-you" >
+    <p class="confirmation"><%= section.thank_you_message %></p>
+  </div>
+  <% else %>
+  <div class="rsvp-form-thank-you" >
+    <p class="confirmation"><%= section.thank_you_message %></p>
+  </div>
+  <% end %>
+<% end %>
+
+<%= render '/my_chippd/sections/content/rsvp_responses', :section => section %>

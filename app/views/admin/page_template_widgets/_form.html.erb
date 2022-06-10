@@ -1,0 +1,5 @@
+<%= form.input :type, collection: configatron.pages.widgets.collect { |r| Hashie::Mash.new(r) }, as: :grouped_select, group_method: :widgets, group_label_method: :name, value_method: :type %>
+<%= form.input :name, :hint => "Text displayed in the page builder's widget chooser." %>
+<%= form.input :description, :as => :text, :hint => "Text displayed when creating or editing a section of this type." %>
+<%= form.input :limit, :hint => "An integer greater than 0 or leave blank for &#8734;.".html_safe %>
+

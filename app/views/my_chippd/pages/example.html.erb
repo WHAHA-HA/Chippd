@@ -1,0 +1,181 @@
+<!doctype html>
+<!--[if IE 7]> <html class="no-js ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js ie8 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <title><%= raw(configatron.application.name) %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <%= stylesheet_link_tag "chippd_page" %>
+  <%= csrf_meta_tags %>
+  <%= render '/layouts/modernizr_selectivizr' %>
+
+  <!-- TYPEKIT -->
+  <script type="text/javascript" src="https://use.typekit.com/twd3fhe.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <%= sublime_video_javascript_include_tag %>
+
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>My Awesome Chipp&#8217;d Page</h1>
+      <p>This is where a description would go. This is where a description would go.</p>
+    </header>
+
+    <section id="content-mychippd">
+
+      <article class="photo">
+        <figure>
+          <%= image_tag('temp/chippdpage-photo-01.jpg', :alt => "photo") %>
+          <figcaption>I'm having no fun without you.</figcaption>
+        </figure>
+      </article>
+
+      <article class="photo">
+        <figure>
+          <%= image_tag('temp/chippdpage-photo-02.jpg', :alt => "photo") %>
+          <figcaption>I try but it's no use. The cabin isn't the same without you.</figcaption>
+        </figure>
+      </article>
+
+      <article class="text">
+        <h1>Marzipan chupa chups carrot cake</h1>
+        <div class="text-body">
+          <p>Gummi bears jelly beans topping tootsie roll. <strong>Donut danish candy</strong> sweet sweet roll oat <em>cake topping</em>. Sweet pastry gummies topping oat cake candy canes soufflé ice cream chupa chups. Gummies fruitcake sesame snaps lemon drops bonbon wypas sesame snaps. Marshmallow pudding pudding gingerbread icing cheesecake caramels pie. Gingerbread jelly beans pie danish cookie biscuit carrot cake liquorice chocolate. Marzipan chupa chups carrot cake bear claw pie chocolate. Faworki topping apple pie. Jelly jelly gingerbread jujubes lemon drops. <a href="#">Bonbon chocolate</a> cake sweet topping icing pudding.</p>
+          <blockquote>
+            <p>Marshmallow pudding pudding gingerbread icing cheesecake caramels pie. Gingerbread jelly beans pie danish cookie biscuit carrot cake liquorice chocolate.</p>
+          </blockquote>
+          <p>Fruitcake jujubes candy tart cookie chocolate cake sesame snaps cupcake topping. Gummies tart liquorice jelly beans sesame snaps gummies carrot cake candy canes dragée. Apple pie halvah gummi bears candy canes jelly-o jelly-o candy canes sesame snaps. Cupcake donut brownie oat cake jelly beans sweet roll pastry.</p>
+        </div>
+      </article>
+
+      <article class="video">
+        <video class="sublime" width="640" height="360" poster="/assets/temp/video-poster.jpg" preload="none">
+          <source src="http://chippd-temp-assets.s3.amazonaws.com/test-video.m4v" />
+          <source src="http://chippd-temp-assets.s3.amazonaws.com/test-video.webm" />
+        </video>
+        <p class="caption">Hey guys! Check out what we've been working on lately.</p>
+      </article>
+
+      <article class="vcard">
+        <div id="hcard-June-Awesome" class="vcard">
+          <div class="group image">
+            <img src="http://chippd-temp-assets.s3.amazonaws.com/avatar.jpg" alt="photo of [Name]" class="photo" />
+            <a aria-hidden="true" data-icon="@" class="map" href="http://g.co/maps/544aa">Map</a>
+            <a aria-hidden="true" data-icon="U" class="download">vCard</a>
+          </div><!-- /.group -->
+          <div class="group info">
+            <h1 class="fn"><a class="url" href="http://example.com">June Awesome</a></h1>
+            <div class="org">Crush+Lovely</div>
+            <a class="email" href="mailto:june@crushlovely.com">june@crushlovely.com</a>
+            <div class="adr">
+              <div class="street-address">138 Mulberry St. Unit 3A1</div>
+              <span class="locality">New York</span>,
+              <span class="region">NY</span>,
+              <span class="postal-code">10013</span>
+              <span class="country-name">USA</span>
+            </div>
+          </div>
+          <div class="tel">1 (555) 555-1212</div>
+        </div><!-- /.group -->
+      </article>
+
+      <article class="locket">
+        <div class="lovers">
+          <%= image_tag('temp/locket-02.jpg', :alt => "Photo", :class => "left") %>
+          <div class="amp">&amp;</div>
+          <%= image_tag('temp/locket-01.jpg', :alt => "Photo", :class => "right") %>
+        </div>
+        <h3 class="lovenote">Johnny &amp; June — The Adventure Continues</h3>
+        <p>I remember the day we first met. It was summer in New York, East Village on the corner of 9th St. and 1st Ave. It was pouring rain and I was trying to hail a cab without luck. You walked by, our eyes locked and you smiled. You stopped and offered your extra umbrella. "Why do you have an extra umbrella?", I asked. You said, "Because, like MacGyver, a real man is always prepared and a beautiful young lady like yourself shouldn't be without an umbrella." I'll never forget that day. You had me at 'MacGyver'.</p>
+      </article>
+
+      <article class="resume">
+        <a href="#">View my resume</a>
+      </article>
+
+      <article class="portfolio">
+        <a href="#">View my portfolio</a>
+      </article>
+
+      <article class="gallery">
+        <ul class="gallery-images">
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-01.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-01.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-02.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-02.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-03.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-03.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-04.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-04.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-05.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-05.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-06.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-06.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-07.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-07.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-08.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-08.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-09.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-09.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-10.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-10.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-11.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-11.jpg" alt="" /></a></li>
+          <li><a href="http://chippd-temp-assets.s3.amazonaws.com/gallery/wolf-12.jpg"><img src="http://chippd-temp-assets.s3.amazonaws.com/gallery/thumb-wolf-12.jpg" alt="" /></a></li>
+        </ul>
+      </article>
+
+      <article class="event">
+        <time datetime="2001-05-15 19:00"><span class="month">May</span> <span class="day">25</span> <span class="time"><span class="start">2:00pm</span> - <span class="end">6:00pm</span></span></time>
+        <h1>Rad Apartment Shower</h1>
+        <p class="desc">Join us for our totally rad pre-wedding shower shower. That's right! We want more gifts than we can shake a stick at. So... buy us lots. We don't have much—we're artists! Feel sorry for us and help us make our 200 square foot apartment look amazing. All we have right now is a refrigerator and a stove and an air mattress. Well, that's not entirely true; we do have art supplies. And two cats. In fact, just buy us cat food. The damn stuff is expensive as hell. Cheers.</p>
+      </article>
+
+      <article class="audio">
+        <ul class="playlist">
+          <li class="track">
+            <a href="http://chippd-temp-assets.s3.amazonaws.com/CivilWars-20Years.mp3" class="title">
+              <h4>The Civil Wars - 20 Years</h4>
+            </a>
+          </li>
+          <li class="track">
+            <a href="http://chippd-temp-assets.s3.amazonaws.com/Geographer-Verona.mp3" class="title">
+              <h4>Geographer — Verona</h4>
+            </a>
+          </li>
+          <li class="track">
+            <a href="http://chippd-temp-assets.s3.amazonaws.com/Wonderwall.mp3" class="title">
+              <h4>Wonderwall</h4>
+            </a>
+          </li>
+        </ul>
+      </article>
+
+      <article class="social">
+        <ul>
+          <li class="twitter"><a href="#">Twitter</a></li>
+          <li class="facebook"><a href="#">Facebook</a></li>
+          <li class="vimeo"><a href="#">Vimeo</a></li>
+          <li class="you_tube"><a href="#">YouTube</a></li>
+          <li class="linked_in"><a href="#">LinkedIn</a></li>
+          <li class="behance"><a href="#">Behance</a></li>
+          <li class="instagram"><a href="#">Instagram</a></li>
+          <li class="dribbble"><a href="#">Dribbble</a></li>
+          <li class="flickr"><a href="#">Flickr</a></li>
+          <li class="google_plus"><a href="#">Google+</a></li>
+        </ul>
+      </article>
+
+    </section><!-- /#content -->
+
+  </div><!-- /.wrapper -->
+  <footer>
+    <a href="<%= root_path %>" id="logo"><%= image_tag('chippdpage-logo-alt.png', :alt => "Chipp'd") %></a>
+  </footer>
+
+  <%= render '/layouts/keen' %>
+  <%= javascript_include_tag("base") %>
+  <%= javascript_include_tag "chippd_page" %>
+  <%= google_analytics_tracking_code %>
+</body>
+</html>

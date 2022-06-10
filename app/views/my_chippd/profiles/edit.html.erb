@@ -1,0 +1,32 @@
+<%= content_for(:heading) do %>
+  Edit Your Profile
+<% end %>
+
+<%= simple_form_for(current_customer, :url => my_chippd_profile_path, :html => { :method => :put }) do |f| %>
+  <%= f.error_notification %>
+
+<div class="inputs">
+  <%= f.input :first_name, :required => true, :autofocus => true %>
+  <%= f.input :last_name, :required => true %>
+  <%= f.input :email, :required => true, :autofocus => true %>
+  <%= f.input :password, :label => "New Password", :hint => "Leave it blank if you don't want to change it.", :required => false %>
+  <%= f.input :password_confirmation, :label => "Confirm New Password", :required => false %>
+  <%= f.input :current_password, :label => "Current Password", :hint => "We need your current password to confirm your changes.", :required => false %>
+</div>
+
+<div class="actions">
+  <%= f.button :submit, "Update my profile.", :class => "btn-large btn-primary" %>
+</div>
+<% end %>
+
+<h1>Delete Your Account</h1>
+<p>Doing this removes all purchase and Chipp'd page data from our system and people will no longer be able to access your Chipp'd pages.  This cannot be undone.</p>
+
+<%= simple_form_for(current_customer, :url => my_chippd_profile_path, :html => { :method => :delete }) do |f| %>
+
+<div class="actions">
+  <%= f.button :submit, "I understand the consequences.  Delete my account.", :class => "btn-primary btn-large", :confirm => "Are you sure you want to cancel your account?" %>
+</div>
+<% end %>
+
+<%= link_to "Back", my_chippd_pages_path, :class => "back" %>

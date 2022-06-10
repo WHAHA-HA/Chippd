@@ -1,0 +1,13 @@
+<div class="current-file well">
+  <%= form.input :original, :label => "Image", :as => :file, :hint => "This image will be resized and cropped to 1600x800. Please make sure the aspect ratio of the image you're uploading matches that." %>
+
+  <% if resource.original_uid.present? %>
+  <p class="push">Current Image</p>
+  <a href="<%= resource.large.remote_url %>" target="blank">
+    <%= image_tag resource.small.remote_url, :class => "thumbnail" %>
+  </a>
+  <% end %>
+</div>
+
+<%= form.input :caption, :input_html => { :class => 'span8' } %>
+<%= is_visible_radio_buttons(form) %>

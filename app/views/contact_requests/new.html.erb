@@ -1,0 +1,20 @@
+<section id="content" class="container basic">
+  <div class="block">
+    <header class="intro">
+      <%= render '/shared/heading_and_subnav' %>
+    </header>
+    <div class="main">
+      <h1><%= @subnav.title %></h1>
+      <p>Have a question? Visit our <%= link_to 'FAQ', faq_path %> section first to see if we’ve already answered it. Otherwise, send us a message here.</p>
+      <%= simple_form_for @contact_request, :url => contact_requests_path, :validate => true, :html => { :class => 'well custom-form' } do |form| %>
+      <%= form.error_notification %>
+      <%= form.input :topic, :collection => ContactRequest::TOPICS, :include_blank => false, :required => false, :selected => params[:topic] %>
+      <%= form.input :email %>
+      <%= form.input :message, :as => :text %>
+      <div class="actions">
+        <button type="submit" class="btn btn-primary btn-large" data-loading-text="Submitting...">Submit</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</section>

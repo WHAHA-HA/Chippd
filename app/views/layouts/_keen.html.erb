@@ -1,0 +1,8 @@
+  <%= javascript_include_tag("keen") %>
+  <script type="text/javascript">
+    Keen.configure({
+      projectId: "<%= ENV['KEEN_PROJECT_ID'] %>",
+      writeKey: "<%= ENV['KEEN_WRITE_KEY'] %>",
+      readKey: "<%= ENV['KEEN_READ_KEY'] %>"
+    });
+  </script>

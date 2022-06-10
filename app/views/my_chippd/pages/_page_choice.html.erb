@@ -1,0 +1,8 @@
+<label class="radio">
+  <%= radio_button_tag('choice', page_choice.to_param, false, :class => "radio_buttons optional") %>
+  <%= page_choice.name %>
+  <div class="sub-desc">
+    Products:
+    <%= page_choice.line_items(false) %>
+  </div>
+</label>

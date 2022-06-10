@@ -1,0 +1,75 @@
+// Title:      Chipp'd Page Structure
+// Author:     Crush + Lovely (http://crushlovely.com)
+// Updated:    June 6, 2013
+
+@import "compass/css3";
+@import "compass/css3/images";
+@import "includes/_variables.scss";
+@import "includes/_mixins.scss";
+
+// PICTOS
+@font-face {
+  font-family: 'Pictos';
+  src: font-url('pictos-web.eot');
+  src:
+  font-url('pictos-web.woff') format('woff'),
+  font-url('pictos-web.ttf') format('truetype'),
+  font-url('pictos-web.svg#webfontIyfZbseF') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[data-icon]:before {
+  font-family: 'Pictos';
+  content: attr(data-icon);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+
+
+// GENERAL STYLES
+// ----------------------------------------------
+body {
+  color: #444;
+  font-size: 100%;
+  font-family:  $sans-stack;
+  background: $purple-med asset-url("bg-purple.png", image);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+
+// SELECTION COLORS
+::selection 	 	{ background: rgba(250,231,69,.35); }
+::-moz-selection 	{ background: rgba(250,231,69,.35); }
+img::selection 		{ background: transparent; }
+img::-moz-selection	{ background: transparent; }
+body { -webkit-tap-highlight-color: rgba(250,231,69,.35); }
+
+
+// FOOTER
+// -----------------------------------------------
+
+footer {
+  width: 90%;
+  margin: 0 auto;
+  padding: 18px 0 10px;
+  text-align: center;
+  a {
+    border-bottom: 0;
+    img {
+      width: 35px;
+      opacity: .9;
+    }
+  }
+  a:hover {
+    opacity: .5;
+  }
+}
+
+
+
+/* @modules
+--------------------------------------------------------
+  Import modules
+------------------------------------------------------ */
+
+@import "modules/statlists";
+@import "modules/asset-stats";

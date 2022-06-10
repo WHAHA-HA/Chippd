@@ -1,0 +1,27 @@
+<% if section.available? %>
+
+  <h1 class="sectionHeading">About Baby</h1>
+  <div class="framedPhoto">
+    <%= section.image %>
+    <%= image_tag("widgets/frame.png", :alt => "") %>
+  </div>
+  <h2 class="largeBanner"><%= section.name %></h2>
+  <div class="detailList">
+    <ul class="grid group">
+  <% if section.birthday? %>
+      <li class="date full"><%= section.birthday %></li>
+  <% end %>
+      <li class="weight half"><%= section.weight%></li>
+      <li class="length half"><%= section.height%></li>
+    </ul>
+  </div>
+
+<% else %>
+
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+             id: section.to_param,
+             section: section,
+             error_message: 'There was an error while processing the image.' %>
+
+<% end %>

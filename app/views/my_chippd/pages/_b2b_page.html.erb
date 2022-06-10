@@ -1,0 +1,184 @@
+
+
+<article class="b2b-stats clearfix">
+  <ul class="statlist statlist--featured">
+    <li><span class="badge"><%= page.member_count %></span> Unique Viewers</li>
+    <li><span class="badge"><%= page.storage_used %></span> of data used <% noop do %><a href="#">View Details</a><% end %></li>
+    <li><span class="badge"><%= page.section_count %></span> assets <% noop do %><a href="#">View Asset Performance</a><% end %></li>
+  </ul>
+<% if page.estimated_monthly_cost? %>
+  <ul class="statlist statlist--callout">
+    <li>Est. Monthly Cost <b><%= page.estimated_monthly_cost %></b></li>
+  </ul>
+<% end %>
+</article>
+
+<ul class="nav nav-tabs chippdTab">
+  <li class="active"><a href="#<%= dom_id(page, 'viewer_statistics') %>">Viewer Statistics</a></li>
+  <li class=""><a href="#<%= dom_id(page, 'asset_statistics') %>">Asset Statistics</a></li>
+  <li><a href="#<%= dom_id(page, 'viewers') %>">Viewers</a></li>
+</ul>
+
+<div class="tab-content"> 
+  <div class="tab-pane statistics active b2b-visit-statistics" data-page="<%= page.to_param %>" id="<%= dom_id(page, 'viewer_statistics') %>">
+    <div class="statgroup">
+      <div class="tab-content tab-content--simple">
+        <div class="tab-pane active" id="<%= dom_id(page, 'viewer_statistics_unique_viewers_total') %>">
+          <ul class="statlist">
+            <li>Unique Viewers: <%= stat_holder('get:total.uniqueViewers', now: true) %></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="<%= dom_id(page, 'viewer_statistics_unique_viewers_day') %>">
+          <ul class="statlist">
+            <li>Unique Viewers: <%= stat_holder('get:day.uniqueViewers') %></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="<%= dom_id(page, 'viewer_statistics_unique_viewers_week') %>">
+          <ul class="statlist">
+            <li>Unique Viewers: <%= stat_holder('get:week.uniqueViewers') %></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="<%= dom_id(page, 'viewer_statistics_unique_viewers_month') %>">
+          <ul class="statlist">
+            <li>Unique Viewers: <%= stat_holder('get:month.uniqueViewers') %></li>
+          </ul>
+        </div>
+      </div>
+      <ul class="nav nav-tabs nav-tabs--simple chippdTab">
+        <li class="active"><a href="#<%= dom_id(page, 'viewer_statistics_unique_viewers_total') %>">Total</a></li>
+        <li><a href="#<%= dom_id(page, 'viewer_statistics_unique_viewers_day') %>">Last 24 hours</a></li>
+        <li><a href="#<%= dom_id(page, 'viewer_statistics_unique_viewers_week') %>">Last 7 days</a></li>
+        <li><a href="#<%= dom_id(page, 'viewer_statistics_unique_viewers_month') %>">Last 30 days</a></li>
+      </ul>
+    </div>
+
+    <div class="statgroup">
+      <div class="tab-content tab-content--simple">
+        <div class="tab-pane active" id="<%= dom_id(page, 'viewer_statistics_repeat_viewers_since_last_month') %>">
+          <ul class="statlist">
+            <li>Repeat Viewers: <%= stat_holder('get:month.repeatViewers', now: true) %></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="<%= dom_id(page, 'viewer_statistics_repeat_viewers_since_start_of_campaign') %>">
+          <ul class="statlist">
+            <li>Repeat Viewers: <%= stat_holder('get:total.repeatViewers') %></li>
+          </ul>
+        </div>
+      </div>
+      <ul class="nav nav-tabs nav-tabs--simple chippdTab">
+        <li class="active"><a href="#<%= dom_id(page, 'viewer_statistics_repeat_viewers_since_last_month') %>">Since 30 days</a></li>
+        <li><a href="#<%= dom_id(page, 'viewer_statistics_repeat_viewers_since_start_of_campaign') %>">Since Start Of Campaign</a></li>
+      </ul>
+    </div>
+
+    <div class="statgroup">
+      <div class="tab-content tab-content--simple">
+        <div class="tab-pane active" id="<%= dom_id(page, 'viewer_statistics_growth_in_viewers_last_day') %>">
+          <ul class="statlist">
+            <li>Growth In Viewers: <%= stat_holder('get:day.growth', now: true) %></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="<%= dom_id(page, 'viewer_statistics_growth_in_viewers_last_week') %>">
+          <ul class="statlist">
+            <li>Growth In Viewers: <%= stat_holder('get:week.growth') %></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="<%= dom_id(page, 'viewer_statistics_growth_in_viewers_last_month') %>">
+          <ul class="statlist">
+            <li>Growth In Viewers: <%= stat_holder('get:month.growth') %></li>
+          </ul>
+        </div>
+      </div>
+      <ul class="nav nav-tabs nav-tabs--simple chippdTab">
+        <li class="active"><a href="#<%= dom_id(page, 'viewer_statistics_growth_in_viewers_last_day') %>">Last 24 hours</a></li>
+        <li><a href="#<%= dom_id(page, 'viewer_statistics_growth_in_viewers_last_week') %>">Last 7 days</a></li>
+        <li><a href="#<%= dom_id(page, 'viewer_statistics_growth_in_viewers_last_month') %>">Last 30 days</a></li>
+      </ul>
+    </div>
+
+    <div class="statgroup">
+      <div class="tab-content tab-content--simple">
+        <div class="tab-pane active" id="<%= dom_id(page, 'viewer_statistics_average_visits_per_user') %>">
+          <ul class="statlist">
+            <li>Average Visits Per User: <%= stat_holder('get:total.averageVisitsPerUser') %></li>
+          </ul>
+        </div>
+<% noop do %>
+        <div class="tab-pane active" id="<%= dom_id(page, 'viewer_statistics_average_time_on_page_cumulative') %>">
+          <ul class="statlist">
+            <li>Average Time Spent On Page: <b>26 minutes</b></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="<%= dom_id(page, 'viewer_statistics_average_time_on_page_per_visit') %>">
+          <ul class="statlist">
+            <li>Average Time Spent On Page: <b>5 minutes</b></li>
+          </ul>
+        </div>
+<% end %>
+      </div>
+<% noop do %>
+      <ul class="nav nav-tabs nav-tabs--simple chippdTab">
+        <li class="active"><a href="#<%= dom_id(page, 'viewer_statistics_average_time_on_page_cumulative') %>">Cumulative</a></li>
+        <li><a href="#<%= dom_id(page, 'viewer_statistics_average_time_on_page_per_visit') %>">Per Visit</a></li>
+      </ul>
+<% end %>
+    </div>
+
+    <% if page.push_notification_sent? %>
+    <div class="statgroup">
+      <div class="tab-content tab-content--simple">
+        <div class="tab-pane active" id="<%= dom_id(page, 'viewer_statistics_date_of_last_push_notification') %>">
+          <ul class="statlist">
+            <li>Date of Last Push Notification: <b><%= page.notification_last_sent_at %></b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="statgroup">
+      <div class="tab-content tab-content--simple">
+        <div class="tab-pane active" id="<%= dom_id(page, 'viewer_statistics_viewers_after_push_total') %>">
+          <ul class="statlist">
+            <li>Viewers that Checked Page After Push: <%= stat_holder("getViewersAfter: #{page.notification_last_sent_at.to_time.iso8601}") %></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="<%= dom_id(page, 'viewer_statistics_viewers_after_push_percentage') %>">
+          <ul class="statlist">
+            <li>Viewers that Checked Page After Push: <%= stat_holder("getPercentViewersAfter: #{page.notification_last_sent_at.to_time.iso8601}") %></li>
+          </ul>
+        </div>
+      </div>
+      <ul class="nav nav-tabs nav-tabs--simple chippdTab">
+        <li class="active"><a href="#<%= dom_id(page, 'viewer_statistics_viewers_after_push_total') %>">Total</a></li>
+        <li><a href="#<%= dom_id(page, 'viewer_statistics_viewers_after_push_percentage') %>">Percentage</a></li>
+      </ul>
+    </div>
+    <% end %>
+  </div>
+
+  <!-- Dev Note: Asset Statistics Pane -->
+  <div class="tab-pane statistics" id="<%= dom_id(page, 'asset_statistics') %>">
+    <ul class="nav nav-tabs nav-tabs--simple chippdTab">
+      <li class="active"><a href="#<%= dom_id(page, 'asset_statistics_total') %>">Total</a></li>
+      <li><a href="#<%= dom_id(page, 'asset_statistics_day') %>">Last Day</a></li>
+      <li><a href="#<%= dom_id(page, 'asset_statistics_week') %>">Last Week</a></li>
+      <li><a href="#<%= dom_id(page, 'asset_statistics_month') %>">Last Month</a></li>
+    </ul>
+    <div class="tab-content tab-content--simple">
+      <%= render partial: 'asset_statistics', locals: { :page => page, :time_period => :total, :tab_active => true } %>
+      <%= render partial: 'asset_statistics', locals: { :page => page, :time_period => :day } %>
+      <%= render partial: 'asset_statistics', locals: { :page => page, :time_period => :week } %>
+      <%= render partial: 'asset_statistics', locals: { :page => page, :time_period => :month } %>
+    </div>
+    <!--/tab-content simple-->
+  </div>
+  <!-- Dev Note: End Asset Statistics Pane -->
+
+  <!-- Dev Note: People Pane -->
+  <div class="tab-pane people" id="<%= dom_id(page, 'viewers') %>">
+    <h4>Viewers</h4>
+    <%= render 'memberships_table', :page => page %>
+  </div>
+  <!-- Dev Note: End People Pane -->
+
+</div><!-- /.tab-content -->

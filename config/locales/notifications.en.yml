@@ -1,0 +1,8 @@
+en:
+  notifications:
+    push:
+      page_updated: '%{owner} updated "%{page_name}" - go check it out!'
+      auction_ending: '%{page_name} Auction ending in less than 5 minutes!'
+      auction_outbid: 'You have just been outbid!'
+      auction_over: 'Auction Has Ended'
+      auction_won: 'We Have a Winner!'

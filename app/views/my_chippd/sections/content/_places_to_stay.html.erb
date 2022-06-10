@@ -1,0 +1,38 @@
+<h1 class="sectionHeading"><span>Places to stay</span></h1>
+<% if section.available? %>
+  <div class="places">
+    <% if section.featured_place? %>
+    <div class="place featured">
+      <%= section.featured_place.image %>
+      <h2><%= section.featured_place.name %></h2>
+      <%= section.featured_place.address %>
+      <%= section.featured_place.phone %>
+      <%= section.featured_place.link %>
+      <%= section.featured_place.price %>
+      <%= section.featured_place.booking_info %>
+    </div>
+    <% end %>
+  <%# NOTE: div.place(s) need to not have line breaks between them for display: inline-block; %>
+  <% section.places.each do |place| %><div class="place">
+      <h2><%= place.name %></h2>
+      <%= place.address %>
+      <%= place.phone %>
+      <%= place.link %>
+      <%= place.price %>
+      <%= place.booking_info %>
+    </div><% end %>
+  </div>
+
+  <% if section.additional_info? %>
+  <span class="centeredLabel"><span>Additional Information</span></span>
+  <div class="note">
+    <%= section.when_booking %>
+  </div>
+  <% end %>
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+             id: section.to_param,
+             section: section,
+             error_message: 'There was an error while processing the image.' %>
+<% end %>

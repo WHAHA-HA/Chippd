@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="span12">
+    <div class="btn-group push">
+      <%= link_to(admin_customers_path, :class => "btn#{(controller.action_name == 'index') ? ' active' : ''}") do %>
+        Customers
+      <% end %>
+      <%= link_to(line_items_admin_customers_path, :class => "btn#{(controller.action_name == 'line_items') ? ' active' : ''}") do %>
+        Line Items
+      <% end %>
+    </div>
+  </div>
+</div>
+<br>

@@ -1,0 +1,11 @@
+<div class="well inner repeatable-field nested-fields gift-registry">
+  <%= f.input :name, :label => "Registry Name", :input_html => { :maxlength => character_limit(:gift_registry, :name) } %>
+  <%= f.input :url, :label => "URL", :hint => "e.g. http://example.com", :input_html => { :maxlength => character_limit(:gift_registry, :url) } %>
+
+  <%= link_to_remove_association f, :class => "remove-instance", 'aria-hidden' => 'true' do %>
+    <span class="icon">&times;</span><span class="text">remove</span>
+  <% end %>
+
+  <span class="collection-number badge gift-registry"></span>
+</div>
+

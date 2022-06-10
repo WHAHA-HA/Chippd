@@ -1,0 +1,61 @@
+<div id="baby_grows" data-bind="template: 'widgets/baby_grows'">
+  <p style="color: #ccc">Loading...</p>
+</div>
+
+<script type="text/html" id="widgets/baby_grows">
+  <!-- ko foreach: milestones -->
+  <div class="milestone well inner">
+    <div class="datepicker control-group">
+      <label class="string required">Date</label>
+      <div class="controls">
+        <div class="input-append" data-bind="datepicker: date, datepickerOptions: { language: 'en', pickTime: false }">
+          <input class="datepicker valid" data-format="yyyy-MM-dd" type="text" placeholder="Use the datepicker to select a date" required>
+          <span class="add-on"><i data-date-icon="icon-calendar" data-time-icon="icon-time" class="icon-calendar"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="string required">Age</label>
+      <div class="controls">
+        <input type="text" data-bind="value: age" placeholder="e.g. 74 days old, 2 months old, or 1 year old" required>
+      </div>
+    </div> 
+
+    <div class="control-group">
+      <label class="string required">Weight</label>
+      <div class="controls">
+        <input type="text" data-bind="value: weight" placeholder="e.g. 2lbs 11oz or 3.45kg" required>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="string required">Height</label>
+      <div class="controls">
+        <input type="text" data-bind="value: height" placeholder="e.g. 15 inches or 35cm" required>
+      </div>
+    </div>
+
+    <!-- ko if: $root.canRemove($data) -->
+      <a data-icon="-" data-bind="click: $root.remove">Remove</a>
+    <!-- /ko -->
+  </div>
+  <!-- /ko -->
+  <a data-icon="+" data-bind="click: addAnother">add another</a>
+</script>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript">
+    (function(elem){
+      var model;
+      <% if @section.persisted? %>
+        model = Chippd.BabyGrows.fromJS(<%= raw @section.milestones_json %>);
+      <% else %>
+        model = new Chippd.BabyGrows();
+        model.milestones.push(new Chippd.Milestone());
+      <% end %>
+      ko.applyBindings(model, elem);
+      Chippd.BabyGrows.bindSectionToForm(model, $("form"));
+    })($("#baby_grows").get(0));
+  </script>
+<% end %>

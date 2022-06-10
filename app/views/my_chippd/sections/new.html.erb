@@ -1,0 +1,29 @@
+<section id="content" class="container admin">
+  <div class="block">
+    <header class="intro">
+      <h1>Add <%= section_type.name %></h1>
+      <%= section_type.description %>
+    </header>
+    <div class="main">
+
+      <div id ="chipp-form" class="well">
+        <%= simple_form_for @section, :as => :section, :url => my_chippd_page_sections_path(@page), :validate => true, :html => { :multipart => true, :id => 'uploader', :class=>'fileupload' } do |form| %>
+
+            <%= render :partial => "/my_chippd/sections/forms/#{section_type}", :locals => { :form => form } %>
+
+            <%= form.error :base %>
+            <%= form.input :_type, :as => :hidden %>
+
+            <div class="form-actions">
+              <% if @section.implemented? %>
+                  <button type="submit" class="btn btn-large btn-primary" data-loading-text="saving...">Create</button>
+              <% end %>
+              <%= link_to("Cancel", edit_my_chippd_page_path(@page), :class => 'btn btn-large cancel') %>
+            </div>
+        <% end %>
+      </div>
+    </div><!-- /.col6 -->
+  </div><!-- /.block -->
+</section><!-- /#content -->
+
+<%= render 'uploader_templates' %>

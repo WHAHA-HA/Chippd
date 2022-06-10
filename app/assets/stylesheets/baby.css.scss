@@ -1,0 +1,71 @@
+@import "reset.css.scss";
+@import "widget.css.scss";
+
+$script: 'wisdom_scriptregular', cursive;
+
+/*
+ Type
+============================================================================= */
+h1 { font-family:$condensed; font-size:42px; font-weight:bold; text-align:center; text-transform:uppercase; }
+h2 { font-family:$condensed; font-size:32px; font-weight:normal; text-align:center; text-transform:uppercase; }
+.sectionHeading {
+  border-bottom:2px solid $purple-lt;
+  color:$purple-lt;
+  font-family:$script;
+  font-size:1.8em;
+  font-weight:normal;
+  margin:0 0 1em;
+  padding:0 0 .5em 0;
+  text-align:center;
+  text-transform:capitalize;
+}
+.largeBanner {
+  background:$purple-med;
+  background:asset-url("widgets/largeBanner.png", image) no-repeat 50% 0;
+  color:$white-dk;
+  font-family:$condensed;
+  font-size:3em;
+  font-weight:normal;
+  padding:.25em 0 .75em;
+}
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    background:asset-url("widgets/largeBanner-2x.png", image) no-repeat 50% 0;
+    background-size:507px 90px;
+  }
+.smallBanner {
+  background:$purple-lt;
+  background:asset-url("widgets/smallBanner.png", image) no-repeat 50% 0;
+  color:$purple-med;
+  font-size:1.75em;
+  margin:1.5em 0 0;
+  padding:.75em 0;
+}
+
+.detailList { font-family:$condensed; font-weight:normal; margin:-1em auto 1em; width:47.8405316%; }
+  .detailList .half { border-bottom:none; font-size:1.8em; padding-top:5px; }
+  .detailList li.weight { width:55%; }
+  .detailList li.length { width:45%; }
+
+
+/* List items can be full, half, or thirds */
+.avatarList li { margin-bottom:1.5em; }
+  .avatarList h1 {
+    float:right;
+    font-family:$condensed;
+    font-size:1.8em;
+    font-weight:normal;
+    padding:6% 0 0 20px;
+    text-align:left;
+    text-transform:uppercase;
+    width:62.6134301%;}
+    .avatarList em { color:$purple-lt; }
+  .avatarList .avatar { float:left; width:37.3865699%; }
+  .avatarList p {
+    color:#8f8f8f;
+    float:right;
+    font-size:.8em;
+    line-height:1.8em;
+    padding:0 0 0 20px;
+    text-align:left;
+    width:62.6134301%;
+  }

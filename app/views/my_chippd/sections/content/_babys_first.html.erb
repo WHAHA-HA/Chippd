@@ -1,0 +1,23 @@
+<% if section.available? %>
+
+  <h1 class="sectionHeading">Baby's First</h1>
+  <h2>Baby's First <%= section.caption %></h2>
+  <% if section.photo? %>
+    <div class="framedPhoto">
+      <%= section.image %>
+      <%= image_tag("widgets/frame.png", :alt => "") %>
+    </div>
+  <% elsif section.video? %>
+    <%= section.video_embed %>
+  <% end %>
+
+<% elsif section.processing? %>
+
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/video_pusher_javascript', id: section.to_param, section: section %>
+
+<% elsif section.not_available? %>
+
+  <%= section.not_available_message %>
+
+<% end %>

@@ -1,0 +1,2 @@
+class PortfolioPresenter < LinkToOrDownloadableAssetPresenter
+end

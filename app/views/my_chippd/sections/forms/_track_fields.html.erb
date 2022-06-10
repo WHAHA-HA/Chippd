@@ -1,0 +1,24 @@
+<div class="repeatable-field nested-fields well inner">
+  <%= f.input :name, :label => "Track name <em>(required)</em>" %>
+
+  <% if f.object.file_uid.present? %>
+  <div class="current-track">
+    <article class="playlist">
+      <ul class="playlist">
+        <li class="track">
+          <%= TrackPresenter.new(f.object, self).link_to_track %>
+        </li>
+      </ul>
+    </article>
+  </div>
+  <%= f.input :file, :as => :file, :label => "Upload Audio <em>(mp3 or m4a format)</em>", :input_html => { :accept => "audio/mp3, audio/x-m4a" } %>
+  <% else %>
+  <%= f.input :file, :as => :file, :label => "Upload Audio <em>(mp3 or m4a format)</em>", :input_html => { :class => "required", :accept => "audio/mp3, audio/x-m4a" } %>
+  <% end %>
+  <%= link_to_remove_association f, :class => "btn btn-small remove", 'aria-hidden' => 'true', 'data-icon' => '*' do %>
+    remove track
+  <% end %>
+
+  <span class="collection-number badge track"></span>
+</div>
+

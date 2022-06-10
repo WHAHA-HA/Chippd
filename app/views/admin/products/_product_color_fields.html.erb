@@ -1,0 +1,8 @@
+<div class="nested-fields well">
+  <%= f.input :name, :label => "Color" %>
+  <%= is_visible_radio_buttons(f) %>
+  <%= link_to_remove_association f, :class => "btn btn-small" do %>
+    <i class="icon-remove-sign"></i>
+    remove color
+  <% end %>
+</div>

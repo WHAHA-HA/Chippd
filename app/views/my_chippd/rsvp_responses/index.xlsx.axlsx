@@ -1,0 +1,30 @@
+wb = xlsx_package.workbook
+
+regular = nil
+bottom_border = wb.styles.add_style(:border => { :style => :thin, :color => 'FF000000', :edges => [:bottom] })
+header_row = wb.styles.add_style(:b => true, :bg_color => "DDDDDD", :border => { :style => :thick, :color => 'FF000000', :edges => [:bottom] })
+
+wb.add_worksheet(name: "Yes") do |sheet|
+  sheet.add_row ['Name', 'Meal Choice', 'Responded On'], { :style => header_row }
+  @yes.each do |response|
+    response.guests.each do |guest|
+      sheet.add_row [guest.name, (guest.meal || 'No preference'), response.created_at.stamp(configatron.date_formats.short)], { :style => (last_guest?(response.guests, guest) ? bottom_border : regular) }
+    end
+  end
+end
+
+wb.add_worksheet(name: "No") do |sheet|
+  sheet.add_row ['Name', 'Responded On'], { :style => header_row }
+  @no.each do |response|
+    response.guests.each do |guest|
+      sheet.add_row [guest.name, response.created_at.stamp(configatron.date_formats.short)], { :style => (last_guest?(response.guests, guest) ? bottom_border : regular) }
+    end
+  end
+end
+
+wb.add_worksheet(name: "Not Yet Responded") do |sheet|
+  sheet.add_row ['Name', 'Last Viewed On'], { :style => header_row }
+  @not_yet_responded.each do |member|
+    sheet.add_row [member.name, member.last_viewed_at.stamp(configatron.date_formats.short)], { :style => regular }
+  end
+end

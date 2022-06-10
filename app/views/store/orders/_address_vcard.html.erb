@@ -1,0 +1,17 @@
+<div class="vcard">
+  <% if editable %>
+  <a href="<%= customer_information_for_store_order_path %>" class="edit">edit</a>
+  <% end %>
+  <span class="fn"><%= address.name %></span>
+  <div class="adr">
+    <span class="street-address">
+      <%= address.address_1 %>
+      <% if address.has_second_address_line? %>
+      <br/><span class="street-address-2"><%= address.address_2 %></span>
+      <% end %>
+    </span><br/>
+    <span class="locality"><%= address.city %></span>,
+    <span class="region"><%= address.state %></span>
+    <span class="postal-code"><%= address.postal_code %></span>
+  </div>
+</div>

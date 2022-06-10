@@ -1,0 +1,2 @@
+class AuctionPostProcessingHandler < VideoPostProcessingHandler
+end

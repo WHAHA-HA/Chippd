@@ -1,0 +1,8 @@
+<% if order.paid? %>
+  <%= order.purchased_at.stamp(configatron.datetime_formats.default) %>
+<% elsif order.shipped? %>
+  <%= order.shipped_at.stamp(configatron.datetime_formats.default) %>
+<% elsif order.canceled? %>
+  <%= order.canceled_at.stamp(configatron.datetime_formats.default) %>
+<% else %>
+<% end %>

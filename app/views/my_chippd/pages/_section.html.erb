@@ -1,0 +1,3 @@
+<article id="<%= section.to_param %>" class="<%= section._type.underscore %>" data-section="<%= section.to_param %>" data-impressions-behavior="scroll" data-impressions-section="<%= section.to_param %>" data-impressions-section-type="<%= section._type.underscore %>">
+  <%= render "/my_chippd/sections/content/#{section._type.underscore}", :section => section %>
+</article>

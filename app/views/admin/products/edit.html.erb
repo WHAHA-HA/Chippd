@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="span12">
+    <%= ariane.render %>
+  </div>
+</div>
+
+<div class="alert alert-block push">
+  <a class="close" data-dismiss="alert">×</a>
+  <h4 class="alert-heading">Important!</h4>
+  In order for a product to display on the site, it must have at least one image.
+</div>
+
+<div class="btn-group push">
+  <%= link_to(admin_product_images_path(resource), :class => "btn") do %>
+    Manage Images
+    <span class="badge"><%= resource.images.length %></span>
+  <% end %>
+</div>
+<br>
+<%= simple_form_for resource, :url => resource_path(resource), :html => { :multipart => true } do |form| %>
+  <%= render :partial => 'form', :locals => { :form => form } %>
+  <%= form.error :base %>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary" data-loading-text="saving...">Save changes</button>
+    <%= link_to("Cancel", collection_path, :class => 'btn') %>
+  </div>
+<% end %>
+
+<h3>Preorders</h3>
+<% if resource.preorders.present? %>
+<p>The following people have signed up to be notified when this item is available:</p>
+<textarea class="skip-markdown" readonly rows="<%= resource.preorders.length %>">
+<% resource.preorders.each do |preorder| %>
+<%= preorder.email %>
+<% end %>
+</textarea>
+<% else %>
+<p>No one has signed up to be notified when this item is available yet.</p>
+<% end %>

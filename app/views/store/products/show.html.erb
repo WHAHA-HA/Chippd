@@ -1,0 +1,90 @@
+<section id="content" class="store container">
+  <div id="infobar" class="block">
+    <div class="col12">
+      <%= ariane.render %>
+      <%= current_order.link_to_with_quantity if current_order? %>
+    </div>
+  </div>
+  <div id="product" class="block flexslider">
+    <div class="col6 images">
+      <% if @product.preorder? %>
+      <p class="preorder">Coming Soon</p>
+      <% elsif @product.contact_for_purchase? %>
+      <p class="contact-for-purchase">Discounted Pricing & Made-to-Order Services Available</p>
+      <% elsif @product.sold_out? %>
+      <p class="sold-out">Sold Out</p>
+      <% end %>
+      <!-- Large Images -->
+      <ul class="slides">
+        <% @product.images.each do |image| %>
+        <li>
+          <%= image.large_image %>
+        </li>
+        <% end %>
+      </ul>
+      <!-- Thumbnail Images -->
+      <ul id="thumbnail-nav">
+        <% @product.images.each do |image| %>
+        <li>
+          <%= image.thumbnail_image %>
+        </li>
+        <% end %>
+      </ul>
+      <div id="share">
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style ">
+          <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+          <a class="addthis_button_tweet"></a>
+          <a class="addthis_button_pinterest_pinit"></a>
+          <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+        <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-506b18ef2906eb67"></script>
+        <!-- AddThis Button END -->
+      </div><!-- /#share -->
+    </div>
+    <div class="col6">
+      <header>
+        <h1><%= @product.name %></h1>
+        <%= @product.formatted_price %>
+
+
+      </header>
+      <section class="desc">
+        <%= @product.description %>
+      </section>
+
+      <% if @product.sold_out? || @product.preorder? %>
+        <%= render 'preorder' %>
+      <% elsif @product.contact_for_purchase? %>
+        <%= render 'contact_for_purchase' %>
+      <% else %>
+        <%= render 'add_to_cart' %>
+      <% end %>
+    </div>
+  </div><!-- /.block -->
+  <aside class="block">
+    <div class="col4">
+      <h4>Handcrafted in America</h4>
+      <p>Conceived, designed, illustrated, coded, filmed, letter-pressed, manufactured, assembled by hand, and shipped with soul from U.S.A.</p>
+    </div>
+    <div class="col4">
+      <h4>Looking for something custom?</h4>
+      <p>Whether it’s a personalized wedding favor or a branded giveaway for your next event, <a href="<%= contact_us_path + '?topic=Special%20Orders' %>">contact us</a>.  We’ll make you something one-of-a-kind.</p>
+    </div>
+    <div class="col4 end">
+      <% if @product.greeting_card? %>
+      <h4>Ship your greeting card for &#36;2 flat</h4>
+      <p>Enjoy &#36;2 shipping on purchases of 2 or fewer cards. It&#8217;s first class mail, so there&#8217;s no tracking number, but we&#8217;ll make sure it gets there!</p>
+      <% else %>
+      <h4>$5 Flat. Anywhere in the U.S.</h4>
+      <p>Enjoy $5 flat-rate shipping and get your goodies within 3 days (in most cases). Live overseas? Fear not, we&#8217;ll be going global very soon!</p>
+      <% end %>
+    </div>
+    <p class="faq"><a href="<%= faq_path %>">Learn more in our FAQ</a></p>
+  </aside><!-- /.block -->
+</section><!-- /#content -->
+
+<%= content_for(:javascripts) do %>
+  <%= javascript_include_tag 'store/products' %>
+<% end %>

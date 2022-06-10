@@ -1,0 +1,19 @@
+<div class="vcard">
+  <div class="group image">
+    <%= section.image %>
+
+  </div><!-- /.group -->
+  <div class="group info">
+    <%= section.name %>
+    <%= section.company %>
+    <%= section.email %>
+    <%= section.address %>
+    <%= section.phone %>
+  </div>
+  <div class="actions">
+    <%= section.link_to_map %>
+    <% unless ios_legacy? %>
+    <%= section.link_to_vcard %>
+    <% end %>
+  </div>
+</div><!-- /.group -->

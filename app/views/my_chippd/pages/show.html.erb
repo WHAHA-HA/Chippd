@@ -1,0 +1,83 @@
+<!doctype html>
+<!--[if IE 7]> <html class="no-js ie7 ie" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js ie8 ie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <title><%= raw(configatron.application.name) %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="customer-id" content="<%= current_customer.id %>" />
+
+  <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <%= stylesheet_link_tag "chippd_page" %>
+  <%= csrf_meta_tags %>
+  <%= render '/layouts/modernizr_selectivizr' %>
+
+  <!-- TYPEKIT-->
+  <script type="text/javascript" src="https://use.typekit.com/twd3fhe.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <%= sublime_video_javascript_include_tag %>
+</head>
+<body data-track-visits="true">
+  <div id="longpage-nav-spacer"></div>
+  <% if preview? && @page.page.id.to_s != "54d274234c06fcc008000001" %>
+    <div id="preview-controls">
+      <%= link_to(raw('Go Back'), back_from_preview_path, 'aria-hidden' => 'true', 'data-icon' => '[') %>
+      <h3>Preview</h3>
+    </div>
+  <% end %>
+
+  <% if @page.needs_long_page_navigation? %>
+    <div id="longpage-nav-container">
+      <div id="longpage-nav">
+        <div class="collapsed">
+          <span class="icon">
+            <%= image_tag "icon-bars.png", :alt => "" %>
+          </span>
+        </div>
+        <div class="expanded">
+          <div class="collapse">
+            <%= image_tag "icon-collapse-x.png", :alt => "" %>
+          </div>
+          <ul>
+          <% @page.sections.each do |section| %>
+          <li>
+            <%= section.to_longpage_nav_item %>
+          </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="wrapper <%= @page.page_variation %>" style="display: none;" data-page-key="<%= @page.to_param %>">
+    <% if @page.has_sections? %>
+      <%= @page.header %>
+
+      <section id="content">
+        <% @page.sections.each do |section| %>
+          <%= render "/my_chippd/pages/section", :section => section %>
+        <% end %>
+      </section><!-- /#content -->
+    <% end %>
+   </div><!-- /.wrapper -->
+
+  <footer>
+    <a href="<%= root_path %>" id="logo"><%= image_tag('chippdpage-logo-alt.png', :alt => "Chipp'd") %></a>
+  </footer>
+
+  <%= render '/layouts/keen' %>
+  <%= javascript_include_tag("base") %>
+  <%= javascript_include_tag "chippd_page" %>
+  <%= yield :javascripts %>
+  <%= google_analytics_tracking_code %>
+</body>
+</html>

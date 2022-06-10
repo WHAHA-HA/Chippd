@@ -1,0 +1,12 @@
+<% if section.available? %>
+<figure>
+  <%= section.image %>
+  <%= section.caption %>
+</figure>
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+             id: section.to_param,
+             section: section,
+             error_message: 'There was an error while processing the image.' %>
+<% end %>

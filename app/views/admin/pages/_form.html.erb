@@ -1,0 +1,8 @@
+<%= form.input :name %>
+<%= form.input :page_template_id, :label => 'Template', :collection => PageTemplate.all, :include_blank => false %>
+<%= form.input :product_collection_id, :label => 'Collection', :collection => ProductCollection.all, :include_blank => false %>
+<%= form.input :chippd_product_type_id, :label => 'Privacy', :collection => ChippdProductType.all.collect { |c| [c.to_option, c.to_param] }, :include_blank => false %>
+<%= form.input :customer_id, :collection => Customer.order_by(:name.asc).all.collect { |c| ["#{c.full_name}: #{c.email}", c.to_param] }, :include_blank => false, input_html: { class: 'chosen-select' }%>
+<%= form.input :b2b_enabled, :label => 'B2B Enabled?', :as => :boolean, :hint => 'Enable B2B features like page analytics.' %>
+<%= form.input :estimated_monthly_cost_per_user, :hint => "The estimated monthly cost per unique visitor the page owner will pay Chipp'd for this page.  If this the value of this is zero, that metric will not appear on their dashboard." %>
+<%= form.input :monthly_cost_currency, :hint => 'The currency to display estimated monthly cost in. e.g. $, £, €' %>

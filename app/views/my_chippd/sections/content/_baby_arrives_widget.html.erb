@@ -1,0 +1,45 @@
+<% if section.available? %>
+  <h1 class="sectionHeading">Baby Arrives</h1>
+  <div class="framedPhoto">
+    <%= section.image %>
+    <%= image_tag("widgets/frame.png", :alt => "") %>
+  </div>
+  <div class="large-ribbon-container">
+    <div class="large-ribbon">
+      <div class="ribbon-stitches-top"></div>
+      <strong class="ribbon-content">
+        <h2><%= section.first_name %> <%= section.last_name %></h2>
+      </strong>
+      <div class="ribbon-stitches-bottom"></div>
+    </div>
+  </div>
+  <ul class="grid group">
+    <li class="full"><em>Born on</em> <%= section.birthday %></li>
+    <li class="half"><%= section.weight %></li>
+    <li class="half right"><%= section.height %></li>
+    <li class="full border-top"><em>Born in</em> <%= section.hospital %></li>
+    <li class="full"><em>Born to</em> <%= section.parents %></li>
+  </ul>
+  <% unless section.president.blank? && section.population.blank? && section.top_artists.blank? %>
+  <div class="small-ribbon-container">
+    <div class="small-ribbon">
+      <div class="ribbon-stitches-top"></div>
+      <strong class="ribbon-content">
+        <h2>On the day <%= section.first_name %> <%= section.last_name %> was born</h2>
+      </strong>
+      <div class="ribbon-stitches-bottom"></div>
+    </div>
+  </div>
+  <ul class="grid group">
+    <% unless section.president.blank? %><li class="full"><em>US President</em> <%= section.president %></li><% end %>
+    <% unless section.population.blank? %><li class="full"><em>Earth Population</em> <%= section.population %></li><% end %>
+    <% unless section.top_artists.blank? %><li class="full top-artists"><em>Top of Charts</em> <span><%= section.top_artists %><span></li><% end %>
+  </ul>
+  <% end %>
+<% else %>
+  <%= section.processing_message %>
+  <%= render 'my_chippd/sections/content/generic_pusher_javascript',
+             id: section.to_param,
+             section: section,
+             error_message: 'There was an error while processing the image.' %>
+<% end %>

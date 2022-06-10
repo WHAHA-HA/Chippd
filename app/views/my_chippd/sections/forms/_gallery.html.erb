@@ -1,0 +1,54 @@
+<%= form.input :title %>
+<!--<div id="uploader_target" data-bind="template: 'uploads'">
+  <p style="color: #ccc">Loading...</p>
+</div>-->
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+        $(function () {
+            var existing = Chippd.FileUpload.fromJS(
+                    <%= raw @section.gallery_images_json %>,
+                    Chippd.Image
+            );
+
+            var files = JSON.parse('<%= raw @section.gallery_images_json %>');
+            //KO version...
+            /*$("#uploader_target").initMultiUpload(existing, {
+             type: Chippd.Image,
+             max: <%= Gallery::MAXIMUM_NUMBER_OF_IMAGES %>,
+             min: <%= Gallery::MINIMUM_NUMBER_OF_IMAGES %>
+             });*/
+
+
+            /*jquery upload part*/
+            // Initialize the jQuery File Upload widget:
+
+            $('#uploader').fileupload({
+                // Uncomment the following to send cross-domain cookies:
+                //xhrFields: {withCredentials: true},
+                url                 : '/documents',
+                multiUpload         : true,
+                fileInputTemplateId  : 'gallery_multi_upload',
+                autoUpload          : false,
+                acceptFileTypes     : /(\.|\/)(gif|jpe?g|png)$/i,
+                maxFileSize         : 5000000,
+                existingFiles       : files
+            });
+            /*jquery upload part ends*/
+        });
+    </script>
+<% end %>
+<!-- here we add widgetizied file input section iteslf -->
+<div class="playlist-container">
+  <!-- file input tempalte -->
+  <div id="file-input-section">
+    <!-- wedding_multi_upload will be repeated...-->
+  </div>
+  <div>
+    <!-- ko template: "uploads_footer" --><!-- /ko -->
+    <div class="links">
+      <a class="add-instance" data-bind="click: addGroomsman" ><span class="icon">+</span><span class="text">add another</span>
+      </a>
+    </div>
+  </div>
+</div>
+

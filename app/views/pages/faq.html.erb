@@ -1,0 +1,22 @@
+<section id="content" class="container faq">
+	<div class="block">
+		<header class="sub-nav">
+      <%= render '/shared/heading_and_subnav' %>
+		</header>
+		<div class="main">
+  		<h1><%= @subnav.title %></h1>
+			<ul class="jump-nav">
+  			<% @faqs.each do |faq| %>
+  			<li><a href="#<%= dom_id(faq) %>"><%= faq.question %></a></li>
+  			<% end %>
+			</ul>
+
+			<% @faqs.each do |faq| %>
+  		<div id="<%= dom_id(faq) %>">
+    		<h3><%= faq.question %></h3>
+    		<%= faq.answer %>
+  		</div>
+			<% end %>
+		</div>
+	</div><!-- /.block -->
+</section><!-- /#content -->

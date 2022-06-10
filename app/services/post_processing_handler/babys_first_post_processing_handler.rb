@@ -1,0 +1,2 @@
+class BabysFirstPostProcessingHandler < VideoPostProcessingHandler
+end

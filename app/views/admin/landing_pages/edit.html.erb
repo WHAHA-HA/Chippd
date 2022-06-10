@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="span12">
+    <%= ariane.render %>
+  </div>
+</div>
+
+<% unless resource.acceptable_number_of_images_and_steps? %>
+<div class="alert alert-block push">
+  <a class="close" data-dismiss="alert">×</a>
+  <h4 class="alert-heading">Important!</h4>
+  In order for a landing page to display on the site, it must have three steps and at least one image.
+</div>
+<% end %>
+
+<div class="btn-group push">
+  <%= link_to(admin_landing_page_images_path(resource), :class => "btn") do %>
+    Manage Images
+    <span class="badge"><%= resource.images.length %></span>
+  <% end %>
+  <%= link_to(admin_landing_page_steps_path(resource), :class => "btn") do %>
+    Manage Steps
+    <span class="badge"><%= resource.steps.length %></span>
+  <% end %>
+</div>
+<br>
+
+<%= simple_form_for resource, :url => resource_path(resource), :html => { :multipart => true } do |form| %>
+  <%= render :partial => 'form', :locals => { :form => form } %>
+  <%= form.error :base %>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary" data-loading-text="saving...">Save changes</button>
+    <%= link_to("Cancel", collection_path, :class => 'btn') %>
+  </div>
+<% end %>

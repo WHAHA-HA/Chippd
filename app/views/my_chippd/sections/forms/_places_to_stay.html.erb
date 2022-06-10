@@ -1,0 +1,20 @@
+<label class="section-label">Featured Place to Stay</label>
+<p class="help-block" style="margin-top: -20px; margin-bottom: 28px;">This place will be highlighted at the top of the widget</p>
+<%= form.simple_fields_for :featured_place do |featured_place_form| %>
+  <%= render '/my_chippd/sections/forms/place_to_stay_fields', :f => featured_place_form, :featured => true %>
+<% end %>
+
+<hr class="section-divider">
+<label class="section-label">Other Places To Stay</label>
+
+<%= form.simple_fields_for :places do |place_form| %>
+  <%= render '/my_chippd/sections/forms/place_to_stay_fields', :f => place_form, :featured => false %>
+<% end %>
+
+<div class="links places" data-behavior="collection-add" data-min="<%= PlacesToStay::MINIMUM_NUMBER_OF_PLACES %>">
+  <%= link_to_add_association('<span class="icon">+</span><span class="text">add another</span>' .html_safe, form, :places, 'aria-hidden' => 'true', :class => 'add-instance', :partial => '/my_chippd/sections/forms/place_to_stay_fields', :render_options => { :locals => { :featured => false } }) %>
+</div>
+
+<hr class="section-divider">
+
+<%= form.input :when_booking, :label => "Additional Information <em>(optional)</em>", :as => :text, :input_html => { :cols => "20", :rows => "10" }, :hint => 'Include information for your guests that would help them book a place to stay, e.g. a deadline for booking or instructions for getting discounted rates.' %>

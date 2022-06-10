@@ -1,0 +1,93 @@
+<h1 class="article-title" style="font-size: 18px; line-height:24px; color: #6c4b78; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Hello <%= @order.billing_address.first_name %>,</h1>
+
+<div class="article-content" style="font-size: 13px; line-height: 18px; color: #444444; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Only truly remarkable people make the choice you&apos;ve just made, so give yourself a hefty pat on the back.</p>
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Thanks to you, the Internet is one step closer to becoming fun and personal again.</p>
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Here is a summary of your monumental purchase:</p>
+
+  <table style="width: 100%; border-collapse: collapse;">
+    <tbody>
+      <tr>
+        <th colspan='2' style="border-bottom: 1px solid #333; padding: 10px 10px 10px 0; text-align: left;">Order number #<%= @order.number %>, placed on <%= @order.purchased_at.stamp(configatron.date_formats.invoice) %>.</th>
+      </tr>
+      <tr>
+        <td style="text-align: left; padding: 10px 10px 10px 0;">
+          <strong>We&apos;re shipping to:</strong>
+          <%= render :partial => '/store/orders/address_vcard', :locals => { :address => AddressPresenter.new(@order.shipping_address, self), :editable => false } %>
+        </td>
+        <td  style="text-align: left; padding: 10px 10px 10px 0;">
+          <strong>Paid for by:</strong>
+          <%= render :partial => '/store/orders/address_vcard', :locals => { :address => AddressPresenter.new(@order.billing_address, self), :editable => false } %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 10px; margin-bottom: 10px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Here’s what you ordered:</p>
+
+  <table style="width: 100%; border-collapse: collapse;">
+    <tbody>
+      <tr>
+        <th class="align-left" style="border-bottom: 1px solid #333; padding: 10px 10px 10px 0; text-align: left;">item</th>
+        <th class="align-center" style="border-bottom: 1px solid #333; padding: 10px 10px 10px 0; text-align: center;">qty</th>
+        <th class="align-center" style="border-bottom: 1px solid #333; padding: 10px 10px 10px 0; text-align: center;">price</th>
+        <th class="align-center" style="border-bottom: 1px solid #333; padding: 10px 10px 10px 0; text-align: center;">total</th>
+      </tr>
+      <% @order.line_items.each do |line_item| %>
+      <tr>
+        <td style="text-align: left; padding: 10px 10px 10px 0;"><%= line_item.link_to_product %></td>
+        <td style="text-align: center; padding: 10px 10px 10px 0;"><%= line_item.quantity %></td>
+        <td style="text-align: right; padding: 10px 10px 10px 0;"><%= line_item.price_each %></td>
+        <td style="text-align: right; padding: 10px 10px 10px 0;"><%= line_item.price %></td>
+      </tr>
+      <% end %>
+
+      <tr>
+        <td style="text-align: right; padding: 10px 10px 10px 0;" colspan='3'>
+          Subtotal:<br/>
+          Shipping &amp; Handling – <%= @order.shipping_option %>:<br/>
+          <% if @order.has_discount? %>
+          Discount<br/>
+          <% end %>
+          Taxes:<br/>
+          Grand Total:<br/>
+        </td>
+        <td style="text-align: right; padding: 10px 10px 10px 0;">
+          <%= @order.formatted_subtotal %><br/>
+          <%= @order.formatted_shipping_cost %><br/>
+          <% if @order.has_discount? %>
+          <%= @order.formatted_discount_amount %><br/>
+          <% end %>
+          <%= @order.formatted_sales_tax %><br/>
+          <%= @order.formatted_total %><br/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <% if @order.is_gift %>
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Our records indicate that this is a gift for someone else.</p>
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Now, we’re really impressed. You clearly have excellent judgment, because Chipp’d makes a wonderful gift.</p>
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Here’s the personal message you included:</p>
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"><i><%= @order.gift_recipient_message %></i></p>
+  <% end %>
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Orders are usually processed and shipped out within 24 hours (except on weekends). We&apos;ll drop you another note as soon as your box of handcrafted goodies has left the building.</p>
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Did you know that you don&apos;t need to wait to start having fun? Visit <a style="color: #6c4b78; text-decoration: none; font-weight: bold;" href="http://chippd.com">chippd.com</a> from your computer and start building the page of your dreams right now.</p>
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">If you need to check on the status of your order or have any questions at all, please contact us at <a style="color: #6c4b78; text-decoration: none; font-weight: bold;" href="mailto:orders@chippd.com">orders@chippd.com</a>. We&apos;re always here for you.</p>
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+  Until next time,<br/>
+  Chipp&apos;d
+  </p>
+
+  <p style="font-size: 13px; line-height: 18px; color: #444444; margin-top: 0px; margin-bottom: 18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">
+    Learn about our <%= link_to('return policy', faq_url(:anchor => 'faq_50089ea6de57e9000200001a')) %>.<br>
+    For anything else, check out our <%= link_to('FAQs', faq_url) %>.
+  </p>
+</div>

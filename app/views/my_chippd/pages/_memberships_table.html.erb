@@ -1,0 +1,39 @@
+<table>
+  <thead>
+    <tr>
+      <th class="name">Name</th>
+      <% noop do %>
+      <th class="page-views">Views</th>
+      <th class="time-spent">Time</th>
+      <% end %>
+      <th class="date">Viewed</th>
+      <th class="permissions">Access</th>
+    </tr>
+  </thead>
+  <tbody>
+<% if page.memberships.blank? %>
+    <tr>
+      <td colspan="3">No one has accessed your page yet.</td>
+    </tr>
+<% else %>
+<% page.memberships.each do |membership| %>
+    <tr>
+      <td class="name"><%= membership.customer_name %></td>
+      <% noop do %>
+      <!--DEV NOTE: Static values used below -->
+      <td class="page-views">40</td>
+      <!--DEV NOTE: Static values used below -->
+      <td class="time-spent">46 min.</td>
+      <% end %>
+      <td class="date"><%= membership.last_viewed_at %></td>
+      <td class="permissions">
+        <div class="btn-group" data-toggle="buttons-radio" data-behavior="access-toggle" data-url="<%= toggle_access_my_chippd_page_membership_path(page, membership) %>">
+          <button type="button" class="btn<%= membership.access_on? %>">On</button>
+          <button type="button" class="btn<%= membership.access_off? %>">Off</button>
+        </div>
+      </td>
+    </tr>
+<% end %>
+<% end %>
+  </tbody>
+</table>

@@ -1,0 +1,39 @@
+<%= content_for(:heading) do %>
+Activate Your Product
+<% end %>
+
+<%= simple_form_for(:gift, :url => my_chippd_redemptions_path, :html => { :method => :post, :id => 'redeem-code-form', :data => { 'verification-url' => verify_my_chippd_redemptions_path } }) do |f| %>
+
+<div class="inputs">
+  <%= f.input :code, :label => "Please enter your activation code to get started:", :autofocus => true, :input_html => { :name => 'code', :value => @gift_code } %>
+  <p><small><a href="<%= contact_us_path %>">Problems with your code?</a></small></p>
+</div>
+
+<fieldset id="chippd-type" style="display: none;" class="js-reactor">
+  <div class="control-group">
+    <h4>Select Chipp&#8217;d Type</h4>
+    <p>Recipient(s) must scan the code on this product to view your content. Choose from two different settings for granting page access, each offering a different level of security.</p>
+    <div class="controls hide">
+      <%= f.input :chippd_product_type_id, :as => :radio_buttons, :input_html => { :name => 'chippd_product_type_id' }, :label => '', :collection => @chippd_product_types.collect { |ds| [ds.name, ds.to_param] } %>
+    </div>
+    <ul id="chippd-select">
+      <% @chippd_product_types.each do |chippd_product_type| %>
+      <li data-target="<%= chippd_product_type.to_param %>" style="display: none;">
+        <a href="#" class="choice">
+          <h3><%= chippd_product_type.short_name %></h3>
+          <div class="subtext">
+            <%= chippd_product_type.short_description %>
+          </div>
+        </a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</fieldset>
+
+<div class="actions">
+  <%= f.button :submit, "Submit Code", :class => "btn-large" %>
+</div>
+<% end %>
+
+<%= link_to "Back", my_chippd_pages_path, :class => "back" %>

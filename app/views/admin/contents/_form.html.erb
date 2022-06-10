@@ -1,0 +1,14 @@
+<%= form.input :name, :label => "Name" %>
+<%= form.input :body, :as => :text, :input_html => {:class => "xxlarge" } %>
+<div id="content_locations" class="push">
+  <h4 class="push">Content Locations</h4>
+  <%= form.simple_fields_for :content_locations, :wrapper => :bootstrap do |content_location| %>
+    <%= render 'content_location_fields', :f => content_location %>
+  <% end %>
+  <div class="links">
+    <%= link_to_add_association form, :content_locations, :render_options => { :wrapper => :bootstrap }, :class => "btn" do %>
+      <i class="icon-plus-sign"></i>
+      add content location
+    <% end %>
+  </div>
+</div>

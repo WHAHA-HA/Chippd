@@ -1,0 +1,2 @@
+class Portfolio < LinkToOrDownloadableAsset
+end
